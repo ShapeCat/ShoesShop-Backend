@@ -58,7 +58,7 @@ namespace ShoesShop.Persistence.Repository
             var description = await dbContext.Descriptions.FirstOrDefaultAsync(x => x.Id == descriptionId, cancellationToken)
                 ?? throw new NotFoundException(descriptionId.ToString(), typeof(Description));
             (description.ColorName, description.ReleaseDate, description.SkuID)
-                = (newDescription.ColorName, description.ReleaseDate, description.SkuID);
+                = (newDescription.ColorName, newDescription.ReleaseDate, newDescription.SkuID);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken)
