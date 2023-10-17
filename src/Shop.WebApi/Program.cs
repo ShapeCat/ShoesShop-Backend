@@ -1,4 +1,6 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
 using ShoesShop.Application;
 using ShoesShop.Application.Requests.Queries.OutputVMs.Profiles;
 using ShoesShop.Persistence;
@@ -32,8 +34,24 @@ namespace ShoesShop.WebAPI
             builder.Services.AddTransient<TestData>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddRouting();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo()
+                    {
+                        Version = "1.01",
+                        Title = "Shoes Shop API",
+                        Contact = new OpenApiContact()
+                        {
+                            Name = "Shape The Moonlgiht",
+                            Url = new Uri("https://github.com/ShapeTheMoonlight")
+                        }
+                    });
 
-            builder.Services.AddSwaggerGen();
+                var xmlPath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlPath));
+            });
             builder.Services.AddPersistence(builder.Configuration);
             builder.Services.AddApplication();
             builder.Services.AddCors(options =>
@@ -52,9 +70,16 @@ namespace ShoesShop.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger(options =>
+                {
+                    options.SerializeAsV2 = true;
+                });
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
-            app.UseSwagger();
-            app.UseSwaggerUI(x => x.SwaggerEndpoint("v1/swagger.json", "MyApi"));
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
