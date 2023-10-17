@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
 using ShoesShop.Entities;
@@ -38,9 +39,10 @@ namespace ShoesShop.Persistence.Repository
 
         public async Task<IEnumerable<ShoesSize>> GetByShoesAsync(Guid shoesId, CancellationToken cancellationToken)
         {
+           var _ = await dbContext.Shoes.SingleOrDefaultAsync(x => x.Id == shoesId, cancellationToken)
+                             ?? throw new NotFoundException(shoesId.ToString(), typeof(Shoes));
             var sizeInfo = await dbContext.Sizes.Where(x => x.ShoesId == shoesId)
-                                            .ToListAsync(cancellationToken)
-                       ?? throw new NotFoundException(shoesId.ToString(), typeof(Shoes));
+                                            .ToListAsync(cancellationToken);
             return sizeInfo;
         }
 
