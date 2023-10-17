@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.Persistence", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.WebApi", "src\Shop.WebApi\ShoesShop.WebApi.csproj", "{0AC0549E-EDC4-4DC8-BDED-27141BE38F50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{377C298C-58D2-404A-ABA5-E780B5BB86E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoesShop.Tests", "ShoesShop.Tests\ShoesShop.Tests.csproj", "{EE7206C9-305E-4C63-9B4E-9F145792E121}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{0AC0549E-EDC4-4DC8-BDED-27141BE38F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC0549E-EDC4-4DC8-BDED-27141BE38F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC0549E-EDC4-4DC8-BDED-27141BE38F50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE7206C9-305E-4C63-9B4E-9F145792E121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7206C9-305E-4C63-9B4E-9F145792E121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7206C9-305E-4C63-9B4E-9F145792E121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7206C9-305E-4C63-9B4E-9F145792E121}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{1E7488D5-DA37-4271-A410-EC0850196A9A} = {03BB8B8F-0F41-4299-A886-C52BC9E26AB8}
 		{A203AE17-CA97-4620-9371-F4D32D46E8DC} = {83C2BD3F-29AD-4984-A4CB-39627EB4B4D4}
 		{0AC0549E-EDC4-4DC8-BDED-27141BE38F50} = {B12CBB14-887A-42A2-9616-3302550CB535}
+		{EE7206C9-305E-4C63-9B4E-9F145792E121} = {377C298C-58D2-404A-ABA5-E780B5BB86E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B3E5022-4169-427A-8D4F-9F2280983BDE}
