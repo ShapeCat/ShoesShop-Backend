@@ -23,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Queries
         }
 
         [Fact]
-        public async Task Should_GetDescription_IfExists()
+        public async Task Should_GetDescription_WhenDescriptionExists()
         {
             // Arrange
             var query = new GetDescriptionQuery()

@@ -14,7 +14,7 @@ namespace ShoesShop.Application.Interfaces
         Task<IEnumerable<ShoesSize>> GetShoesSizesAsync(Guid shoesId, CancellationToken cancellationToken);
         Task AddAsync(Shoes item, CancellationToken cancellationToken);
         Task RemoveAsync(Guid shoesId, CancellationToken cancellationToken);
-        Task EditNameAsync(Guid shoesId, string newName, CancellationToken cancellationToken);
+        Task EditAsync(Guid shoesId, string newName, CancellationToken cancellationToken);
         Task SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

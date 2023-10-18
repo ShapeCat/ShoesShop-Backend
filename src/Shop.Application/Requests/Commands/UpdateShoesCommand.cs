@@ -20,7 +20,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                await shoesRepository.EditNameAsync(request.ShoesId, request.Name, cancellationToken);
+                await shoesRepository.EditAsync(request.ShoesId, request.Name, cancellationToken);
                 await shoesRepository.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

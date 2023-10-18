@@ -82,7 +82,7 @@ namespace ShoesShop.Persistence.Repository
             dbContext.Shoes.Remove(shoes);
         }
 
-        public async Task EditNameAsync(Guid shoesId, string newName, CancellationToken cancellationToken)
+        public async Task EditAsync(Guid shoesId, string newName, CancellationToken cancellationToken)
         {
             var shoes = await dbContext.Shoes.FirstOrDefaultAsync(x => x.Id == shoesId, cancellationToken)
                         ?? throw new NotFoundException(shoesId.ToString(), typeof(Shoes));

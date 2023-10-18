@@ -32,7 +32,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 Price = newSize.Price,
                 ItemsLeft = newSize.ItemsLeft,
             };
-            var handler = new UpdateShoesSizeCommandhandler(shoesSizeRepository);
+            var handler = new UpdateShoesSizeCommandHandler(shoesSizeRepository);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
@@ -61,7 +61,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 Price = newSize.Price,
                 ItemsLeft = newSize.ItemsLeft,
             };
-            var handler = new UpdateShoesSizeCommandhandler(shoesSizeRepository);
+            var handler = new UpdateShoesSizeCommandHandler(shoesSizeRepository);
 
             // Act
             // Assert

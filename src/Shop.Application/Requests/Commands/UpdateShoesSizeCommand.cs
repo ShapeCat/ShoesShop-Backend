@@ -13,11 +13,11 @@ namespace ShoesShop.Application.Requests.Commands
         public int ItemsLeft { get; set; }
     }
 
-    public class UpdateShoesSizeCommandhandler : IRequestHandler<UpdateShoesSizeCommand, Unit>
+    public class UpdateShoesSizeCommandHandler : IRequestHandler<UpdateShoesSizeCommand, Unit>
     {
         private readonly IShoesSizeRepository shoesSizeRepository;
 
-        public UpdateShoesSizeCommandhandler(IShoesSizeRepository shoesSizeRepository) => this.shoesSizeRepository = shoesSizeRepository;
+        public UpdateShoesSizeCommandHandler(IShoesSizeRepository shoesSizeRepository) => this.shoesSizeRepository = shoesSizeRepository;
 
         public async Task<Unit> Handle(UpdateShoesSizeCommand request, CancellationToken cancellationToken)
         {

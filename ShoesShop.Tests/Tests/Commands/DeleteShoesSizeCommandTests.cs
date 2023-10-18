@@ -32,7 +32,7 @@ namespace ShoesShop.Tests.Tests.Commands
         }
 
         [Fact]
-        public async Task Should_ThrowException_WhenShoesSizeExists()
+        public async Task Should_ThrowException_WhenShoesSizeNotExists()
         {
             // Arrange
             var command = new DeleteShoesSizeCommand()

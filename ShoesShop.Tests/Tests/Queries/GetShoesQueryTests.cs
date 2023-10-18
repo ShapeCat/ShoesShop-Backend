@@ -23,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Queries
         }
 
         [Fact]
-        public async Task Should_GetShoes_WhenExists()
+        public async Task Should_GetShoes_WhenShoesExists()
         {
             // Arrange
             var command = new GetShoesQuery()
