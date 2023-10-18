@@ -12,9 +12,24 @@ namespace ShoesShop.WebAPI.Controllers
     {
         public DescriptionsController(IMapper mapper) : base(mapper) { }
 
+        /// <summary>
+        /// Return list of all descriptions
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/Descriptions
+        ///     
+        /// Returns list of all descriptions
+        /// </remarks>
+        /// <returns>List of all descriptions</returns>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<DescriptionVm>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DescriptionVm>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<DescriptionVm>>> GetAll()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -24,10 +39,27 @@ namespace ShoesShop.WebAPI.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Find description by ID
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/Descriptions/e034b7ef-03c0-4c01-aa00-55a39cbcfcd7
+        /// 
+        /// Returns single description with the same ID, if exists
+        /// </remarks>
+        /// <returns>Single description with the same ID, if exists</returns>
+        /// <param name="descriptionId">Description ID</param>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="404">Description with the same ID not found</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet("{descriptionId}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = typeof(DescriptionVm))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DescriptionVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<DescriptionVm>> GetDescription(Guid descriptionId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -46,11 +78,37 @@ namespace ShoesShop.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Create description for shoes
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/Descriptions/4a162ded-1cff-4603-b217-e9fdbebc7f37
+        ///     {
+        ///         "colorName": "Black",
+        ///         "skuID": "FF1234567890",
+        ///         "releaseDate": "2021-10-17T21:44:16.871Z"
+        ///     }
+        /// 
+        /// Creates description for shoes with the same ID, if not exists
+        /// Returns ID of created description
+        /// </remarks>
+        /// <returns>ID of created description</returns>
+        /// <param name="shoesId">Shoes ID</param>
+        /// <param name="descriptionDto">Description creation information</param>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="404">Shoes with the same ID not found</response>
+        /// <response code="409">Description for this shoes aready exists</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost("{shoesId}")]
-        [ProducesResponseType(409)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(200, Type = typeof(Guid))]
-        public async Task<IActionResult> CreateDescription(Guid shoesId, [FromBody] DescriptionDto descriptionDto)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Guid>> CreateDescription(Guid shoesId, [FromBody] DescriptionDto descriptionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (descriptionDto is null) return BadRequest(ModelState);
@@ -65,12 +123,32 @@ namespace ShoesShop.WebAPI.Controllers
             {
                 return Conflict(ex.Message);
             }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
+        /// <summary>
+        /// Delete description by ID
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/Descriptions/5c6f2bc5-8168-44ff-9ee9-18526325d923
+        /// 
+        /// Deletes description with the same ID, if exists
+        /// </remarks>
+        /// <param name="descriptionId">Description ID</param>
+        /// <response code="204">Successful Operation</response>
+        /// <response code="404">Description with the same ID not found</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpDelete("{descriptionId}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteDescription(Guid descriptionId)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -89,11 +167,33 @@ namespace ShoesShop.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Update description information by ID
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/Descriptions/5da752ea-3a18-4bd9-aaca-66519c23a049
+        ///     {
+        ///         "colorName": "White",
+        ///         "skuID": "4356765546865",
+        ///         "releaseDate": "1990-10-17T21:44:16.871Z"
+        ///     }
+        /// 
+        /// Updates description with the same ID, if exists
+        /// </remarks>
+        /// <param name="descriptionId">Description ID</param>
+        /// <param name="descriptionDto">New description information</param>
+        /// <response code="204">Successful Operation</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="404">Description with the same ID not found</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPut("{descriptionId}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(204)]
-        public async Task<IActionResult> UpdateDescription(Guid descriptionId, [FromBody] DescriptionDto descriptionDto)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateDescription(Guid descriptionId, [FromBody] DescriptionDto descriptionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (descriptionDto is null) return BadRequest(ModelState);

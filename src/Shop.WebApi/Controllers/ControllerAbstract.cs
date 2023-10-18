@@ -6,6 +6,7 @@ namespace ShoesShop.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/")]
+    [Produces("application/json")]
     public abstract class ControllerAbstract : Controller
     {
         private IMediator mediator;
