@@ -6,6 +6,7 @@
 		<Nullable>enable</Nullable>
 		<InvariantGlobalization>false</InvariantGlobalization>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Shoes.Entities\ShoesShop.Entities.csproj" />
+		<ProjectReference Include="..\Shoes.Entities\ShoesShop.Entities.csproj" />
 	</ItemGroup>
 
 </Project>
