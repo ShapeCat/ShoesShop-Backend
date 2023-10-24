@@ -70,16 +70,15 @@ namespace ShoesShop.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger(options =>
-                {
-                    options.SerializeAsV2 = true;
-                });
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
-                });
             }
+            app.UseSwagger(options =>
+            {
+                options.SerializeAsV2 = true;
+            });
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            });
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
