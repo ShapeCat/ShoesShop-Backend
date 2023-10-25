@@ -25,11 +25,12 @@ namespace ShoesShop.Application.Requests.Commands
             {
                 var newDescription = new Description()
                 {
+                    Id = request.DescriptionId,
                     ColorName = request.ColorName,
                     SkuID = request.SkuID,
                     ReleaseDate = request.ReleaseDate,
                 };
-                await descriptionRepository.EditAsync(request.DescriptionId, newDescription, cancellationToken);
+                await descriptionRepository.EditAsync(newDescription, cancellationToken);
                 await descriptionRepository.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

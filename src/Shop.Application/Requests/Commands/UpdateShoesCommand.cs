@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
 {
@@ -20,7 +21,12 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                await shoesRepository.EditAsync(request.ShoesId, request.Name, cancellationToken);
+                var newShoes = new Shoes()
+                {
+                    Id = request.ShoesId,
+                    Name = request.Name,
+                };
+                await shoesRepository.EditAsync(newShoes, cancellationToken);
                 await shoesRepository.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

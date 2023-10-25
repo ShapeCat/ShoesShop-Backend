@@ -3,6 +3,7 @@ using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Queries
 {
@@ -26,7 +27,8 @@ namespace ShoesShop.Application.Requests.Queries
         {
             try
             {
-                var description = await descriptionRepository.GetByShoesAsync(request.ShoesId, cancellationToken);
+                var allShoesDescriptions = await descriptionRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
+                var description = allShoesDescriptions.FirstOrDefault() ?? throw new NotFoundException(request.ShoesId.ToString(), typeof(Description));
                 return mapper.Map<DescriptionVm>(description);
             }
             catch (NotFoundException ex)

@@ -25,14 +25,15 @@ namespace ShoesShop.Application.Requests.Commands
             {
                 var shoesSize = new ShoesSize()
                 {
+                    ShoesId = request.ShoesId,
                     Size = request.Size,
                     Price = request.Price,
                     ItemsLeft = request.ItemsLeft
                 };
-                await shoesSizeRepository.AddAsync(request.ShoesId, shoesSize, cancellationToken);
+                await shoesSizeRepository.AddAsync(shoesSize, cancellationToken);
                 await shoesSizeRepository.SaveChangesAsync(cancellationToken);
-                var output = await shoesSizeRepository.GetByShoesAsync(request.ShoesId, request.Size, cancellationToken);
-                return output.Id;
+                var output = await shoesSizeRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
+                return output.First().Id;
             }
             catch (AlreadyExistsException ex)
             {

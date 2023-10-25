@@ -26,8 +26,8 @@ namespace ShoesShop.Application.Requests.Commands
                 };
                 await shoesRepository.AddAsync(shoes, cancellationToken);
                 await shoesRepository.SaveChangesAsync(cancellationToken);
-                var output = await shoesRepository.GetByNameAsync(shoes.Name, cancellationToken);
-                return output.Id;
+                var output = await shoesRepository.FindAllAsync(x => x.Name == request.Name, cancellationToken);
+                return output.First().Id;
             }
             catch (AlreadyExistsException ex)
             {

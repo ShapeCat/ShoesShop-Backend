@@ -25,11 +25,12 @@ namespace ShoesShop.Application.Requests.Commands
             {
                 var shoesSize = new ShoesSize()
                 {
+                    Id = request.ShoesSizeId,
                     Size = request.Size,
                     Price = request.Price,
                     ItemsLeft = request.ItemsLeft
                 };
-                await shoesSizeRepository.EditAsync(request.ShoesSizeId, shoesSize, cancellationToken);
+                await shoesSizeRepository.EditAsync(shoesSize, cancellationToken);
                 await shoesSizeRepository.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

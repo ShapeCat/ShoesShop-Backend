@@ -25,14 +25,15 @@ namespace ShoesShop.Application.Requests.Commands
             {
                 var description = new Description()
                 {
+                    ShoesId = request.ShoesId,
                     ColorName = request.ColorName,
                     SkuID = request.SkuID,
                     ReleaseDate = request.ReleaseDate,
                 };
-                await descriptionRepository.AddAsync(request.ShoesId, description, cancellationToken);
+                await descriptionRepository.AddAsync(description, cancellationToken);
                 await descriptionRepository.SaveChangesAsync(cancellationToken);
-                var output = await descriptionRepository.GetByShoesAsync(request.ShoesId, cancellationToken);
-                return output.Id;
+                var output = await descriptionRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
+                return output.First().Id;
             }
             catch (AlreadyExistsException ex)
             {
