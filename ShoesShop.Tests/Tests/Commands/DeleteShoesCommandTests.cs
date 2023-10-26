@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class DeleteShoesCommandTests : CommandTestAbstract
+    public class DeleteShoesCommandTests : AbstractCommandTest
     {
         [Fact]
         public async Task Should_DeleteShoes_WhenShoesExists()
@@ -17,7 +17,7 @@ namespace ShoesShop.Tests.Tests.Commands
             // Arrange
             var command = new DeleteShoesCommand()
             {
-                ShoesId = ShoesShopTextContext.ShoesToDelete
+                ShoesId = ShoesShopTestContext.ShoesToDelete
             };
             var handler = new DeleteShoesCommandHandler(unitOfWork);
 
@@ -25,7 +25,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            dbContext.Shoes.SingleOrDefault(x => x.Id == ShoesShopTextContext.ShoesToDelete).ShouldBeNull();
+            dbContext.Shoes.SingleOrDefault(x => x.Id == ShoesShopTestContext.ShoesToDelete).ShouldBeNull();
         }
 
         [Fact]

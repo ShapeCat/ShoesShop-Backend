@@ -12,11 +12,11 @@ namespace ShoesShop.Tests.Core
 
         public QueryFixture()
         {
-            DbContext = ShoesShopTextContext.Create();
+            DbContext = ShoesShopTestContext.Create();
             Mapper = new MapperConfiguration(x => x.AddProfile(new VmProfiles())).CreateMapper();
         }
 
-        public void Dispose() => ShoesShopTextContext.Destroy(DbContext);
+        public void Dispose() => ShoesShopTestContext.Destroy(DbContext);
     }
 
     [CollectionDefinition("QueryCollection")]

@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetShoesSizeQueryTests : QueryTestAbstract
+    public class GetShoesSizeQueryTests : AbstractQueryTest
     {
         public GetShoesSizeQueryTests(QueryFixture fixture) : base(fixture) { }
 
@@ -20,7 +20,7 @@ namespace ShoesShop.Tests.Tests.Queries
             // Arrange
             var query = new GetShoesSizeQuery()
             {
-                ShoesSizeId = ShoesShopTextContext.ShoesSizeToUpdate,
+                ShoesSizeId = ShoesShopTestContext.ShoesSizeToUpdate,
             };
             var handler = new GetShoesSizeQueryHandler(unitOfWork, mapper);
 
@@ -29,7 +29,7 @@ namespace ShoesShop.Tests.Tests.Queries
 
             // Assert
             shoesSize.ShouldBeOfType<ShoesSizeVm>();
-            shoesSize.Size.ShouldBe(ShoesShopTextContext.ExistedSize);
+            shoesSize.Size.ShouldBe(ShoesShopTestContext.ExistedSize);
             shoesSize.Price.ShouldBe(1000);
             shoesSize.ItemsLeft.ShouldBe(100);
         }

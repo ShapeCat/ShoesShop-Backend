@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class CreateDescriptionCommandTests : CommandTestAbstract
+    public class CreateDescriptionCommandTests : AbstractCommandTest
     {
         [Fact]
         public async Task Should_CreateDescription_WhenDescriptionNotExists()
@@ -24,7 +24,7 @@ namespace ShoesShop.Tests.Tests.Commands
             };
             var command = new CreateDescriptionCommand()
             {
-                ShoesId = ShoesShopTextContext.EmptyShoes,
+                ShoesId = ShoesShopTestContext.EmptyShoes,
                 SkuID = descriptionToCreate.SkuID,
                 ColorName = descriptionToCreate.ColorName,
                 ReleaseDate = descriptionToCreate.ReleaseDate,
@@ -35,11 +35,12 @@ namespace ShoesShop.Tests.Tests.Commands
             var descriptionId = await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            dbContext.Descriptions.SingleOrDefault(x => x.ShoesId == ShoesShopTextContext.EmptyShoes
+            dbContext.Descriptions.SingleOrDefault(x => x.ShoesId == ShoesShopTestContext.EmptyShoes
                                                         && x.Id == descriptionId
                                                         && x.SkuID == descriptionToCreate.SkuID
                                                         && x.ColorName == descriptionToCreate.ColorName
-                                                        && x.ReleaseDate == x.ReleaseDate).ShouldNotBeNull();
+                                                        && x.ReleaseDate == x.ReleaseDate)
+                                  .ShouldNotBeNull();
         }
 
         [Fact]
@@ -55,7 +56,7 @@ namespace ShoesShop.Tests.Tests.Commands
             };
             var command = new CreateDescriptionCommand()
             {
-                ShoesId = ShoesShopTextContext.FullShoes,
+                ShoesId = ShoesShopTestContext.FullShoes,
                 SkuID = descriptionToCreate.SkuID,
                 ColorName = descriptionToCreate.ColorName,
                 ReleaseDate = descriptionToCreate.ReleaseDate,

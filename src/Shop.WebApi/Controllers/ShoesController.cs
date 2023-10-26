@@ -8,7 +8,7 @@ using ShoesShop.WebApi.Dto;
 
 namespace ShoesShop.WebAPI.Controllers
 {
-    public class ShoesController : ControllerAbstract
+    public class ShoesController : AbstractController
     {
         public ShoesController(IMapper mapper) : base(mapper) { }
 

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetAllShoesQueryTests : QueryTestAbstract
+    public class GetAllShoesQueryTests : AbstractQueryTest
     {
         public GetAllShoesQueryTests(QueryFixture fixture) : base(fixture) { }
 
@@ -25,7 +25,7 @@ namespace ShoesShop.Tests.Tests.Queries
 
             // Assert
             allShoes.ShouldAllBe(x => x is ShoesVm);
-            allShoes.Count().ShouldBe(ShoesShopTextContext.ItemsCount);
+            allShoes.Count().ShouldBe(ShoesShopTestContext.ItemsCount);
         }
     }
 }

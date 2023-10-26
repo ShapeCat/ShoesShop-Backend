@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class CreateShoesSizeCommandTest : CommandTestAbstract
+    public class CreateShoesSizeCommandTest : AbstractCommandTest
     {
         [Fact]
         public async Task Should_CreateShoesSize_WhenShoesSizeNotExists()
@@ -23,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Commands
             };
             var command = new CreateShoesSizeCommand()
             {
-                ShoesId = ShoesShopTextContext.EmptyShoes,
+                ShoesId = ShoesShopTestContext.EmptyShoes,
                 Size = shoesSizeToCreate.Size,
                 Price = shoesSizeToCreate.Price,
                 ItemsLeft = shoesSizeToCreate.ItemsLeft,
@@ -35,7 +35,7 @@ namespace ShoesShop.Tests.Tests.Commands
 
             // Assert
             dbContext.Sizes.SingleOrDefault(x => x.Id == shoesSizeId
-                                              && x.ShoesId == ShoesShopTextContext.EmptyShoes
+                                              && x.ShoesId == ShoesShopTestContext.EmptyShoes
                                               && x.Size == shoesSizeToCreate.Size
                                               && x.Price == shoesSizeToCreate.Price
                                               && x.ItemsLeft == shoesSizeToCreate.ItemsLeft).ShouldNotBeNull();
@@ -71,13 +71,13 @@ namespace ShoesShop.Tests.Tests.Commands
             // Arrange
             var shoesSizeToCreate = new ShoesSize()
             {
-                Size = ShoesShopTextContext.ExistedSize,
+                Size = ShoesShopTestContext.ExistedSize,
                 Price = 1,
                 ItemsLeft = 1,
             };
             var command = new CreateShoesSizeCommand()
             {
-                ShoesId = ShoesShopTextContext.FullShoes,
+                ShoesId = ShoesShopTestContext.FullShoes,
                 Size = shoesSizeToCreate.Size,
                 Price = shoesSizeToCreate.Price,
                 ItemsLeft = shoesSizeToCreate.ItemsLeft,

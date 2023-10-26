@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetShoesSizesByShoesQueryTests : QueryTestAbstract
+    public class GetShoesSizesByShoesQueryTests : AbstractQueryTest
     {
         public GetShoesSizesByShoesQueryTests(QueryFixture fixture) : base(fixture) { }
 
@@ -20,7 +20,7 @@ namespace ShoesShop.Tests.Tests.Queries
             // Arrange
             var query = new GetShoesSizesByShoesQuery()
             {
-                ShoesId = ShoesShopTextContext.FullShoes,
+                ShoesId = ShoesShopTestContext.FullShoes,
             };
             var handler = new GetShoesSizesByShoesQueryHandler(unitOfWork, mapper);
 

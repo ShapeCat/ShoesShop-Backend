@@ -11,7 +11,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetShoesQueryTests : QueryTestAbstract
+    public class GetShoesQueryTests : AbstractQueryTest
     {
         public GetShoesQueryTests(QueryFixture fixture) : base(fixture) { }
 
@@ -21,7 +21,7 @@ namespace ShoesShop.Tests.Tests.Queries
             // Arrange
             var command = new GetShoesQuery()
             {
-                ShoesId = ShoesShopTextContext.EmptyShoes,
+                ShoesId = ShoesShopTestContext.EmptyShoes,
             };
             var handler = new GetShoesQueryHandler(unitOfWork, mapper);
 

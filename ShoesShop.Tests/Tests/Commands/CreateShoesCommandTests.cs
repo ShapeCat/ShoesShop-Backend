@@ -7,7 +7,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class CreateShoesCommandTests : CommandTestAbstract
+    public class CreateShoesCommandTests : AbstractCommandTest
     {
         [Fact]
         public async Task Should_CreateShoes_WhenShoesNotExists()

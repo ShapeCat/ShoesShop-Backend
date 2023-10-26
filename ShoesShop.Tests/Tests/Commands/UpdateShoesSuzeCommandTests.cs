@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class UpdateShoesSuzeCommandTests : CommandTestAbstract
+    public class UpdateShoesSuzeCommandTests : AbstractCommandTest
     {
         [Fact]
         public async Task Should_UpdateShoesSize_WhenShoesSizeExists()
@@ -23,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Commands
             };
             var command = new UpdateShoesSizeCommand()
             {
-                ShoesSizeId = ShoesShopTextContext.ShoesSizeToUpdate,
+                ShoesSizeId = ShoesShopTestContext.ShoesSizeToUpdate,
                 Size = newSize.Size,
                 Price = newSize.Price,
                 ItemsLeft = newSize.ItemsLeft,
@@ -34,7 +34,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert 
-            dbContext.Sizes.SingleOrDefault(x => x.Id == ShoesShopTextContext.ShoesSizeToUpdate
+            dbContext.Sizes.SingleOrDefault(x => x.Id == ShoesShopTestContext.ShoesSizeToUpdate
                                                                 && x.Size == newSize.Size
                                                                 && x.Price == newSize.Price
                                                                 && x.ItemsLeft == newSize.ItemsLeft).ShouldNotBeNull();

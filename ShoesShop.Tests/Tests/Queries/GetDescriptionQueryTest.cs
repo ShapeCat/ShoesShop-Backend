@@ -10,7 +10,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetDescriptionQueryTest : QueryTestAbstract
+    public class GetDescriptionQueryTest : AbstractQueryTest
     {
         public GetDescriptionQueryTest(QueryFixture fixture) : base(fixture) { }
 
@@ -20,7 +20,7 @@ namespace ShoesShop.Tests.Tests.Queries
             // Arrange
             var query = new GetDescriptionQuery()
             {
-                DescriptionId = ShoesShopTextContext.DescriptionToUpdate,
+                DescriptionId = ShoesShopTestContext.DescriptionToUpdate,
             };
             var handler = new GetDescriptionQueryHandler(unitOfWork, mapper);
 

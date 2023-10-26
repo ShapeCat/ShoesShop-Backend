@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetAllShoesSizesQueryTests : QueryTestAbstract
+    public class GetAllShoesSizesQueryTests : AbstractQueryTest
     {
         public GetAllShoesSizesQueryTests(QueryFixture fixture) : base(fixture) { }
 

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class UpdateDescriptionCommandTests : CommandTestAbstract
+    public class UpdateDescriptionCommandTests : AbstractCommandTest
     {
         [Fact]
         public async Task Should_UpdateDescription_WhenDescriptionExists()
@@ -23,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Commands
             };
             var command = new UpdateDescriptionCommand()
             {
-                DescriptionId = ShoesShopTextContext.DescriptionToUpdate,
+                DescriptionId = ShoesShopTestContext.DescriptionToUpdate,
                 SkuID = newDescription.SkuID,
                 ReleaseDate = newDescription.ReleaseDate,
                 ColorName = newDescription.ColorName
@@ -34,7 +34,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            dbContext.Descriptions.FirstOrDefault(x => x.Id == ShoesShopTextContext.DescriptionToUpdate
+            dbContext.Descriptions.FirstOrDefault(x => x.Id == ShoesShopTestContext.DescriptionToUpdate
                                                     && x.SkuID == newDescription.SkuID
                                                     && x.ReleaseDate == newDescription.ReleaseDate
                                                     && x.ColorName == newDescription.ColorName).ShouldNotBeNull();
