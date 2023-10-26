@@ -14,12 +14,21 @@ namespace ShoesShop.Persistence
             var connectionString = configuration.GetConnectionString("ServerConnection");
 
             services.AddDbContext<ShopDbContext>(option => option.UseSqlServer(connectionString));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IRepositoryOf<Shoes>, ShoesRepository>();
-            services.AddScoped<IRepositoryOf<Description>, DescriptionRepository>();
-            services.AddScoped<IRepositoryOf<ShoesSize>, ShoesSizeRepository>();
-
+            services.AddUnitOfWork();
+            services.AddRepositories();
             return services;
+        }
+
+        public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+        {
+            return services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            return services.AddScoped<IRepositoryOf<Shoes>, ShoesRepository>()
+                           .AddScoped<IRepositoryOf<Description>, DescriptionRepository>()
+                           .AddScoped<IRepositoryOf<ShoesSize>, ShoesSizeRepository>();
         }
     }
 }
