@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
@@ -13,11 +14,9 @@ namespace ShoesShop.Application.Requests.Commands
         public DateTime ReleaseDate { get; set; }
     }
 
-    public class UpdateDescriptionCommandHandler : IRequestHandler<UpdateDescriptionCommand, Unit>
+    public class UpdateDescriptionCommandHandler : AbstractCommand, IRequestHandler<UpdateDescriptionCommand, Unit>
     {
-        private readonly IDescriptionRepository descriptionRepository;
-
-        public UpdateDescriptionCommandHandler(IDescriptionRepository descriptionRepository) => this.descriptionRepository = descriptionRepository;
+        public UpdateDescriptionCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public async Task<Unit> Handle(UpdateDescriptionCommand request, CancellationToken cancellationToken)
         {
@@ -30,8 +29,9 @@ namespace ShoesShop.Application.Requests.Commands
                     SkuID = request.SkuID,
                     ReleaseDate = request.ReleaseDate,
                 };
+                var descriptionRepository = unitOfWork.GetRepositoryOf<Description>(true);
                 await descriptionRepository.EditAsync(newDescription, cancellationToken);
-                await descriptionRepository.SaveChangesAsync(cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

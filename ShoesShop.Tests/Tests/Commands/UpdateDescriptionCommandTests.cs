@@ -11,10 +11,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class UpdateDescriptionCommandTests : CommandTestAbstract
     {
-        private readonly IDescriptionRepository descriptionRepository;
-
-        public UpdateDescriptionCommandTests() => descriptionRepository = new DescriptionRepository(dbContext);
-
         [Fact]
         public async Task Should_UpdateDescription_WhenDescriptionExists()
         {
@@ -32,7 +28,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 ReleaseDate = newDescription.ReleaseDate,
                 ColorName = newDescription.ColorName
             };
-            var handler = new UpdateDescriptionCommandHandler(descriptionRepository);
+            var handler = new UpdateDescriptionCommandHandler(unitOfWork);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
@@ -61,7 +57,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 ReleaseDate = newDescription.ReleaseDate,
                 ColorName = newDescription.ColorName
             };
-            var handler = new UpdateDescriptionCommandHandler(descriptionRepository);
+            var handler = new UpdateDescriptionCommandHandler(unitOfWork);
 
             // Act
             // Assert

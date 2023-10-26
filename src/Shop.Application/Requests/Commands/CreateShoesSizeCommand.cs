@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
@@ -13,11 +14,9 @@ namespace ShoesShop.Application.Requests.Commands
         public int ItemsLeft { get; set; }
     }
 
-    public class CreateShoesSizeCommandHandler : IRequestHandler<CreateShoesSizeCommand, Guid>
+    public class CreateShoesSizeCommandHandler : AbstractCommand, IRequestHandler<CreateShoesSizeCommand, Guid>
     {
-        private readonly IShoesSizeRepository shoesSizeRepository;
-
-        public CreateShoesSizeCommandHandler(IShoesSizeRepository shoesSizeRepository) => this.shoesSizeRepository = shoesSizeRepository;
+        public CreateShoesSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public async Task<Guid> Handle(CreateShoesSizeCommand request, CancellationToken cancellationToken)
         {
@@ -30,9 +29,10 @@ namespace ShoesShop.Application.Requests.Commands
                     Price = request.Price,
                     ItemsLeft = request.ItemsLeft
                 };
-                await shoesSizeRepository.AddAsync(shoesSize, cancellationToken);
-                await shoesSizeRepository.SaveChangesAsync(cancellationToken);
-                var output = await shoesSizeRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
+                var shoesSizesRepository = unitOfWork.GetRepositoryOf<ShoesSize>(true);
+                await shoesSizesRepository.AddAsync(shoesSize, cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
+                var output = await shoesSizesRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
                 return output.First().Id;
             }
             catch (AlreadyExistsException ex)

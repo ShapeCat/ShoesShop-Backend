@@ -9,25 +9,16 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-
-    [Collection("QueryCollection")]
-    public class GetAllShoesQueryTests
+    public class GetAllShoesQueryTests : QueryTestAbstract
     {
-        private readonly IShoesRepository shoesRepository;
-        private readonly IMapper mapper;
-
-        public GetAllShoesQueryTests(QueryFixture fixture)
-        {
-            shoesRepository = new ShoesRepository(fixture.DbContext);
-            mapper = fixture.Mapper;
-        }
+        public GetAllShoesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
         public async Task Should_GetAllShoes()
         {
             // Arrange
             var query = new GetAllShoesQuery();
-            var handler = new GetAllShoesQueryHandler(shoesRepository, mapper);
+            var handler = new GetAllShoesQueryHandler(unitOfWork, mapper);
 
             // Act
             var allShoes = await handler.Handle(query, CancellationToken.None);

@@ -9,24 +9,16 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetAllShoesSizesQueryTests
+    public class GetAllShoesSizesQueryTests : QueryTestAbstract
     {
-        private readonly IShoesSizeRepository shoesSizeRepository;
-        private readonly IMapper mapper;
-
-        public GetAllShoesSizesQueryTests(QueryFixture fixture)
-        {
-            shoesSizeRepository = new ShoesSizeRepository(fixture.DbContext);
-            mapper = fixture.Mapper;
-        }
+        public GetAllShoesSizesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
         public async Task Should_GetAllShoesSizes()
         {
             // Arrange
             var query = new GetAllShoesSizesQuery();
-            var handler = new GetAllShoesSizesQueryHandler(shoesSizeRepository, mapper);
+            var handler = new GetAllShoesSizesQueryHandler(unitOfWork, mapper);
 
             // Act
             var shoesSizes = await handler.Handle(query, CancellationToken.None);

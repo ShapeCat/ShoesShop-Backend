@@ -10,10 +10,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class DeleteDescriptionCommandTests : CommandTestAbstract
     {
-        private readonly IDescriptionRepository descriptionRepository;
-
-        public DeleteDescriptionCommandTests() => descriptionRepository = new DescriptionRepository(dbContext);
-
         [Fact]
         public async Task Should_DeleteDescriptions_WhenDescriptionExists()
         {
@@ -22,7 +18,7 @@ namespace ShoesShop.Tests.Tests.Commands
             {
                 DescriptionId = ShoesShopTextContext.DescriptionToDelete
             };
-            var handler = new DeleteDescriptionCommandHandler(descriptionRepository);
+            var handler = new DeleteDescriptionCommandHandler(unitOfWork);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
@@ -39,7 +35,7 @@ namespace ShoesShop.Tests.Tests.Commands
             {
                 DescriptionId = Guid.NewGuid(),
             };
-            var handler = new DeleteDescriptionCommandHandler(descriptionRepository);
+            var handler = new DeleteDescriptionCommandHandler(unitOfWork);
 
             // Act
             // Assert

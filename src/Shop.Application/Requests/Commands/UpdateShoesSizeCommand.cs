@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
@@ -13,11 +14,9 @@ namespace ShoesShop.Application.Requests.Commands
         public int ItemsLeft { get; set; }
     }
 
-    public class UpdateShoesSizeCommandHandler : IRequestHandler<UpdateShoesSizeCommand, Unit>
+    public class UpdateShoesSizeCommandHandler : AbstractCommand, IRequestHandler<UpdateShoesSizeCommand, Unit>
     {
-        private readonly IShoesSizeRepository shoesSizeRepository;
-
-        public UpdateShoesSizeCommandHandler(IShoesSizeRepository shoesSizeRepository) => this.shoesSizeRepository = shoesSizeRepository;
+        public UpdateShoesSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public async Task<Unit> Handle(UpdateShoesSizeCommand request, CancellationToken cancellationToken)
         {
@@ -30,8 +29,9 @@ namespace ShoesShop.Application.Requests.Commands
                     Price = request.Price,
                     ItemsLeft = request.ItemsLeft
                 };
-                await shoesSizeRepository.EditAsync(shoesSize, cancellationToken);
-                await shoesSizeRepository.SaveChangesAsync(cancellationToken);
+                var shoesSizesRepository = unitOfWork.GetRepositoryOf<ShoesSize>(true);
+                await shoesSizesRepository.EditAsync(shoesSize, cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

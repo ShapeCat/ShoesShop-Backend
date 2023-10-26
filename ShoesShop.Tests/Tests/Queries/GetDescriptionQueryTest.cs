@@ -10,17 +10,9 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetDescriptionQueryTest
+    public class GetDescriptionQueryTest : QueryTestAbstract
     {
-        private readonly IDescriptionRepository descriptionRepository;
-        private IMapper mapper;
-
-        public GetDescriptionQueryTest(QueryFixture fixture)
-        {
-            descriptionRepository = new DescriptionRepository(fixture.DbContext);
-            mapper = fixture.Mapper;
-        }
+        public GetDescriptionQueryTest(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
         public async Task Should_GetDescription_WhenDescriptionExists()
@@ -30,7 +22,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 DescriptionId = ShoesShopTextContext.DescriptionToUpdate,
             };
-            var handler = new GetDescriptionQueryHandler(descriptionRepository, mapper);
+            var handler = new GetDescriptionQueryHandler(unitOfWork, mapper);
 
             // Act
             var description = await handler.Handle(query, CancellationToken.None);
@@ -50,7 +42,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 DescriptionId = Guid.NewGuid(),
             };
-            var handler = new GetDescriptionQueryHandler(descriptionRepository, mapper);
+            var handler = new GetDescriptionQueryHandler(unitOfWork, mapper);
 
             // Act
             // Assert

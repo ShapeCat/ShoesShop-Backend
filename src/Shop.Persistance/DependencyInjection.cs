@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Entities;
 using ShoesShop.Persistence.Repository;
 
 namespace ShoesShop.Persistence
@@ -13,9 +14,10 @@ namespace ShoesShop.Persistence
             var connectionString = configuration.GetConnectionString("ServerConnection");
 
             services.AddDbContext<ShopDbContext>(option => option.UseSqlServer(connectionString));
-            services.AddScoped<IShoesRepository, ShoesRepository>();
-            services.AddScoped<IDescriptionRepository, DescriptionRepository>();
-            services.AddScoped<IShoesSizeRepository, ShoesSizeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepositoryOf<Shoes>, ShoesRepository>();
+            services.AddScoped<IRepositoryOf<Description>, DescriptionRepository>();
+            services.AddScoped<IRepositoryOf<ShoesSize>, ShoesSizeRepository>();
 
             return services;
         }

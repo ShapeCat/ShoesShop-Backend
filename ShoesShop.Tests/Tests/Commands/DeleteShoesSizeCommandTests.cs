@@ -10,10 +10,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class DeleteShoesSizeCommandTests : CommandTestAbstract
     {
-        public readonly IShoesSizeRepository shoesSizeRepository;
-
-        public DeleteShoesSizeCommandTests() => shoesSizeRepository = new ShoesSizeRepository(dbContext);
-
         [Fact]
         public async Task Should_DeleteShoesSize_WhenShoesSizeExists()
         {
@@ -22,7 +18,7 @@ namespace ShoesShop.Tests.Tests.Commands
             {
                 ShoesSizeId = ShoesShopTextContext.ShoesSizeToDelete,
             };
-            var handler = new DeleteShoesSizeCommandHandler(shoesSizeRepository);
+            var handler = new DeleteShoesSizeCommandHandler(unitOfWork);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
@@ -39,7 +35,7 @@ namespace ShoesShop.Tests.Tests.Commands
             {
                 ShoesSizeId = Guid.NewGuid(),
             };
-            var handler = new DeleteShoesSizeCommandHandler(shoesSizeRepository);
+            var handler = new DeleteShoesSizeCommandHandler(unitOfWork);
 
             // Act
             // Assert

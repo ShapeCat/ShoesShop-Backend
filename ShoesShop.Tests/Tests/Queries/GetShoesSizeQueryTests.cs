@@ -10,17 +10,9 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetShoesSizeQueryTests
+    public class GetShoesSizeQueryTests : QueryTestAbstract
     {
-        private readonly IShoesSizeRepository shoesSizeRepository;
-        private readonly IMapper mapper;
-
-        public GetShoesSizeQueryTests(QueryFixture fixture)
-        {
-            shoesSizeRepository = new ShoesSizeRepository(fixture.DbContext);
-            mapper = fixture.Mapper;
-        }
+        public GetShoesSizeQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
         public async Task Should_GetShoesSize_WhenShoesSizeExists()
@@ -30,7 +22,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 ShoesSizeId = ShoesShopTextContext.ShoesSizeToUpdate,
             };
-            var handler = new GetShoesSizeQueryHandler(shoesSizeRepository, mapper);
+            var handler = new GetShoesSizeQueryHandler(unitOfWork, mapper);
 
             // Act
             var shoesSize = await handler.Handle(query, CancellationToken.None);
@@ -50,7 +42,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 ShoesSizeId = Guid.NewGuid(),
             };
-            var handler = new GetShoesSizeQueryHandler(shoesSizeRepository, mapper);
+            var handler = new GetShoesSizeQueryHandler(unitOfWork, mapper);
 
             // Act
             // Assert

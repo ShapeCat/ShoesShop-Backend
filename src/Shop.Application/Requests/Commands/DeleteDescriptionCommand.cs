@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
 {
@@ -9,18 +11,17 @@ namespace ShoesShop.Application.Requests.Commands
         public Guid DescriptionId { get; set; }
     }
 
-    public class DeleteDescriptionCommandHandler : IRequestHandler<DeleteDescriptionCommand, Unit>
+    public class DeleteDescriptionCommandHandler : AbstractCommand, IRequestHandler<DeleteDescriptionCommand, Unit>
     {
-        private readonly IDescriptionRepository descriptionRepository;
-
-        public DeleteDescriptionCommandHandler(IDescriptionRepository descriptionRepository) => this.descriptionRepository = descriptionRepository;
+        public DeleteDescriptionCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public async Task<Unit> Handle(DeleteDescriptionCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                var descriptionRepository = unitOfWork.GetRepositoryOf<Description>(true); 
                 await descriptionRepository.RemoveAsync(request.DescriptionId, cancellationToken);
-                await descriptionRepository.SaveChangesAsync(cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

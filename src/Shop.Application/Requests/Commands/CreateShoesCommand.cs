@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
@@ -10,11 +11,9 @@ namespace ShoesShop.Application.Requests.Commands
         public string Name { get; set; }
     }
 
-    public class CreateShoesCommandHandler : IRequestHandler<CreateShoesCommand, Guid>
+    public class CreateShoesCommandHandler : AbstractCommand, IRequestHandler<CreateShoesCommand, Guid>
     {
-        private readonly IShoesRepository shoesRepository;
-
-        public CreateShoesCommandHandler(IShoesRepository shoesRepository) => this.shoesRepository = shoesRepository;
+        public CreateShoesCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public async Task<Guid> Handle(CreateShoesCommand request, CancellationToken cancellationToken)
         {
@@ -24,8 +23,9 @@ namespace ShoesShop.Application.Requests.Commands
                 {
                     Name = request.Name
                 };
+                var shoesRepository = unitOfWork.GetRepositoryOf<Shoes>(true);
                 await shoesRepository.AddAsync(shoes, cancellationToken);
-                await shoesRepository.SaveChangesAsync(cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 var output = await shoesRepository.FindAllAsync(x => x.Name == request.Name, cancellationToken);
                 return output.First().Id;
             }

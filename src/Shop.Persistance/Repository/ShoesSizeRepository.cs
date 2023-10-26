@@ -6,7 +6,7 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class ShoesSizeRepository : IShoesSizeRepository
+    public class ShoesSizeRepository : IRepositoryOf<ShoesSize>
     {
         private readonly ShopDbContext dbContext;
 
@@ -57,11 +57,6 @@ namespace ShoesShop.Persistence.Repository
             var sizeInfo = await dbContext.Sizes.FirstOrDefaultAsync(x => x.Id == shoesSizeId, cancellationToken)
                         ?? throw new NotFoundException(shoesSizeId.ToString(), typeof(ShoesSize));
             dbContext.Sizes.Remove(sizeInfo);
-        }
-
-        public async Task SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

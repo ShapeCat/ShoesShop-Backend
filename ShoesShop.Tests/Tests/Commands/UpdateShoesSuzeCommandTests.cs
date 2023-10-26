@@ -11,10 +11,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class UpdateShoesSuzeCommandTests : CommandTestAbstract
     {
-        public readonly IShoesSizeRepository shoesSizeRepository;
-
-        public UpdateShoesSuzeCommandTests() => shoesSizeRepository = new ShoesSizeRepository(dbContext);
-
         [Fact]
         public async Task Should_UpdateShoesSize_WhenShoesSizeExists()
         {
@@ -32,7 +28,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 Price = newSize.Price,
                 ItemsLeft = newSize.ItemsLeft,
             };
-            var handler = new UpdateShoesSizeCommandHandler(shoesSizeRepository);
+            var handler = new UpdateShoesSizeCommandHandler(unitOfWork);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
@@ -61,7 +57,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 Price = newSize.Price,
                 ItemsLeft = newSize.ItemsLeft,
             };
-            var handler = new UpdateShoesSizeCommandHandler(shoesSizeRepository);
+            var handler = new UpdateShoesSizeCommandHandler(unitOfWork);
 
             // Act
             // Assert

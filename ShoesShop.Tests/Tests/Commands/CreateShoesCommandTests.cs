@@ -9,10 +9,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class CreateShoesCommandTests : CommandTestAbstract
     {
-        private readonly IShoesRepository shoesRepository;
-
-        public CreateShoesCommandTests() => shoesRepository = new ShoesRepository(dbContext);
-
         [Fact]
         public async Task Should_CreateShoes_WhenShoesNotExists()
         {
@@ -22,7 +18,7 @@ namespace ShoesShop.Tests.Tests.Commands
             {
                 Name = newShoesName,
             };
-            var handler = new CreateShoesCommandHandler(shoesRepository);
+            var handler = new CreateShoesCommandHandler(unitOfWork);
 
             // Act 
             var shoesId = await handler.Handle(command, CancellationToken.None);

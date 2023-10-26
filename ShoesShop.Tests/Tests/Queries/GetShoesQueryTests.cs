@@ -3,6 +3,7 @@ using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
 using ShoesShop.Application.Requests.Queries;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Persistence;
 using ShoesShop.Persistence.Repository;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -10,17 +11,9 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    [Collection("QueryCollection")]
-    public class GetShoesQueryTests
+    public class GetShoesQueryTests : QueryTestAbstract
     {
-        private readonly IShoesRepository shoesRepository;
-        private readonly IMapper mapper;
-
-        public GetShoesQueryTests(QueryFixture fixture)
-        {
-            shoesRepository = new ShoesRepository(fixture.DbContext);
-            mapper = fixture.Mapper;
-        }
+        public GetShoesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
         public async Task Should_GetShoes_WhenShoesExists()
@@ -30,7 +23,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 ShoesId = ShoesShopTextContext.EmptyShoes,
             };
-            var handler = new GetShoesQueryHandler(shoesRepository, mapper);
+            var handler = new GetShoesQueryHandler(unitOfWork, mapper);
 
             // Act
             var shoes = await handler.Handle(command, CancellationToken.None);
@@ -48,7 +41,7 @@ namespace ShoesShop.Tests.Tests.Queries
             {
                 ShoesId = Guid.NewGuid(),
             };
-            var handler = new GetShoesQueryHandler(shoesRepository, mapper);
+            var handler = new GetShoesQueryHandler(unitOfWork, mapper);
 
             // Act
             // Assert

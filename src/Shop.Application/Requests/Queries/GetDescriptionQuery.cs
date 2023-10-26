@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Queries
 {
@@ -9,19 +11,13 @@ namespace ShoesShop.Application.Requests.Queries
     {
         public Guid DescriptionId { get; set; }
     }
-    public class GetDescriptionQueryHandler : IRequestHandler<GetDescriptionQuery, DescriptionVm>
+    public class GetDescriptionQueryHandler : AbstractQuery, IRequestHandler<GetDescriptionQuery, DescriptionVm>
     {
-        private readonly IDescriptionRepository descriptionRepository;
-        private readonly IMapper mapper;
-
-        public GetDescriptionQueryHandler(IDescriptionRepository descriptionRepository, IMapper mapper)
-        {
-            this.descriptionRepository = descriptionRepository;
-            this.mapper = mapper;
-        }
+        public GetDescriptionQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         public async Task<DescriptionVm> Handle(GetDescriptionQuery request, CancellationToken cancellationToken)
         {
+            var descriptionRepository = unitOfWork.GetRepositoryOf<Description>(true);
             var description = await descriptionRepository.GetAsync(request.DescriptionId, cancellationToken);
             return mapper.Map<DescriptionVm>(description);
         }

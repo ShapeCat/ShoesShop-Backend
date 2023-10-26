@@ -11,10 +11,6 @@ namespace ShoesShop.Tests.Tests.Commands
 {
     public class UpdateShoesCommandTests : CommandTestAbstract
     {
-        private readonly IShoesRepository shoesRepository;
-
-        public UpdateShoesCommandTests() => shoesRepository = new ShoesRepository(dbContext);
-
         [Fact]
         public async Task Should_UpdateShoes_WhenShoesExists()
         {
@@ -26,7 +22,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 Name = newShoesName
 
             };
-            var handler = new UpdateShoesNameCommandHandler(shoesRepository);
+            var handler = new UpdateShoesNameCommandHandler(unitOfWork);
 
             // Act 
             await handler.Handle(command, CancellationToken.None);
@@ -46,7 +42,7 @@ namespace ShoesShop.Tests.Tests.Commands
                 ShoesId = Guid.NewGuid(),
                 Name = newShoesName
             };
-            var handler = new UpdateShoesNameCommandHandler(shoesRepository);
+            var handler = new UpdateShoesNameCommandHandler(unitOfWork);
 
             // Act 
             // Assert

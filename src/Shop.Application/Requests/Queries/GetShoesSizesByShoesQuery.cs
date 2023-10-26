@@ -2,6 +2,7 @@
 using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.Entities;
 
@@ -12,26 +13,20 @@ namespace ShoesShop.Application.Requests.Queries
         public Guid ShoesId { get; set; }
     }
 
-    public class GetShoesSizesByShoesQueryHandler : IRequestHandler<GetShoesSizesByShoesQuery, IEnumerable<ShoesSizeVm>>
+    public class GetShoesSizesByShoesQueryHandler : AbstractQuery, IRequestHandler<GetShoesSizesByShoesQuery, IEnumerable<ShoesSizeVm>>
     {
-        private readonly IShoesRepository shoesRepository;
-        private readonly IShoesSizeRepository shoesSizeRepository;
-        private readonly IMapper mapper;
-
-        public GetShoesSizesByShoesQueryHandler(IShoesSizeRepository shoesSizeRepository, IShoesRepository shoesRepository,IMapper mapper)
-        {
-            this.shoesSizeRepository = shoesSizeRepository;
-            this.shoesRepository = shoesRepository;
-            this.mapper = mapper;
-        }
+        public GetShoesSizesByShoesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         public async Task<IEnumerable<ShoesSizeVm>> Handle(GetShoesSizesByShoesQuery request, CancellationToken cancellationToken)
         {
             try
             {
+                var shoesSizesRepository = unitOfWork.GetRepositoryOf<ShoesSize>(true);
+                var shoesRepository = unitOfWork.GetRepositoryOf<Shoes>(true);
+
                 var parentShoes = await shoesRepository.FindAllAsync(x => x.Id == request.ShoesId, cancellationToken);
                 if (parentShoes.Count() == 0) throw new NotFoundException(request.ShoesId.ToString(), typeof(Shoes));
-                var shoesSize = await shoesSizeRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
+                var shoesSize = await shoesSizesRepository.FindAllAsync(x => x.ShoesId == request.ShoesId, cancellationToken);
                 return mapper.Map<IEnumerable<ShoesSizeVm>>(shoesSize);
             }
             catch (NotFoundException ex)

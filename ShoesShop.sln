@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.WebApi", "src\Sho
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{377C298C-58D2-404A-ABA5-E780B5BB86E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoesShop.Tests", "ShoesShop.Tests\ShoesShop.Tests.csproj", "{EE7206C9-305E-4C63-9B4E-9F145792E121}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesShop.Tests", "ShoesShop.Tests\ShoesShop.Tests.csproj", "{EE7206C9-305E-4C63-9B4E-9F145792E121}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

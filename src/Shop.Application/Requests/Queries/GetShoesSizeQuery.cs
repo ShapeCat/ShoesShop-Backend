@@ -2,7 +2,9 @@
 using MediatR;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Requests.Base;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Queries
 {
@@ -11,22 +13,16 @@ namespace ShoesShop.Application.Requests.Queries
         public Guid ShoesSizeId { get; set; }
     }
 
-    public class GetShoesSizeQueryHandler : IRequestHandler<GetShoesSizeQuery, ShoesSizeVm>
+    public class GetShoesSizeQueryHandler : AbstractQuery, IRequestHandler<GetShoesSizeQuery, ShoesSizeVm>
     {
-        private readonly IShoesSizeRepository shoesSizeRepository;
-        private readonly IMapper mapper;
-
-        public GetShoesSizeQueryHandler(IShoesSizeRepository shoesSizeRepository, IMapper mapper)
-        {
-            this.shoesSizeRepository = shoesSizeRepository;
-            this.mapper = mapper;
-        }
+        public GetShoesSizeQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         public async Task<ShoesSizeVm> Handle(GetShoesSizeQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var shoesSize = await shoesSizeRepository.GetAsync(request.ShoesSizeId, cancellationToken);
+                var shoesSizesRepository = unitOfWork.GetRepositoryOf<ShoesSize>(true);
+                var shoesSize = await shoesSizesRepository.GetAsync(request.ShoesSizeId, cancellationToken);
                 return mapper.Map<ShoesSizeVm>(shoesSize);
             }
             catch (NotFoundException ex)

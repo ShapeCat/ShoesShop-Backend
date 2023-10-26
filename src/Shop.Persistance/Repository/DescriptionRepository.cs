@@ -6,7 +6,7 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class DescriptionRepository : IDescriptionRepository
+    public class DescriptionRepository : IRepositoryOf<Description>
     {
         private readonly ShopDbContext dbContext;
 
@@ -51,11 +51,6 @@ namespace ShoesShop.Persistence.Repository
             var description = await dbContext.Descriptions.FirstOrDefaultAsync(x => x.Id == descriptionId, cancellationToken)
                               ?? throw new NotFoundException(descriptionId.ToString(), typeof(Description));
             dbContext.Descriptions.Remove(description);
-        }
-
-        public async Task SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
