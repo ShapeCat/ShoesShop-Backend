@@ -17,9 +17,6 @@ namespace ShoesShop.Persistence
             dbContext = context ?? throw new ArgumentNullException(nameof(context));
             customRepositories = new Dictionary<Type, object>
             {
-                { typeof(Shoes), new ShoesRepository(dbContext) },
-                { typeof(Description), new DescriptionRepository(dbContext) },
-                { typeof(ShoesSize), new ShoesSizeRepository(dbContext) },
             };
         }
 
