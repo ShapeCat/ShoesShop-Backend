@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
 
 namespace ShoesShop.Persistence.Repository
@@ -27,7 +28,8 @@ namespace ShoesShop.Persistence.Repository
 
         public virtual async Task<T> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FindAsync(Id, cancellationToken);
+            return await dbSet.FindAsync(new object?[] { Id }, cancellationToken)
+                   ?? throw new NotFoundException(Id.ToString(), typeof(T));
         }
 
         public virtual async Task AddAsync(T item, CancellationToken cancellationToken)
@@ -35,7 +37,7 @@ namespace ShoesShop.Persistence.Repository
             await dbSet.AddAsync(item, cancellationToken);
         }
 
-        public virtual async Task EditAsync(T newItem, CancellationToken cancellationToken)
+        public virtual Task EditAsync(T newItem, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
