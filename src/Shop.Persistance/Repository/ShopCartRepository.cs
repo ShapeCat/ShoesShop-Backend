@@ -9,24 +9,27 @@ namespace ShoesShop.Persistence.Repository
     {
         public ShopCartRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<IEnumerable<ShopCart>> FindAllAsync(Expression<Func<ShopCart, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task AddAsync(ShopCart item, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .Where(predicate)
-                              .ToListAsync(cancellationToken);
+            await dbSet.AddAsync(item, cancellationToken);
         }
 
         public override async Task<IEnumerable<ShopCart>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .ToListAsync(cancellationToken);
+            return await dbSet.ToListAsync(cancellationToken);
         }
 
         public override async Task<ShopCart> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
                 ?? throw new NotFoundException(Id.ToString(), typeof(ShopCart));
         }
+
+        public override async Task<IEnumerable<ShopCart>> FindAllAsync(Expression<Func<ShopCart, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await dbSet.Where(predicate)
+                              .ToListAsync(cancellationToken);
+        }
+
     }
 }

@@ -10,35 +10,32 @@ namespace ShoesShop.Persistence.Repository
     {
         public UserRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<IEnumerable<User>> FindAllAsync(Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task AddAsync(User item, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Adress)
-                              .Where(predicate)
-                              .ToListAsync(cancellationToken);
+            item.Password = SHA256.HashData(item.Password);
+            await dbSet.AddAsync(item, cancellationToken);
         }
 
         public override async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Adress)
-                              .ToListAsync(cancellationToken);
+            return await dbSet.ToListAsync(cancellationToken);
         }
 
         public override async Task<User> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Adress)
-                              .FirstOrDefaultAsync(x => x.Id == Id, cancellationToken: cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(User));
         }
 
-        public override async Task AddAsync(User item, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<User>> FindAllAsync(Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
         {
-            item.Password = SHA256.HashData(item.Password);
-            await base.AddAsync(item, cancellationToken);
+            return await dbSet.Where(predicate)
+                              .ToListAsync(cancellationToken);
         }
 
         public override async Task EditAsync(User newItem, CancellationToken cancellationToken)
         {
-            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken: cancellationToken)
+            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
                         ?? throw new NotFoundException(newItem.Id.ToString(), typeof(User));
             (user.UserName, user.Phone, user.Login)
                 = (newItem.UserName, newItem.Phone, newItem.Login);
@@ -46,7 +43,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken: cancellationToken)
+            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
                         ?? throw new NotFoundException(Id.ToString(), typeof(User));
             dbSet.Remove(user);
         }

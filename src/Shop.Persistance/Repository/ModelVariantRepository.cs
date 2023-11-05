@@ -9,27 +9,26 @@ namespace ShoesShop.Persistence.Repository
     {
         public ModelVariantRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<IEnumerable<ModelVariant>> FindAllAsync(Expression<Func<ModelVariant, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task AddAsync(ModelVariant item, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Model)
-                              .Include(x => x.ModelSize)
-                              .Where(predicate)
-                              .ToListAsync(cancellationToken);
+            await dbSet.AddAsync(item, cancellationToken);
         }
 
         public override async Task<IEnumerable<ModelVariant>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Model)
-                              .Include(x => x.ModelSize)
-                              .ToListAsync(cancellationToken);
+            return await dbSet.ToListAsync(cancellationToken);
         }
 
         public override async Task<ModelVariant> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Model)
-                              .Include(x => x.ModelSize)
-                              .FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(ModelVariant));
+        }
+
+        public override async Task<IEnumerable<ModelVariant>> FindAllAsync(Expression<Func<ModelVariant, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await dbSet.Where(predicate)
+                              .ToListAsync(cancellationToken);
         }
 
         public override async Task EditAsync(ModelVariant newItem, CancellationToken cancellationToken)

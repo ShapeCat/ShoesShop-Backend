@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Entities;
@@ -9,24 +10,26 @@ namespace ShoesShop.Persistence.Repository
     {
         public FavoriteListRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<IEnumerable<FavoritesList>> FindAllAsync(Expression<Func<FavoritesList, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task AddAsync(FavoritesList item, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .Where(predicate)
-                              .ToListAsync(cancellationToken);
+            await dbSet.AddAsync(item, cancellationToken);
         }
 
         public override async Task<IEnumerable<FavoritesList>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .ToListAsync(cancellationToken);
+            return await dbSet.ToListAsync(cancellationToken);
         }
 
         public override async Task<FavoritesList> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.Include(x => x.Items)
-                              .FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
                 ?? throw new NotFoundException(Id.ToString(), typeof(FavoritesList));
+        }
+
+        public override async Task<IEnumerable<FavoritesList>> FindAllAsync(Expression<Func<FavoritesList, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await dbSet.Where(predicate)
+                              .ToListAsync(cancellationToken);
         }
     }
 }
