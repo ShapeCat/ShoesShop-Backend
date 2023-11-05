@@ -12,6 +12,9 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasOne(x => x.Owner)
                    .WithOne(x => x.Favorites)
                    .HasForeignKey<FavoritesList>(x => x.UserId);
+
+            builder.Navigation(x => x.Items)
+                   .AutoInclude();
         }
     }
 }

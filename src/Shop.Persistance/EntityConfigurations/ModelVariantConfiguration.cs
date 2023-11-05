@@ -17,6 +17,13 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasOne(x => x.ModelSize)
                    .WithMany(x => x.Models)
                    .HasForeignKey(x => x.ModelSizeId);
+
+            builder.Navigation(x => x.Model)
+                   .AutoInclude();
+            builder.Navigation(x => x.ModelSize)
+                   .AutoInclude();
+            builder.Navigation(x => x.Price)
+                   .AutoInclude();
         }
     }
 }
