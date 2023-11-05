@@ -18,17 +18,17 @@ namespace ShoesShop.Persistence.Repository
 
         public virtual Task AddAsync(TEntity item, CancellationToken cancellationToken)
         {
-            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
+            throw new ActionNotAllowedException(nameof(AddAsync), typeof(TEntity));
         }
 
         public virtual Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
-            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
+            throw new ActionNotAllowedException(nameof(GetAllAsync), typeof(TEntity));
         }
 
         public virtual Task<TEntity> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
+            throw new ActionNotAllowedException(nameof(GetAsync), typeof(TEntity));
         }
 
         public virtual Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
@@ -38,12 +38,12 @@ namespace ShoesShop.Persistence.Repository
 
         public virtual Task EditAsync(TEntity newItem, CancellationToken cancellationToken)
         {
-            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
+            throw new ActionNotAllowedException(nameof(EditAsync), typeof(TEntity));
         }
 
         public virtual Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
+            throw new ActionNotAllowedException(nameof(RemoveAsync), typeof(TEntity));
         }
     }
 }

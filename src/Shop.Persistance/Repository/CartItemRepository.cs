@@ -17,7 +17,7 @@ namespace ShoesShop.Persistence.Repository
         public override async Task<CartItem> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
             return await dbSet.FirstOrDefaultAsync(cancellationToken)
-                   ?? throw new NotFoundException(Id.ToString(), typeof(Adress));
+                   ?? throw new NotFoundException(Id.ToString(), typeof(CartItem));
         }
 
         public override async Task<IEnumerable<CartItem>> FindAllAsync(Expression<Func<CartItem, bool>> predicate, CancellationToken cancellationToken)
