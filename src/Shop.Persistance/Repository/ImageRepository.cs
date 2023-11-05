@@ -5,7 +5,7 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    internal class ImageRepository : GenericRepository<Image>
+    public class ImageRepository : GenericRepository<Image>
     {
         public ImageRepository(ShopDbContext dbContext) : base(dbContext) { }
 

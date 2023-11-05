@@ -30,6 +30,5 @@ namespace ShoesShop.Persistence.Repository
             return await dbSet.Where(predicate)
                               .ToListAsync(cancellationToken);
         }
-
     }
 }
