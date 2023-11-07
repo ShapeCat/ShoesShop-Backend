@@ -3,6 +3,7 @@ using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Interfaces;
 using ShoesShop.Application.Requests.Base;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
 {
@@ -24,8 +25,8 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>(true);
-                var newAdress = new AdressVm()
+                var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
+                var newAdress = new Adress()
                 {
                     Id = request.AdressId,
                     Country = request.Country,

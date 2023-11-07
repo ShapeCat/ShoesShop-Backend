@@ -33,6 +33,7 @@ namespace ShoesShop.Application.Requests.Commands
 
             await adressRepository.AddAsync(adress, cancellationToken);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+            var createdAdress = await adressRepository.FindAllAsync(x => x.Country == adress.Country
                                                                      && x.City == adress.City
                                                                      && x.Street == adress.Street
                                                                      && x.House == adress.House
