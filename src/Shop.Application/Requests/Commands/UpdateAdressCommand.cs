@@ -36,6 +36,7 @@ namespace ShoesShop.Application.Requests.Commands
                 };
 
                 await adressRepository.EditAsync(newAdress, cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

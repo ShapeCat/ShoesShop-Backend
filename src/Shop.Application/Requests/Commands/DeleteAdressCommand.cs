@@ -21,6 +21,7 @@ namespace ShoesShop.Application.Requests.Commands
             {
                 var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>(true);
                 await adressRepository.RemoveAsync(request.AdressId, cancellationToken);
+                await unitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)
