@@ -2,10 +2,10 @@
 
 namespace ShoesShop.Application.Requests.Base
 {
-    public abstract class AbstractCommand
+    public abstract class AbstractCommandHandler
     {
         protected readonly IUnitOfWork unitOfWork;
 
-        public AbstractCommand(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
+        public AbstractCommandHandler(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
     }
 }
