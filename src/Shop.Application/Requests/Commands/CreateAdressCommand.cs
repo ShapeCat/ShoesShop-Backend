@@ -2,6 +2,7 @@
 using ShoesShop.Application.Interfaces;
 using ShoesShop.Application.Requests.Base;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
 {
@@ -20,8 +21,8 @@ namespace ShoesShop.Application.Requests.Commands
 
         public async Task<Guid> Handle(CreateAdressCommand request, CancellationToken cancellationToken)
         {
-            var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>();
-            var adress = new AdressVm()
+            var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
+            var adress = new Adress()
             {
                 Country = request.Country,
                 City = request.City,

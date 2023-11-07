@@ -15,7 +15,7 @@ namespace ShoesShop.Application.Requests.Queries
 
         public async Task<IEnumerable<AdressVm>> Handle(GetAllAdressesQuery request, CancellationToken cancellationToken)
         {
-            var adressRepository = unitOfWork.GetRepositoryOf<Adress>();
+            var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
             var adresses = await adressRepository.GetAllAsync(cancellationToken);
             return mapper.Map<IEnumerable<AdressVm>>(adresses);
         }

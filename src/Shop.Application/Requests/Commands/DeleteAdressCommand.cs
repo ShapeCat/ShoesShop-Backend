@@ -19,7 +19,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>();
+                var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>(true);
                 await adressRepository.RemoveAsync(request.AdressId, cancellationToken);
                 return Unit.Value;
             }

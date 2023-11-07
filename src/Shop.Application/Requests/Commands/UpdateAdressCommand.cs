@@ -24,7 +24,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>();
+                var adressRepository = unitOfWork.GetRepositoryOf<AdressVm>(true);
                 var newAdress = new AdressVm()
                 {
                     Id = request.AdressId,
