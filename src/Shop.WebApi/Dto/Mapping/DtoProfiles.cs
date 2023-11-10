@@ -19,11 +19,6 @@ namespace ShoesShop.WebApi.Dto.Profiles
                                                        .ForMember(x => x.House, y => y.MapFrom(x => x.House))
                                                        .ForMember(x => x.Room, y => y.MapFrom(x => x.Room));
 
-            CreateMap<UserDto, CreateUserCommand>().ForMember(x => x.UserName, y => y.MapFrom(x => x.UserName))
-                                                   .ForMember(x => x.Login, y => y.MapFrom(x => x.Login))
-                                                   .ForMember(x => x.Password, y => y.MapFrom(x => x.Password))
-                                                   .ForMember(x => x.Phone, y => y.MapFrom(x => x.Phone));
-
             //CreateMap<ShoesDto, CreateShoesCommand>()
             //    .ForMember(x => x.Name, y => y.MapFrom(x => x.Name));
 
