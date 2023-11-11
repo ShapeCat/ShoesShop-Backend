@@ -21,6 +21,9 @@ namespace ShoesShop.WebApi.Dto.Profiles
 
             CreateMap<ImageDto, CreateImageCommand>().ForMember(x => x.Url, y => y.MapFrom(x => x.Url))
                                                      .ForMember(x => x.IsPreview, y => y.MapFrom(x => x.IsPreview));
+
+            CreateMap<ImageDto, UpdateImageCommand>().ForMember(x => x.Url, y => y.MapFrom(x => x.Url))
+                                                     .ForMember(x => x.IsPreview, y => y.MapFrom(x => x.IsPreview));
         }
     }
 }
