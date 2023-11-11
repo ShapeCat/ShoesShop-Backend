@@ -40,6 +40,29 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{imageId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImageVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ImageVm>> GetById(Guid ImageId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetImageQuery()
+                {
+                    ImageId = ImageId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpPut("{imageId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
