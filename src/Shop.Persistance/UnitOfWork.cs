@@ -17,6 +17,20 @@ namespace ShoesShop.Persistence
             dbContext = context ?? throw new ArgumentNullException(nameof(context));
             customRepositories = new Dictionary<Type, object>
             {
+
+                { typeof(Adress), new AdressRepository(dbContext) },
+                { typeof(CartItem), new CartItemRepository(dbContext) },
+                { typeof(FavoritesItem), new FavoritesItemRepository(dbContext) },
+                { typeof(FavoritesList), new FavoriteListRepository(dbContext) },
+                { typeof(Image), new ImageRepository(dbContext) },
+                { typeof(Model), new ModelRepository(dbContext) },
+                { typeof(ModelSize), new ModelSizeRepository(dbContext) },
+                { typeof(ModelVariant), new ModelVariantRepository(dbContext) },
+                { typeof(Order), new OrderRepository(dbContext) },
+                { typeof(OrderItem), new OrderItemRepository(dbContext) },
+                { typeof(Review), new ReviewRepository(dbContext) },
+                { typeof(ShopCart), new ShopCartRepository(dbContext) },
+                { typeof(User), new UserRepository(dbContext) },
             };
         }
 
