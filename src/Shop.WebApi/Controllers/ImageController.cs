@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Requests.Commands;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
@@ -24,5 +25,27 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{imageId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete(Guid imageId)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            try
+            {
+                var command = new DeleteImageCommand()
+                {
+                    ImageId = imageId
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }
