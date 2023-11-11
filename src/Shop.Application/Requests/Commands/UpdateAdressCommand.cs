@@ -17,11 +17,11 @@ namespace ShoesShop.Application.Requests.Commands
         public int? Room { get; set; }
     }
 
-    public class UpdateAdressCommandHandler : AbstractCommandHandler, IRequestHandler<UpdateAdressCommand, Unit>
+    public class UpdateAdressCommandHandler : AbstractCommandHandler<UpdateAdressCommand, Unit>
     {
         public UpdateAdressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public async Task<Unit> Handle(UpdateAdressCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(UpdateAdressCommand request, CancellationToken cancellationToken)
         {
             try
             {

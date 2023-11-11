@@ -9,11 +9,11 @@ namespace ShoesShop.Application.Requests.Queries
 {
     public record GetAllAdressesQuery : IRequest<IEnumerable<AdressVm>> { }
 
-    public class GetAllAdressesQueryHander : AbstractQueryHandler, IRequestHandler<GetAllAdressesQuery, IEnumerable<AdressVm>>
+    public class GetAllAdressesQueryHander : AbstractQueryHandler<GetAllAdressesQuery, IEnumerable<AdressVm>>
     {
         public GetAllAdressesQueryHander(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async Task<IEnumerable<AdressVm>> Handle(GetAllAdressesQuery request, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<AdressVm>> Handle(GetAllAdressesQuery request, CancellationToken cancellationToken)
         {
             var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
             var adresses = await adressRepository.GetAllAsync(cancellationToken);

@@ -15,11 +15,11 @@ namespace ShoesShop.Application.Requests.Commands
         public int? Room { get; set; }
     }
 
-    public class CreateAdressCommandHandler : AbstractCommandHandler, IRequestHandler<CreateAdressCommand, Guid>
+    public class CreateAdressCommandHandler : AbstractCommandHandler<CreateAdressCommand, Guid>
     {
         public CreateAdressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public async Task<Guid> Handle(CreateAdressCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(CreateAdressCommand request, CancellationToken cancellationToken)
         {
             var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
             var adress = new Adress()

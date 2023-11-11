@@ -12,11 +12,11 @@ namespace ShoesShop.Application.Requests.Commands
         public Guid AdressId { get; set; }
     }
 
-    public class DeleteAdressCommandHandler : AbstractCommandHandler, IRequestHandler<DeleteAdressCommand, Unit>
+    public class DeleteAdressCommandHandler : AbstractCommandHandler<DeleteAdressCommand, Unit>
     {
         public DeleteAdressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public async Task<Unit> Handle(DeleteAdressCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(DeleteAdressCommand request, CancellationToken cancellationToken)
         {
             try
             {

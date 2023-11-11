@@ -13,11 +13,11 @@ namespace ShoesShop.Application.Requests.Queries
         public Guid AdressId { get; set; }
     }
 
-    public class GetAdressQueryHandler : AbstractQueryHandler, IRequestHandler<GetAdressQuery, AdressVm>
+    public class GetAdressQueryHandler : AbstractQueryHandler<GetAdressQuery, AdressVm>
     {
         public GetAdressQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async Task<AdressVm> Handle(GetAdressQuery request, CancellationToken cancellationToken)
+        public override async Task<AdressVm> Handle(GetAdressQuery request, CancellationToken cancellationToken)
         {
             try
             {
