@@ -9,6 +9,11 @@ namespace ShoesShop.Persistence.Repository
     {
         public ImageRepository(ShopDbContext dbContext) : base(dbContext) { }
 
+        public override async Task AddAsync(Image item, CancellationToken cancellationToken)
+        {
+            await dbSet.AddAsync(item, cancellationToken);
+        }
+
         public override async Task<IEnumerable<Image>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
