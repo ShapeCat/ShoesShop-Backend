@@ -8,13 +8,13 @@ namespace ShoesShop.Tests.Core
     [Collection("QueryCollection")]
     public class AbstractQueryTests
     {
-        protected readonly IUnitOfWork unitOfWork;
-        protected readonly IMapper mapper;
+        protected IUnitOfWork UnitOfWork { get; }
+        protected IMapper Mapper { get; }
 
         public AbstractQueryTests(QueryFixture fixture)
         {
-            unitOfWork = new UnitOfWork(fixture.DbContext, false);
-            mapper = fixture.Mapper;
+            UnitOfWork = new UnitOfWork(fixture.DbContext, false);
+            Mapper = fixture.Mapper;
         }
     }
 }

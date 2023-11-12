@@ -5,8 +5,8 @@ namespace ShoesShop.Tests.Core
 {
     public abstract class AbstractCommandTests : IDisposable
     {
-        protected readonly ShopDbContext DbContext;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected ShopDbContext DbContext { get; }
+        protected IUnitOfWork UnitOfWork { get; }
 
         public AbstractCommandTests()
         {
