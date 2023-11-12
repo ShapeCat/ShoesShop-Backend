@@ -3,12 +3,12 @@ using ShoesShop.Persistence;
 
 namespace ShoesShop.Tests.Core
 {
-    public abstract class AbstractCommandTest : IDisposable
+    public abstract class AbstractCommandTests : IDisposable
     {
         protected readonly ShopDbContext DbContext;
         protected readonly IUnitOfWork UnitOfWork;
 
-        public AbstractCommandTest()
+        public AbstractCommandTests()
         {
             DbContext = ShoesShopTestContext.Create();
             UnitOfWork = new UnitOfWork(DbContext, false);
