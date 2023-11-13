@@ -30,6 +30,13 @@ namespace ShoesShop.WebApi.Dto.Profiles
                                                      .ForMember(x => x.Brend, y => y.MapFrom(x => x.Brend))
                                                      .ForMember(x => x.SkuId, y => y.MapFrom(x => x.SkuId))
                                                      .ForMember(x => x.ReleaseDate, y => y.MapFrom(x => x.ReleaseDate));
+
+            CreateMap<ModelDto, UpdateModelCommand>().ForMember(x => x.Name, y => y.MapFrom(x => x.Name))
+                                                     .ForMember(x => x.Color, y => y.MapFrom(x => x.Color))
+                                                     .ForMember(x => x.Brend, y => y.MapFrom(x => x.Brend))
+                                                     .ForMember(x => x.SkuId, y => y.MapFrom(x => x.SkuId))
+                                                     .ForMember(x => x.ReleaseDate, y => y.MapFrom(x => x.ReleaseDate));
+
         }
     }
 }
