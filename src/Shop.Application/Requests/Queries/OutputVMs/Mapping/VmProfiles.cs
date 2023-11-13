@@ -40,7 +40,8 @@ namespace ShoesShop.Application.Requests.Queries.OutputVMs.Profiles
                                        .ForMember(x => x.Color, y => y.MapFrom(x => x.Color))
                                        .ForMember(x => x.Brend, y => y.MapFrom(x => x.Brend))
                                        .ForMember(x => x.SkuId, y => y.MapFrom(x => x.SkuId))
-                                       .ForMember(x => x.ReleaseDate, y => y.MapFrom(x => x.ReleaseDate));
+                                       .ForMember(x => x.ReleaseDate, y => y.MapFrom(x => x.ReleaseDate))
+                                       .ForMember(x=> x.Images, y => y.MapFrom(x => x.Images));
 
             CreateMap<OrderItem, OrderItemVm>().ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
                                                .ForMember(x => x.ModelVariantId, y => y.MapFrom(x => x.ModelVariantId))
