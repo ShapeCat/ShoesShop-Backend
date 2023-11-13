@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Requests.Commands;
-using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.Application.Requests.Queries;
+using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -38,6 +38,29 @@ namespace ShoesShop.WebApi.Controllers
             var query = new GetAllModelsQuery();
             var result = await Mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpGet("{modelId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelVm>> GetById(Guid modelId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetModelQuery()
+                {
+                    ModelId = modelId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPut("{modelId}")]
