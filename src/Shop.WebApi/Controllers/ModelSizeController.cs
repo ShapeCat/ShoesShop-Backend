@@ -25,6 +25,28 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPut("{modelSizeId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateDescription(Guid modelSizeId, [FromBody] ModelSizeDto modelSizeDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (modelSizeDto is null) return BadRequest(ModelState);
+            try
+            {
+                var command = mapper.Map<UpdateModelSizeCommand>(modelSizeDto);
+                command.ModelSizeId = modelSizeId;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpDelete("{modelSizeId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

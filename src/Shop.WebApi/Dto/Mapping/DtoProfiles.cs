@@ -38,6 +38,8 @@ namespace ShoesShop.WebApi.Dto.Profiles
                                                      .ForMember(x => x.ReleaseDate, y => y.MapFrom(x => x.ReleaseDate));
 
             CreateMap<ModelSizeDto, CreateModelSizeCommand>().ForMember(x => x.Size, y => y.MapFrom(x => x.Size));
+
+            CreateMap<ModelSizeDto, UpdateModelSizeCommand>().ForMember(x => x.Size, y => y.MapFrom(x => x.Size));
         }
     }
 }
