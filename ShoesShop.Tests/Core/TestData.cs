@@ -39,6 +39,7 @@ namespace ShoesShop.Tests.Core
         public static Guid UpdateReviewId { get; } = Guid.NewGuid();
         public static Guid DeleteUserId { get; } = Guid.NewGuid();
         public static Guid UpdateUserId { get; } = Guid.NewGuid();
+        public static int ExistedModelSize { get; } = 44;
 
         public static void SeedData(ShopDbContext dbContext)
         {
@@ -52,7 +53,7 @@ namespace ShoesShop.Tests.Core
                 new ModelSize()
                 {
                     Id = UpdateModelSizeId,
-                    Size = 2,
+                    Size = ExistedModelSize,
                 },
             };
             var images = new List<Image>()
