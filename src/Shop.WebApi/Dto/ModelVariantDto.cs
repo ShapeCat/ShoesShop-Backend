@@ -2,8 +2,8 @@
 {
     public class ModelVariantDto
     {
-        public Guid Model {  get; set; }
-        public Guid ModelSize { get; set; }
+        public Guid ModelId {  get; set; }
+        public Guid ModelSizeId { get; set; }
         public int ItemsLeft { get; set; }
     
     }
