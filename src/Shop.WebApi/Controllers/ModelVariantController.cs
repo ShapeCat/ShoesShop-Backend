@@ -40,6 +40,29 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{modelVariantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelVariantVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelVariantVm>> GetById(Guid modelVariantId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetModelVariantQuery()
+                {
+                    ModelVariantId = modelVariantId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpPut("{modelVariantId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
