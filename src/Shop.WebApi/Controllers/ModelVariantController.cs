@@ -25,6 +25,31 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPut("{modelVariantId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateStock(Guid modelVariantId, int ItemsLeft)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (ItemsLeft < 0) return BadRequest(ModelState);
+            try
+            {
+                var command = new UpdateModelVariantCommand()
+                {
+                    ModelVariantId = modelVariantId,
+                    ItemsLeft = ItemsLeft,
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpDelete("{modelVariantId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
