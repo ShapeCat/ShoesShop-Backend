@@ -20,9 +20,9 @@ namespace ShoesShop.Application.Requests.Commands
             try
 
             {
-                var modelVariantRepository = unitOfWork.GetRepositoryOf<ModelVariant>();
+                var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 await modelVariantRepository.RemoveAsync(request.ModelvariantId, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

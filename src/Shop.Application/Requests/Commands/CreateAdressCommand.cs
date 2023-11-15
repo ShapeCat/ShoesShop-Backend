@@ -20,8 +20,8 @@ namespace ShoesShop.Application.Requests.Commands
         public CreateAdressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public override async Task<Guid> Handle(CreateAdressCommand request, CancellationToken cancellationToken)
-        {
-            var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
+        {            
+            var adressRepository = UnitOfWork.GetRepositoryOf<Adress>(true);
             var adress = new Adress()
             {
                 Country = request.Country,
@@ -32,7 +32,7 @@ namespace ShoesShop.Application.Requests.Commands
             };
 
             await adressRepository.AddAsync(adress, cancellationToken);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
             var createdAdress = await adressRepository.FindAllAsync(x => x.Country == adress.Country
                                                                      && x.City == adress.City
                                                                      && x.Street == adress.Street

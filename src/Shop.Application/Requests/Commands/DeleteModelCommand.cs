@@ -19,9 +19,9 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var modelRepository = unitOfWork.GetRepositoryOf<Model>();
+                var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 await modelRepository.RemoveAsync(request.ModelId, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

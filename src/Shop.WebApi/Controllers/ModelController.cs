@@ -22,7 +22,7 @@ namespace ShoesShop.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (modelDto is null) return BadRequest(ModelState);
 
-            var command = mapper.Map<CreateModelCommand>(modelDto);
+            var command = Mapper.Map<CreateModelCommand>(modelDto);
             var result = await Mediator.Send(command);
             return Ok(result);
         }
@@ -74,7 +74,7 @@ namespace ShoesShop.WebApi.Controllers
             if (modelDto is null) return BadRequest(ModelState);
             try
             {
-                var command = mapper.Map<UpdateModelCommand>(modelDto);
+                var command = Mapper.Map<UpdateModelCommand>(modelDto);
                 command.ModelId = adressId;
                 await Mediator.Send(command);
                 return NoContent();

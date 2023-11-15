@@ -17,7 +17,7 @@ namespace ShoesShop.Application.Requests.Commands
 
         public override async Task<Guid> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-            var imageRepository = unitOfWork.GetRepositoryOf<Image>(true);
+            var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
             var imageToAdd = new Image()
             {
                 Url = request.Url,
@@ -25,7 +25,7 @@ namespace ShoesShop.Application.Requests.Commands
             };
 
             await imageRepository.AddAsync(imageToAdd, cancellationToken);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
             var createdImage = await imageRepository.FindAllAsync(x => x.Url == imageToAdd.Url
                                                                        && x.IsPreview == imageToAdd.IsPreview, cancellationToken);
             return createdImage.First().Id;

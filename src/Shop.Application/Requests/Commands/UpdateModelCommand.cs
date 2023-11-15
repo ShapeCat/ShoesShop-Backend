@@ -24,7 +24,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var modelRepository = unitOfWork.GetRepositoryOf<Model>();
+                var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var newModel = new Model()
                 {
                     Id = request.ModelId,
@@ -35,7 +35,7 @@ namespace ShoesShop.Application.Requests.Commands
                     ReleaseDate = request.ReleaseDate,
                 };
                 await modelRepository.EditAsync(newModel, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

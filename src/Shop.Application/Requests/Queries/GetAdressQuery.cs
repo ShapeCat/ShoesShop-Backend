@@ -21,9 +21,9 @@ namespace ShoesShop.Application.Requests.Queries
         {
             try
             {
-                var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
+                var adressRepository = UnitOfWork.GetRepositoryOf<Adress>(true);
                 var adress = await adressRepository.GetAsync(request.AdressId, cancellationToken);
-                return mapper.Map<AdressVm>(adress);
+                return Mapper.Map<AdressVm>(adress);
             }
             catch (NotFoundException ex)
             {

@@ -22,7 +22,7 @@ namespace ShoesShop.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (imageDto is null) return BadRequest(ModelState);
 
-            var command = mapper.Map<CreateImageCommand>(imageDto);
+            var command = Mapper.Map<CreateImageCommand>(imageDto);
             var result = await Mediator.Send(command);
             return Ok(result);
         }
@@ -74,7 +74,7 @@ namespace ShoesShop.WebApi.Controllers
             if (imageDto is null) return BadRequest(ModelState);
             try
             {
-                var command = mapper.Map<UpdateImageCommand>(imageDto);
+                var command = Mapper.Map<UpdateImageCommand>(imageDto);
                 command.ImageId = imageId;
                 await Mediator.Send(command);
                 return NoContent();

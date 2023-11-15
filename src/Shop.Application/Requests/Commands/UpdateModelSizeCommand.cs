@@ -20,7 +20,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var modelSizerepository = unitOfWork.GetRepositoryOf<ModelSize>();
+                var modelSizerepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var newmModelSize = new ModelSize()
                 {
                     Id = request.ModelSizeId,
@@ -31,7 +31,7 @@ namespace ShoesShop.Application.Requests.Commands
                 if (sameModelSizes.Any()) throw new AlreadyExistsException(newmModelSize.Size.ToString(), typeof(ModelSize));
 
                 await modelSizerepository.EditAsync(newmModelSize, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

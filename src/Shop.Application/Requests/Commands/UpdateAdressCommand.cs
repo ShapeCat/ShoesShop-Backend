@@ -25,7 +25,7 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var adressRepository = unitOfWork.GetRepositoryOf<Adress>(true);
+                var adressRepository = UnitOfWork.GetRepositoryOf<Adress>(true);
                 var newAdress = new Adress()
                 {
                     Id = request.AdressId,
@@ -37,7 +37,7 @@ namespace ShoesShop.Application.Requests.Commands
                 };
 
                 await adressRepository.EditAsync(newAdress, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

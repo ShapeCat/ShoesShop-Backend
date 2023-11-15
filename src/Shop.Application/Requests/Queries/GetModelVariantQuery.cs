@@ -21,9 +21,9 @@ namespace ShoesShop.Application.Requests.Queries
         {
             try
             {
-                var modelVariantRepository = unitOfWork.GetRepositoryOf<ModelVariant>();
+                var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 var modelVariant = await modelVariantRepository.GetAsync(request.ModelVariantId, cancellationToken);
-                return mapper.Map<ModelVariantVm>(modelVariant);
+                return Mapper.Map<ModelVariantVm>(modelVariant);
             }
             catch (NotFoundException ex)
             {

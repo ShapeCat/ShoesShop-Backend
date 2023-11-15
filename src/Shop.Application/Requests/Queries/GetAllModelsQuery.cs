@@ -15,9 +15,9 @@ namespace ShoesShop.Application.Requests.Queries
 
         public override async Task<IEnumerable<ModelVm>> Handle(GetAllModelsQuery request, CancellationToken cancellationToken)
         {
-            var modelRepository = unitOfWork.GetRepositoryOf<Model>();
+            var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
             var allModels = await modelRepository.GetAllAsync(cancellationToken);
-            return mapper.Map<IEnumerable<ModelVm>>(allModels);
+            return Mapper.Map<IEnumerable<ModelVm>>(allModels);
         }
     }
 }

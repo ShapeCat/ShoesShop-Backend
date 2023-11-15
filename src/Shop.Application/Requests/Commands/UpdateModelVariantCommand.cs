@@ -22,9 +22,9 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var modelVariantRepository = unitOfWork.GetRepositoryOf<ModelVariant>();
-                var modelRepository = unitOfWork.GetRepositoryOf<Model>();
-                var modelSizeRepository = unitOfWork.GetRepositoryOf<ModelSize>();
+                var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
+                var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
+                var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var newModelVariant = new ModelVariant()
                 {
                     Id = request.ModelVariantId,
@@ -44,7 +44,7 @@ namespace ShoesShop.Application.Requests.Commands
                     if (sameModelvariants.Any()) throw new AlreadyExistsException($"(Model:{request.ModelId}, Size:{request.ModelSizeId})", typeof(ModelVariant));
                 }
                 await modelVariantRepository.EditAsync(newModelVariant, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

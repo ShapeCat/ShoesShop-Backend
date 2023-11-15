@@ -17,7 +17,7 @@ namespace ShoesShop.Application.Requests.Commands
 
         public override async Task<Guid> Handle(CreateModelSizeCommand request, CancellationToken cancellationToken)
         {
-            var modelSizeRepository = unitOfWork.GetRepositoryOf<ModelSize>();
+            var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
             var modelSize = new ModelSize()
             {
                 Size = request.Size,
@@ -29,7 +29,7 @@ namespace ShoesShop.Application.Requests.Commands
                 throw new AlreadyExistsException(modelSize.Size.ToString(), typeof(ModelSize));
             }
             await modelSizeRepository.AddAsync(modelSize, cancellationToken);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
             var createdModelSize = await modelSizeRepository.FindAllAsync(x => x.Size == modelSize.Size, cancellationToken);
             return createdModelSize.First().Id;
         }

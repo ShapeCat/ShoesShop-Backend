@@ -21,9 +21,9 @@ namespace ShoesShop.Application.Requests.Queries
         {
             try
             {
-                var modelSizeRepository = unitOfWork.GetRepositoryOf<ModelSize>();
+                var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
-                return mapper.Map<ModelSizeVm>(modelSize);
+                return Mapper.Map<ModelSizeVm>(modelSize);
             }
             catch (NotFoundException ex)
             {

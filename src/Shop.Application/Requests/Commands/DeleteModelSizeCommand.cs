@@ -19,9 +19,9 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var modelSizeRepository = unitOfWork.GetRepositoryOf<ModelSize>();
+                var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 await modelSizeRepository.RemoveAsync(request.ModelSizeId, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

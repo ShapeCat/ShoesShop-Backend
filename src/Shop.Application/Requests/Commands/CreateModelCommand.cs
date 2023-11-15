@@ -20,7 +20,7 @@ namespace ShoesShop.Application.Requests.Commands
 
         public override async Task<Guid> Handle(CreateModelCommand request, CancellationToken cancellationToken)
         {
-            var modelRepository = unitOfWork.GetRepositoryOf<Model>();
+            var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
             var model = new Model()
             {
                 Name = request.Name,
@@ -31,7 +31,7 @@ namespace ShoesShop.Application.Requests.Commands
             };
 
             await modelRepository.AddAsync(model, cancellationToken);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
             var cratedModel = await modelRepository.FindAllAsync(x => x.Name == model.Name
                                                                  && x.Color == model.Color
                                                                  && x.Brend == model.Brend

@@ -15,9 +15,9 @@ namespace ShoesShop.Application.Requests.Queries
 
         public override async Task<IEnumerable<ImageVm>> Handle(GetAllImagesQuery request, CancellationToken cancellationToken)
         {
-            var imageRepository = unitOfWork.GetRepositoryOf<Image>(true);
+            var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
             var Images = await imageRepository.GetAllAsync(cancellationToken);
-            return mapper.Map<IEnumerable<ImageVm>>(Images);
+            return Mapper.Map<IEnumerable<ImageVm>>(Images);
         }
     }
 }

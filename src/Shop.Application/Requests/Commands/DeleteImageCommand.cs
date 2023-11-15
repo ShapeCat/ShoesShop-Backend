@@ -19,9 +19,9 @@ namespace ShoesShop.Application.Requests.Commands
         {
             try
             {
-                var imageRepository = unitOfWork.GetRepositoryOf<Image>(true);
+                var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
                 await imageRepository.RemoveAsync(request.ImageId, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
             catch (NotFoundException ex)

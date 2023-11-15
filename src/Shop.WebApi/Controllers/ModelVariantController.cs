@@ -22,7 +22,7 @@ namespace ShoesShop.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (modelVariantDto is null) return BadRequest(ModelState);
 
-            var command = mapper.Map<CreateModelVariantCommand>(modelVariantDto);
+            var command = Mapper.Map<CreateModelVariantCommand>(modelVariantDto);
             var result = await Mediator.Send(command);
             return Ok(result);
         }

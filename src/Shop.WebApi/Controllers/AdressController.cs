@@ -43,7 +43,7 @@ namespace ShoesShop.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (adressDto is null) return BadRequest(ModelState);
 
-            var command = mapper.Map<CreateAdressCommand>(adressDto);
+            var command = Mapper.Map<CreateAdressCommand>(adressDto);
             var result = await Mediator.Send(command);
             return Ok(result);
 
@@ -148,7 +148,7 @@ namespace ShoesShop.WebApi.Controllers
             if (descriptionDto is null) return BadRequest(ModelState);
             try
             {
-                var command = mapper.Map<UpdateAdressCommand>(descriptionDto);
+                var command = Mapper.Map<UpdateAdressCommand>(descriptionDto);
                 command.AdressId = adressId;
                 await Mediator.Send(command);
                 return NoContent();

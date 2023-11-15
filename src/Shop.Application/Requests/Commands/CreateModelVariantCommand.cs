@@ -23,9 +23,9 @@ namespace ShoesShop.Application.Requests.Commands
             {
 
 
-                var modelVariantRepository = unitOfWork.GetRepositoryOf<ModelVariant>();
-                var modelRepository = unitOfWork.GetRepositoryOf<Model>();
-                var modelSizeRepository = unitOfWork.GetRepositoryOf<ModelSize>();
+                var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
+                var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
+                var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
 
                 var model = await modelRepository.GetAsync(request.ModelId, cancellationToken);
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
@@ -36,7 +36,7 @@ namespace ShoesShop.Application.Requests.Commands
                     ItemsLeft = request.ItemsLeft,
                 };
                 await modelVariantRepository.AddAsync(modelVariant, cancellationToken);
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await UnitOfWork.SaveChangesAsync(cancellationToken);
                 var createdModelVariant = await modelVariantRepository.FindAllAsync(x => x.Model == modelVariant.Model
                                                                                    && x.ModelSize == modelVariant.ModelSize
                                                                                    && x.ItemsLeft == request.ItemsLeft, cancellationToken);
