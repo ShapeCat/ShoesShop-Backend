@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using ShoesShop.Application.Interfaces;
-using ShoesShop.Application.Requests.Base;
+using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands

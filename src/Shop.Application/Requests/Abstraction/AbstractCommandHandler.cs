@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ShoesShop.Application.Interfaces;
 
-namespace ShoesShop.Application.Requests.Base
+namespace ShoesShop.Application.Requests.Abstraction
 {
     public abstract class AbstractCommandHandler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
