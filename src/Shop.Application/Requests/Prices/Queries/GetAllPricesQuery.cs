@@ -2,7 +2,7 @@
 using MediatR;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
-using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Application.Requests.Prices.OutputVMs;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Prices.Queries

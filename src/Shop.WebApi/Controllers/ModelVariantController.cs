@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Requests.Commands;
-using ShoesShop.Application.Requests.Queries.OutputVMs;
-using ShoesShop.Application.Requests.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
+using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 
 namespace ShoesShop.WebApi.Controllers
 {

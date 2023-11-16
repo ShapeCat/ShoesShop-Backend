@@ -1,4 +1,8 @@
-﻿namespace ShoesShop.Application.Requests.Queries.OutputVMs
+﻿using ShoesShop.Application.Requests.Models.OutputVMs;
+using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
+using ShoesShop.Application.Requests.Prices.OutputVMs;
+
+namespace ShoesShop.Application.Requests.ModelsVariants.OutputVMs
 {
     public class ModelVariantVm
     {

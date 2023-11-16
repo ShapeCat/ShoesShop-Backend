@@ -1,4 +1,4 @@
-﻿namespace ShoesShop.Application.Requests.Queries.OutputVMs
+﻿namespace ShoesShop.Application.Requests.Images.OutputVMs
 {
     public class ImageVm
     {

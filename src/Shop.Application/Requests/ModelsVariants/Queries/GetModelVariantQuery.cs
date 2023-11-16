@@ -3,7 +3,7 @@ using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
-using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.ModelsVariants.Queries

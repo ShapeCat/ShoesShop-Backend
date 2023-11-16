@@ -1,4 +1,6 @@
-﻿namespace ShoesShop.Application.Requests.Queries.OutputVMs
+﻿using ShoesShop.Application.Requests.Images.OutputVMs;
+
+namespace ShoesShop.Application.Requests.Models.OutputVMs
 {
     public class ModelVm
     {

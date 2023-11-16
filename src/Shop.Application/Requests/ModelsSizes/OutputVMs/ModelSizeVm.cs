@@ -1,4 +1,4 @@
-﻿namespace ShoesShop.Application.Requests.Queries.OutputVMs
+﻿namespace ShoesShop.Application.Requests.ModelsSizes.OutputVMs
 {
     public class ModelSizeVm
     {

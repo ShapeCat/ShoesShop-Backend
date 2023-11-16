@@ -1,5 +1,10 @@
 ﻿using AutoMapper;
-using ShoesShop.Application.Requests.Queries.OutputVMs.Profiles;
+using ShoesShop.Application.Requests.Adresses.OutputVMs;
+using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
+using ShoesShop.Application.Requests.Models.OutputVMs;
+using ShoesShop.Application.Requests.Images.OutputVMs;
+using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
+using ShoesShop.Application.Requests.Prices.OutputVMs;
 using ShoesShop.Persistence;
 using Xunit;
 
@@ -13,7 +18,15 @@ namespace ShoesShop.Tests.Core
         public QueryFixture()
         {
             DbContext = ShoesShopTestContext.Create();
-            Mapper = new MapperConfiguration(x => x.AddProfile(new VmProfiles())).CreateMapper();
+            Mapper = new MapperConfiguration(x => x.AddProfiles(new Profile[]
+            {
+                new AddressVmProfiles(),
+                new ImageVmProfiles(),
+                new ModelVmProfiles(),
+                new ModelSizeVmProfiles(),
+                new ModelVariantVmProfiles(),
+                new PriceVmProfiles(),
+            })).CreateMapper();
         }
 
         public void Dispose() => ShoesShopTestContext.Destroy(DbContext);

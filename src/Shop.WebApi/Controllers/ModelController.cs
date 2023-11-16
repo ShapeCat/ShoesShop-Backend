@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.Commands;
+using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
-using ShoesShop.Application.Requests.Queries;
-using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
