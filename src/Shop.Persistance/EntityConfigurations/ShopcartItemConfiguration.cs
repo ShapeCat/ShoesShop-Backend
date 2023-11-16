@@ -4,19 +4,19 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.EntityConfigurations
 {
-    internal class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
+    internal class ShopcartItemConfiguration : IEntityTypeConfiguration<ShopcartItem>
     {
-        public void Configure(EntityTypeBuilder<CartItem> builder)
+        public void Configure(EntityTypeBuilder<ShopcartItem> builder)
         {
             builder.ToTable("shopcarts_items");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Amount)
                    .IsRequired();
-            builder.HasOne(x => x.ShopCart)
+            builder.HasOne(x => x.Shopcart)
                    .WithMany(x => x.Items)
-                   .HasForeignKey(x => x.ShopCartId);
+                   .HasForeignKey(x => x.ShopcartId);
             builder.HasOne(x => x.ModelVariant)
-                   .WithMany(x => x.CartsIn)
+                   .WithMany(x => x.ShopcartsIn)
                    .HasForeignKey(x => x.ModeVariantId);
 
             builder.Navigation(x => x.ModelVariant)

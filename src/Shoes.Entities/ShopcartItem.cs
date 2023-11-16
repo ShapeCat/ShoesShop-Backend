@@ -1,13 +1,13 @@
 ﻿namespace ShoesShop.Entities
 {
-    public class CartItem
+    public class ShopcartItem
     {
         public Guid Id { get; set; }
-        public Guid ShopCartId { get; set; }
+        public Guid ShopcartId { get; set; }
         public Guid ModeVariantId { get; set; }
         public int Amount { get; set; }
 
-        public ShopCart ShopCart { get; set; }
+        public Shopcart Shopcart { get; set; }
         public ModelVariant ModelVariant { get; set; }
     }
 }

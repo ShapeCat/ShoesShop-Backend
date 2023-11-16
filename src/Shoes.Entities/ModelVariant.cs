@@ -10,7 +10,7 @@
         public Model Model { get; set; }
         public ModelSize ModelSize { get; set; }
         public Price Price { get; set; } = new Price();
-        public ICollection<CartItem> CartsIn { get; set; }
+        public ICollection<ShopcartItem> ShopcartsIn { get; set; }
         public ICollection<OrderItem> OrdersIn { get; set; }
         public ICollection<FavoritesItem> FavoritesIn { get; set; }
     }

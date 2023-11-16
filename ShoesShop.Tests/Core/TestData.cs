@@ -157,35 +157,35 @@ namespace ShoesShop.Tests.Core
                     Items = new List<FavoritesItem>(favoriteItems)
                 },
             };
-            var cartItems = new List<CartItem>()
+            var cartItems = new List<ShopcartItem>()
             {
-                new CartItem()
+                new ShopcartItem()
                 {
                     Id = DeleteCartItemId,
                     ModelVariant = modelVariants[0],
                     Amount = 0,
                 },
-                new CartItem()
+                new ShopcartItem()
                 {
                     Id = UpdateCartItemId,
                     ModelVariant = modelVariants[1],
                     Amount = 1,
                 }
             };
-            var shopCarts = new List<ShopCart>()
+            var shopCarts = new List<Shopcart>()
             {
-                new ShopCart()
+                new Shopcart()
                 {
                     Id = Guid.NewGuid(),
-                    Items = new List<CartItem>
+                    Items = new List<ShopcartItem>
                     {
                         cartItems[0]
                     },
                 },
-                new ShopCart
+                new Shopcart
                 {
                     Id = Guid.NewGuid(),
-                    Items = new List<CartItem>(cartItems),
+                    Items = new List<ShopcartItem>(cartItems),
                 }
             };
             var orderItems = new List<OrderItem>()
@@ -273,7 +273,7 @@ namespace ShoesShop.Tests.Core
                     Password = RandomPasswordHash,
                     Phone = "test phone 1",
                     Favorites = favoriteLists[0],
-                    ShopCarts = new List<ShopCart>()
+                    Shopcarts = new List<Shopcart>()
                     {
                         shopCarts[0],
                     },
@@ -295,7 +295,7 @@ namespace ShoesShop.Tests.Core
                     Password = RandomPasswordHash,
                     Phone = "test phone 2",
                     Favorites = favoriteLists[1],
-                    ShopCarts = new List<ShopCart>()
+                    Shopcarts = new List<Shopcart>()
                     {
                         shopCarts[1],
                     },

@@ -5,27 +5,27 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class ShopCartRepository : GenericRepository<ShopCart>
+    public class ShopcartRepository : GenericRepository<Shopcart>
     {
-        public ShopCartRepository(ShopDbContext dbContext) : base(dbContext) { }
+        public ShopcartRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task AddAsync(ShopCart item, CancellationToken cancellationToken)
+        public override async Task AddAsync(Shopcart item, CancellationToken cancellationToken)
         {
             await dbSet.AddAsync(item, cancellationToken);
         }
 
-        public override async Task<IEnumerable<ShopCart>> GetAllAsync(CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Shopcart>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
         }
 
-        public override async Task<ShopCart> GetAsync(Guid Id, CancellationToken cancellationToken)
+        public override async Task<Shopcart> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
             return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
-                ?? throw new NotFoundException(Id.ToString(), typeof(ShopCart));
+                ?? throw new NotFoundException(Id.ToString(), typeof(Shopcart));
         }
 
-        public override async Task<IEnumerable<ShopCart>> FindAllAsync(Expression<Func<ShopCart, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Shopcart>> FindAllAsync(Expression<Func<Shopcart, bool>> predicate, CancellationToken cancellationToken)
         {
             return await dbSet.Where(predicate)
                               .ToListAsync(cancellationToken);

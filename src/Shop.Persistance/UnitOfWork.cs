@@ -22,7 +22,7 @@ namespace ShoesShop.Persistence
             return typeof(T) switch
             {
                 Type t when t == typeof(Address) => new AddressRepository(dbContext) as IRepositoryOf<T>,
-                Type t when t == typeof(CartItem) => new CartItemRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(ShopcartItem) => new ShopcartItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesItem) => new FavoritesItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesList) => new FavoritesListRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Price) => new PriceRepository(dbContext) as IRepositoryOf<T>,
@@ -33,7 +33,7 @@ namespace ShoesShop.Persistence
                 Type t when t == typeof(Order) => new OrderRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(OrderItem) => new OrderItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Review) => new ReviewRepository(dbContext) as IRepositoryOf<T>,
-                Type t when t == typeof(ShopCart) => new ShopCartRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Shopcart) => new ShopcartRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(User) => new UserRepository(dbContext) as IRepositoryOf<T>,
                 _ => null,
             };

@@ -4,14 +4,14 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.EntityConfigurations
 {
-    internal class ShopCartConfiguration : IEntityTypeConfiguration<ShopCart>
+    internal class ShopcartConfiguration : IEntityTypeConfiguration<Shopcart>
     {
-        public void Configure(EntityTypeBuilder<ShopCart> builder)
+        public void Configure(EntityTypeBuilder<Shopcart> builder)
         {
             builder.ToTable("shopcarts");
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Owner)
-                   .WithMany(x => x.ShopCarts)
+                   .WithMany(x => x.Shopcarts)
                    .HasForeignKey(x => x.UserId);
 
             builder.Navigation(x => x.Items)

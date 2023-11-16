@@ -7,7 +7,7 @@ namespace ShoesShop.Persistence
     public class ShopDbContext : DbContext
     {
         public DbSet<Address> Addresses { get; set; } = null!;
-        public DbSet<CartItem> CartItems { get; set; } = null!;
+        public DbSet<ShopcartItem> ShopcartsItems { get; set; } = null!;
         public DbSet<FavoritesItem> FavoritesItems { get; set; } = null!;
         public DbSet<FavoritesList> FavoritesLists { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;
@@ -15,10 +15,10 @@ namespace ShoesShop.Persistence
         public DbSet<ModelSize> ModelsSizes { get; set; } = null!;
         public DbSet<ModelVariant> ModelsVariants { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
-        public DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public DbSet<OrderItem> OrdersItems { get; set; } = null!;
         public DbSet<Price> Prices { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
-        public DbSet<ShopCart> ShopCarts { get; set; } = null!;
+        public DbSet<Shopcart> Shopcarts { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
 
         public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) { }
@@ -26,7 +26,7 @@ namespace ShoesShop.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
-            modelBuilder.ApplyConfiguration(new CartItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ShopcartItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
@@ -36,7 +36,7 @@ namespace ShoesShop.Persistence
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new PriceConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-            modelBuilder.ApplyConfiguration(new ShopCartConfiguration());
+            modelBuilder.ApplyConfiguration(new ShopcartConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }

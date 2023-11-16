@@ -14,7 +14,7 @@ namespace ShoesShop.Application.Requests.Queries.OutputVMs.Profiles
                              .ForMember(x => x.House, y => y.MapFrom(x => x.House))
                              .ForMember(x => x.Room, y => y.MapFrom(x => x.Room));
 
-            CreateMap<CartItem, CartItemVm>().ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
+            CreateMap<ShopcartItem, CartItemVm>().ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
                                              .ForMember(x => x.ModeVariantId, y => y.MapFrom(x => x.ModeVariantId))
                                              .ForMember(x => x.Amount, y => y.MapFrom(x => x.Amount));
 
