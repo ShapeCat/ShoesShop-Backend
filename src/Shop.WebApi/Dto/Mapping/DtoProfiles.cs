@@ -46,8 +46,10 @@ namespace ShoesShop.WebApi.Dto.Profiles
                                                                    .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft));
 
             CreateMap<ModelVariantDto, UpdateModelVariantCommand>().ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
-                                                       .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
-                                                       .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft));
+                                                                   .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
+                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft));
+
+            CreateMap<PriceDto, UpdatePriceCommand>().ForMember(x => x.BasePrice, y => y.MapFrom(x => x.BasePrice));
         }
     }
 }
