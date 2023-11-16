@@ -17,8 +17,8 @@ namespace ShoesShop.Tests.Core
             }
         }
 
-        public static Guid DeleteAdressId { get; } = Guid.NewGuid();
-        public static Guid UpdateAdressId { get; } = Guid.NewGuid();
+        public static Guid DeleteAddressId { get; } = Guid.NewGuid();
+        public static Guid UpdateAddressId { get; } = Guid.NewGuid();
         public static Guid DeleteCartItemId { get; } = Guid.NewGuid();
         public static Guid UpdateCartItemId { get; } = Guid.NewGuid();
         public static Guid DeleteFavoriteItemId { get; } = Guid.NewGuid();
@@ -242,20 +242,20 @@ namespace ShoesShop.Tests.Core
                     Rating = 5,
                 }
             };
-            var adresses = new List<Adress>()
+            var addresses = new List<Address>()
              {
-                new Adress()
+                new Address()
                 {
-                    Id = DeleteAdressId,
+                    Id = DeleteAddressId,
                     Country = "test country 1",
                     City = "test city 1",
                     Street = "test street 1",
                     House = "444",
                     Room = 1,
                 },
-                new Adress()
+                new Address()
                 {
-                    Id = UpdateAdressId,
+                    Id = UpdateAddressId,
                     Country = "test country 2",
                     City = "test city 2",
                     Street = "test street 2",
@@ -267,7 +267,7 @@ namespace ShoesShop.Tests.Core
                 new User()
                 {
                     Id = DeleteUserId,
-                    Adress = adresses[0],
+                    Address = addresses[0],
                     UserName = "test user 1",
                     Login = "test login 1",
                     Password = RandomPasswordHash,
@@ -289,7 +289,7 @@ namespace ShoesShop.Tests.Core
                 new User()
                 {
                     Id = UpdateUserId,
-                    Adress = adresses[1],
+                    Address = addresses[1],
                     UserName = "test user 2",
                     Login = "test login 2",
                     Password = RandomPasswordHash,

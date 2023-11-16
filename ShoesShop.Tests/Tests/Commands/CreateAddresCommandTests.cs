@@ -9,33 +9,33 @@ namespace ShoesShop.Tests.Tests.Commands
     public class CreateAddresCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async Task Should_CreateAdress_WhenAdressNotExists()
+        public async Task Should_CreateAddress_WhenAddressNotExists()
         {
             //Arrange
-            var adressToCreate = new Adress()
+            var addressToCreate = new Address()
             {
                 Country = "add test country",
                 City = "add test city",
                 Street = "add test street",
                 House = "add test house",
             };
-            var command = new CreateAdressCommand()
+            var command = new CreateAddressCommand()
             {
-                Country = adressToCreate.Country,
-                City = adressToCreate.City,
-                Street = adressToCreate.Street,
-                House = adressToCreate.House,
-                Room = adressToCreate.Room
+                Country = addressToCreate.Country,
+                City = addressToCreate.City,
+                Street = addressToCreate.Street,
+                House = addressToCreate.House,
+                Room = addressToCreate.Room
             };
-            var handler = new CreateAdressCommandHandler(UnitOfWork);
+            var handler = new CreateAddressCommandHandler(UnitOfWork);
 
             //Act 
-            var createdAdressId = await handler.Handle(command, CancellationToken.None);
+            var createdAddressId = await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            DbContext.Adresses.SingleOrDefault(x => x.Id == createdAdressId
-                                                    && x.Country == adressToCreate.Country
-                                                    && x.City == adressToCreate.City
+            DbContext.Addresses.SingleOrDefault(x => x.Id == createdAddressId
+                                                    && x.Country == addressToCreate.Country
+                                                    && x.City == addressToCreate.City
                                                     && x.Street == x.Street
                                                     && x.House == x.House
                                                     && x.Room == x.Room).ShouldNotBeNull();

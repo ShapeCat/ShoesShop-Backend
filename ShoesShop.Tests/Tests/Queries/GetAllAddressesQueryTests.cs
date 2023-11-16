@@ -6,22 +6,22 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetAllModelVariantsQueryTests : AbstractQueryTests
+    public class GetAllAddressesQueryTests : AbstractQueryTests
     {
-        public GetAllModelVariantsQueryTests(QueryFixture fixture) : base(fixture) { }
+        public GetAllAddressesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnAllModelVariants()
+        public async Task Should_ReturnAllAddresses()
         {
             // Arraange
-            var query = new GetAllModelVariantQuery();
-            var handler = new GetAllModelVariantsQueryHander(UnitOfWork, Mapper);
+            var query = new GetAllAddressesQuery();
+            var handler = new GetAllAddressesQueryHander(UnitOfWork, Mapper);
 
             // Act
             var allAddresses = await handler.Handle(query, CancellationToken.None);
 
             // Assert
-            allAddresses.ShouldAllBe(x => x is ModelVariantVm);
+            allAddresses.ShouldAllBe(x => x is AddressVm);
             allAddresses.Count().ShouldBe(2);
         }
     }

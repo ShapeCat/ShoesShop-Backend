@@ -20,11 +20,11 @@ namespace ShoesShop.Persistence.EntityConfigurations
                    .IsRequired();
             builder.Property(x => x.Phone)
                    .HasMaxLength(50);
-            builder.HasOne(x => x.Adress)
+            builder.HasOne(x => x.Address)
                    .WithMany(x => x.Users)
-                   .HasForeignKey(x =>x.AdressId);
+                   .HasForeignKey(x =>x.AddressId);
 
-            builder.Navigation(x => x.Adress)
+            builder.Navigation(x => x.Address)
                    .AutoInclude();
             builder.Navigation(x => x.ShopCarts)
                    .AutoInclude();

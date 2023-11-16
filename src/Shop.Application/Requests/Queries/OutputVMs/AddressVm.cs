@@ -1,6 +1,6 @@
-﻿namespace ShoesShop.Entities
+﻿namespace ShoesShop.Application.Requests.Queries.OutputVMs
 {
-    public class Adress
+    public class AddressVm
     {
         public Guid Id { get; set; }
         public string Country { get; set; }
@@ -8,7 +8,5 @@
         public string Street { get; set; }
         public string House { get; set; }
         public int? Room { get; set; }
-
-        public ICollection<User> Users { get; set; }
     }
 }

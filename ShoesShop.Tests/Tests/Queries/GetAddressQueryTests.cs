@@ -7,40 +7,41 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Queries
 {
-    public class GetModelQueryTests : AbstractQueryTests
+    public class GetAddressQueryTests : AbstractQueryTests
     {
-        public GetModelQueryTests(QueryFixture fixture) : base(fixture) { }
+        public GetAddressQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnModel_WhenMOdelExists()
+        public async Task Should_ReturnAddress_WhenAddressExists()
         {
             // Arrange
-            var query = new GetModelQuery()
+            var query = new GetAddressQuery()
             {
-                ModelId = TestData.UpdateModelId,
+                AddressId = TestData.UpdateAddressId,
             };
-            var handler = new GetModelQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetAddressQueryHandler(UnitOfWork, Mapper);
 
             // Act
             var address = await handler.Handle(query, CancellationToken.None);
 
             // Assert
-            address.ShouldBeOfType<ModelVm>();
+            address.ShouldBeOfType<AddressVm>();
         }
 
         [Fact]
-        public async Task Should_ThrowException_WhenModelNotExists()
+        public async Task Should_ThrowException_WhenAddressNotExists()
         {
             // Arrange
-            var query = new GetModelQuery()
+            var query = new GetAddressQuery()
             {
-                ModelId = Guid.NewGuid(),
+                AddressId = Guid.NewGuid(),
             };
-            var handler = new GetModelQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetAddressQueryHandler(UnitOfWork, Mapper);
 
             // Act
             // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
+
     }
 }

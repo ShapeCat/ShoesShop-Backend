@@ -18,11 +18,11 @@ namespace ShoesShop.Tests.Tests.Queries
             var handler = new GetAllModelSizesQueryHandler(UnitOfWork, Mapper);
 
             // Act
-            var allAdresses = await handler.Handle(query, CancellationToken.None);
+            var allAddresses = await handler.Handle(query, CancellationToken.None);
 
             // Assert
-            allAdresses.ShouldAllBe(x => x is ModelSizeVm);
-            allAdresses.Count().ShouldBe(2);
+            allAddresses.ShouldAllBe(x => x is ModelSizeVm);
+            allAddresses.Count().ShouldBe(2);
         }
     }
 }

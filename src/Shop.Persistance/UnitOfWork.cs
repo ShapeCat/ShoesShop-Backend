@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence
         {
             return typeof(T) switch
             {
-                Type t when t == typeof(Adress) => new AdressRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Address) => new AddressRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(CartItem) => new CartItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesItem) => new FavoritesItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesList) => new FavoriteListRepository(dbContext) as IRepositoryOf<T>,

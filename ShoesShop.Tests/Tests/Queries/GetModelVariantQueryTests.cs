@@ -22,10 +22,10 @@ namespace ShoesShop.Tests.Tests.Queries
             var handler = new GetModelVariantQueryHandler(UnitOfWork, Mapper);
 
             // Act
-            var adress = await handler.Handle(query, CancellationToken.None);
+            var address = await handler.Handle(query, CancellationToken.None);
 
             // Assert
-            adress.ShouldBeOfType<ModelVariantVm>();
+            address.ShouldBeOfType<ModelVariantVm>();
         }
 
         [Fact]

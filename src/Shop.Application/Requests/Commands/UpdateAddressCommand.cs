@@ -7,9 +7,9 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Commands
 {
-    public record UpdateAdressCommand : IRequest<Unit>
+    public record UpdateAddressCommand : IRequest<Unit>
     {
-        public Guid AdressId { get; set; }
+        public Guid AddressId { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
@@ -17,18 +17,18 @@ namespace ShoesShop.Application.Requests.Commands
         public int? Room { get; set; }
     }
 
-    public class UpdateAdressCommandHandler : AbstractCommandHandler<UpdateAdressCommand, Unit>
+    public class UpdateAddressCommandHandler : AbstractCommandHandler<UpdateAddressCommand, Unit>
     {
-        public UpdateAdressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public UpdateAddressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public override async Task<Unit> Handle(UpdateAdressCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var adressRepository = UnitOfWork.GetRepositoryOf<Adress>(true);
-                var newAdress = new Adress()
+                var addressRepository = UnitOfWork.GetRepositoryOf<Address>(true);
+                var newAddress = new Address()
                 {
-                    Id = request.AdressId,
+                    Id = request.AddressId,
                     Country = request.Country,
                     City = request.City,
                     Street = request.Street,
@@ -36,7 +36,7 @@ namespace ShoesShop.Application.Requests.Commands
                     Room = request.Room,
                 };
 
-                await adressRepository.EditAsync(newAdress, cancellationToken);
+                await addressRepository.EditAsync(newAddress, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

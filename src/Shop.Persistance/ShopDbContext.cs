@@ -6,7 +6,7 @@ namespace ShoesShop.Persistence
 {
     public class ShopDbContext : DbContext
     {
-        public DbSet<Adress> Adresses { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<CartItem> CartItems { get; set; } = null!;
         public DbSet<FavoritesItem> FavoritesItems { get; set; } = null!;
         public DbSet<FavoritesList> FavoritesLists { get; set; } = null!;
@@ -25,7 +25,7 @@ namespace ShoesShop.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdressConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new CartItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoriteItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());

@@ -6,34 +6,34 @@ using Xunit;
 
 namespace ShoesShop.Tests.Tests.Commands
 {
-    public class DeleteAdressCommandTests : AbstractCommandTests
+    public class DeleteAddressCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async Task Should_DeleteAdress_WhenAdressExists()
+        public async Task Should_DeleteAddress_WhenAddressExists()
         {
             // Arrange
-            var command = new DeleteAdressCommand()
+            var command = new DeleteAddressCommand()
             {
-                AdressId = TestData.DeleteAdressId
+                AddressId = TestData.DeleteAddressId
             };
-            var handler = new DeleteAdressCommandHandler(UnitOfWork);
+            var handler = new DeleteAddressCommandHandler(UnitOfWork);
 
             // Act
             await handler.Handle(command, CancellationToken.None);
 
             // Assert 
-            DbContext.Adresses.FirstOrDefault(x => x.Id == TestData.DeleteAdressId).ShouldBeNull();
+            DbContext.Addresses.FirstOrDefault(x => x.Id == TestData.DeleteAddressId).ShouldBeNull();
         }
 
         [Fact]
-        public async Task Should_ThrowException_WhenAdressNotExists()
+        public async Task Should_ThrowException_WhenAddressNotExists()
         {
             // Arrange
-            var command = new DeleteAdressCommand()
+            var command = new DeleteAddressCommand()
             {
-                AdressId = Guid.NewGuid(),
+                AddressId = Guid.NewGuid(),
             };
-            var handler = new DeleteAdressCommandHandler(UnitOfWork);
+            var handler = new DeleteAddressCommandHandler(UnitOfWork);
 
             // Act
             // Assert

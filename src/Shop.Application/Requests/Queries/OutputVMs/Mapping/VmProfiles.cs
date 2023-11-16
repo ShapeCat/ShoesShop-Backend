@@ -7,7 +7,7 @@ namespace ShoesShop.Application.Requests.Queries.OutputVMs.Profiles
     {
         public VmProfiles()
         {
-            CreateMap<Adress, AdressVm>().ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
+            CreateMap<Address, AddressVm>().ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
                              .ForMember(x => x.Country, y => y.MapFrom(x => x.Country))
                              .ForMember(x => x.City, y => y.MapFrom(x => x.City))
                              .ForMember(x => x.Street, y => y.MapFrom(x => x.Street))
@@ -64,7 +64,7 @@ namespace ShoesShop.Application.Requests.Queries.OutputVMs.Profiles
                                      .ForMember(x => x.UserName, y => y.MapFrom(x => x.UserName))
                                      .ForMember(x => x.Login, y => y.MapFrom(x => x.Login))
                                      .ForMember(x => x.Phone, y => y.MapFrom(x => x.Phone))
-                                     .ForMember(x => x.Adress, y => y.MapFrom(x => x.Adress));
+                                     .ForMember(x => x.Address, y => y.MapFrom(x => x.Address));
         }
     }
 }

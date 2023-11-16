@@ -26,7 +26,7 @@ namespace ShoesShop.Persistence
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            return services.AddScoped<IRepositoryOf<Adress>, AdressRepository>()
+            return services.AddScoped<IRepositoryOf<Address>, AddressRepository>()
                 .AddScoped<IRepositoryOf<CartItem>, CartItemRepository>()
                 .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
                 .AddScoped<IRepositoryOf<FavoritesList>, FavoriteListRepository>()

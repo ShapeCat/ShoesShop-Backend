@@ -41,9 +41,9 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var adress = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
-                         ?? throw new NotFoundException(Id.ToString(), typeof(Model)); dbSet.Remove(adress);
-            dbSet.Remove(adress);
+            var address = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+                         ?? throw new NotFoundException(Id.ToString(), typeof(Model)); dbSet.Remove(address);
+            dbSet.Remove(address);
         }
     }
 }

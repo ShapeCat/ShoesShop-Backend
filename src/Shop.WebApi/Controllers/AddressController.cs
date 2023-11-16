@@ -9,28 +9,28 @@ using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
 {
-    public class AdressController : AbstractController
+    public class AddressController : AbstractController
     {
-        public AdressController(IMapper mapper) : base(mapper) { }
+        public AddressController(IMapper mapper) : base(mapper) { }
 
         /// <summary>
-        /// Create adress
+        /// Create address
         /// </summary>
         /// <remarks>
         /// Sample request:
         /// 
-        ///     POST /api/Adress/4a162ded-1cff-4603-b217-e9fdbebc7f37
+        ///     POST /api/Address/4a162ded-1cff-4603-b217-e9fdbebc7f37
         ///     {
         ///         "colorName": "Black",
         ///         "skuID": "FF1234567890",
         ///         "releaseDate": "2021-10-17T21:44:16.871Z"
         ///     }
         /// 
-        /// Creates adress
-        /// Returns ID of created adress
+        /// Creates address
+        /// Returns ID of created address
         /// </remarks>
-        /// <returns>ID of created adress</returns>
-        /// <param name="adressDto">Adress creation information</param>
+        /// <returns>ID of created address</returns>
+        /// <param name="addressDto">Address creation information</param>
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
@@ -38,12 +38,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([FromBody] AdressDto adressDto)
+        public async Task<ActionResult<Guid>> Create([FromBody] AddressDto addressDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (adressDto is null) return BadRequest(ModelState);
+            if (addressDto is null) return BadRequest(ModelState);
 
-            var command = Mapper.Map<CreateAdressCommand>(adressDto);
+            var command = Mapper.Map<CreateAddressCommand>(addressDto);
             var result = await Mediator.Send(command);
             return Ok(result);
 
@@ -51,61 +51,61 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         /// <summary>
-        /// Return list of all adresses
+        /// Return list of all addresses
         /// </summary>
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/Adress
+        ///     GET /api/Address
         ///     
-        /// Returns list of all adresses
+        /// Returns list of all addresses
         /// </remarks>
-        /// <returns>List of all adresses</returns>
+        /// <returns>List of all addresses</returns>
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AdressVm>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AddressVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<AdressVm>>> GetAll()
+        public async Task<ActionResult<IEnumerable<AddressVm>>> GetAll()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var query = new GetAllAdressesQuery();
+            var query = new GetAllAddressesQuery();
             var result = await Mediator.Send(query);
             return Ok(result);
         }
 
         /// <summary>
-        /// Find adress by ID
+        /// Find address by ID
         /// </summary>
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/Adress/e034b7ef-03c0-4c01-aa00-55a39cbcfcd7
+        ///     GET /api/Address/e034b7ef-03c0-4c01-aa00-55a39cbcfcd7
         /// 
-        /// Returns single adress with the same ID, if exists
+        /// Returns single address with the same ID, if exists
         /// </remarks>
-        /// <returns>Single adress with the same ID, if exists</returns>
-        /// <param name="adressId">Adress ID</param>
+        /// <returns>Single address with the same ID, if exists</returns>
+        /// <param name="addressId">Address ID</param>
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Invalid request</response>
-        /// <response code="404">Adress with the same ID not found</response>
+        /// <response code="404">Address with the same ID not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
-        [HttpGet("{adressId}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AdressVm))]
+        [HttpGet("{addressId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressVm))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AdressVm>> GetById(Guid adressId)
+        public async Task<ActionResult<AddressVm>> GetById(Guid addressId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var query = new GetAdressQuery()
+                var query = new GetAddressQuery()
                 {
-                    AdressId = adressId
+                    AddressId = addressId
                 };
                 var result = await Mediator.Send(query);
                 return Ok(result);
@@ -117,39 +117,39 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         /// <summary>
-        /// Update adress information by ID
+        /// Update address information by ID
         /// </summary>
         /// <remarks>
         /// Sample request:
         /// 
-        ///     PUT /api/Adress/5da752ea-3a18-4bd9-aaca-66519c23a049
+        ///     PUT /api/Address/5da752ea-3a18-4bd9-aaca-66519c23a049
         ///     {
         ///         "colorName": "White",
         ///         "skuID": "4356765546865",
         ///         "releaseDate": "1990-10-17T21:44:16.871Z"
         ///     }
         /// 
-        /// Updates Adress with the same ID, if exists
+        /// Updates Address with the same ID, if exists
         /// </remarks>
-        /// <param name="adressId">Adress ID</param>
-        /// <param name="descriptionDto">New adress information</param>
+        /// <param name="addressId">Address ID</param>
+        /// <param name="descriptionDto">New address information</param>
         /// <response code="204">Successful Operation</response>
         /// <response code="400">Invalid request</response>
-        /// <response code="404">adress with the same ID not found</response>
+        /// <response code="404">address with the same ID not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
-        [HttpPut("{adressId}")]
+        [HttpPut("{addressId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateDescription(Guid adressId, [FromBody] AdressDto descriptionDto)
+        public async Task<ActionResult> UpdateDescription(Guid addressId, [FromBody] AddressDto descriptionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (descriptionDto is null) return BadRequest(ModelState);
             try
             {
-                var command = Mapper.Map<UpdateAdressCommand>(descriptionDto);
-                command.AdressId = adressId;
+                var command = Mapper.Map<UpdateAddressCommand>(descriptionDto);
+                command.AddressId = addressId;
                 await Mediator.Send(command);
                 return NoContent();
             }
@@ -160,33 +160,33 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         /// <summary>
-        /// Delete adress by ID
+        /// Delete address by ID
         /// </summary>
         /// <remarks>
         /// Sample request:
         /// 
-        ///     DELETE /api/Adress/5c6f2bc5-8168-44ff-9ee9-18526325d923
+        ///     DELETE /api/Address/5c6f2bc5-8168-44ff-9ee9-18526325d923
         /// 
-        /// Deletes adress with the same ID, if exists
+        /// Deletes address with the same ID, if exists
         /// </remarks>
-        /// <param name="adressId">Adress ID</param>
+        /// <param name="addressId">Address ID</param>
         /// <response code="204">Successful Operation</response>
-        /// <response code="404">Adress with the same ID not found</response>
+        /// <response code="404">Address with the same ID not found</response>
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
-        [HttpDelete("{adressId}")]
+        [HttpDelete("{addressId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid adressId)
+        public async Task<ActionResult> Delete(Guid addressId)
         {
             if (!ModelState.IsValid) return BadRequest();
             try
             {
-                var command = new DeleteAdressCommand()
+                var command = new DeleteAddressCommand()
                 {
-                    AdressId = adressId
+                    AddressId = addressId
                 };
                 await Mediator.Send(command);
                 return NoContent();
