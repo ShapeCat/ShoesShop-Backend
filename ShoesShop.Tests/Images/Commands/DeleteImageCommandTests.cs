@@ -1,10 +1,11 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
-namespace ShoesShop.Tests.Images.Commands
+namespace ShoesShop.Images.Commands
 {
     public class DeleteImageCommandTests : AbstractCommandTests
     {

@@ -1,11 +1,12 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Adresses.Queries;
 using ShoesShop.Application.Requests.Queries;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
-namespace ShoesShop.Tests.Addresses.Queries
+namespace ShoesShop.Addresses.Queries
 {
     public class GetAddressQueryTests : AbstractQueryTests
     {

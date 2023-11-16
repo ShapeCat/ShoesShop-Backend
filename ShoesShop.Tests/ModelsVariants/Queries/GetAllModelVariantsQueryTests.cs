@@ -1,4 +1,5 @@
-﻿using ShoesShop.Application.Requests.Queries;
+﻿using ShoesShop.Application.Requests.ModelsVariants.Queries;
+using ShoesShop.Application.Requests.Queries;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.Tests.Core;
 using Shouldly;

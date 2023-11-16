@@ -6,6 +6,8 @@ using ShoesShop.Application.Requests.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.ModelsVariants.Commands;
+using ShoesShop.Application.Requests.ModelsVariants.Queries;
 
 namespace ShoesShop.WebApi.Controllers
 {

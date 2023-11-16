@@ -1,5 +1,6 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;

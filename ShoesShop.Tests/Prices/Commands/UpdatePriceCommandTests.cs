@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Prices.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;

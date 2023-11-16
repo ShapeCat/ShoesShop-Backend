@@ -1,5 +1,11 @@
 ﻿using AutoMapper;
+using ShoesShop.Application.Requests.Adresses.Commands;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Images.Commands;
+using ShoesShop.Application.Requests.Models.Commands;
+using ShoesShop.Application.Requests.ModelsSizes.Commands;
+using ShoesShop.Application.Requests.ModelsVariants.Commands;
+using ShoesShop.Application.Requests.Prices.Commands;
 
 namespace ShoesShop.WebApi.Dto.Profiles
 {

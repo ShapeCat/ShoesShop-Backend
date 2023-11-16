@@ -1,4 +1,5 @@
 ﻿using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;

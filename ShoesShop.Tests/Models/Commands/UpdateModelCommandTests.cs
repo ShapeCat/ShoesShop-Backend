@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;
