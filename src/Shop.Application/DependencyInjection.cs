@@ -22,7 +22,12 @@ namespace ShoesShop.Application
         {
             return services.AddAutoMapper(cfg => cfg.AddProfiles(new Profile[]
             {
-
+                new AddressVmProfiles(),
+                new ImageVmProfiles(),
+                new ModelVmProfiles(),
+                new ModelSizeVmProfiles(),
+                new ModelVariantVmProfiles(),
+                new PriceVmProfiles(),
             }));
         }
     }
