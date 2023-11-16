@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Exceptions;
 using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Queries.OutputVMs;
+using ShoesShop.Application.Requests.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -9,6 +11,19 @@ namespace ShoesShop.WebApi.Controllers
 {
     public class PriceController : AbstractController
     {
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<PriceVm>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<PriceVm>>> GetAll()
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var query = new GetAllPricesQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
         public PriceController(IMapper mapper) : base(mapper) { }
 
         [HttpPut("{priceId}")]
