@@ -24,6 +24,29 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{priceId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PriceVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PriceVm>> GetById(Guid priceId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetPriceQuery()
+                {
+                    PriceId = priceId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         public PriceController(IMapper mapper) : base(mapper) { }
 
         [HttpPut("{priceId}")]
