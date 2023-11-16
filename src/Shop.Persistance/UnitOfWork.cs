@@ -25,6 +25,7 @@ namespace ShoesShop.Persistence
                 Type t when t == typeof(CartItem) => new CartItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesItem) => new FavoritesItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesList) => new FavoriteListRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Price) => new PriceRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Image) => new ImageRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Model) => new ModelRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(ModelSize) => new ModelSizeRepository(dbContext) as IRepositoryOf<T>,
