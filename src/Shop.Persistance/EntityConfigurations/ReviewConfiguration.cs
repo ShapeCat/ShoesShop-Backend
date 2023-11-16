@@ -8,6 +8,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
+            builder.ToTable("reviews");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Rating)
                    .IsRequired();
@@ -16,7 +17,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
                    .IsRequired();
             builder.HasOne(x => x.Model)
                    .WithMany(x => x.Rewiews)
-                   .HasForeignKey(x=>x.ModelId);
+                   .HasForeignKey(x => x.ModelId);
             builder.HasOne(x => x.Author)
                    .WithMany(x => x.Rewiews)
                    .HasForeignKey(x => x.UserId);

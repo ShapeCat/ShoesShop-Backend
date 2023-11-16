@@ -8,6 +8,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<FavoritesItem> builder)
         {
+            builder.ToTable("favorites_items");
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.ModelVariant)
                    .WithMany(x => x.FavoritesIn)

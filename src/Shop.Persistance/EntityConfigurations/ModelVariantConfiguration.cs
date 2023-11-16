@@ -8,6 +8,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ModelVariant> builder)
         {
+            builder.ToTable("models_variants");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ItemsLeft)
                    .IsRequired();

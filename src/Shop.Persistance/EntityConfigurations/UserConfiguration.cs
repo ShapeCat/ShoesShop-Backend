@@ -8,7 +8,8 @@ namespace ShoesShop.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x=>x.Id);
+            builder.ToTable("users");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.UserName)
                    .HasMaxLength(128)
                    .IsRequired();
@@ -22,7 +23,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
                    .HasMaxLength(50);
             builder.HasOne(x => x.Address)
                    .WithMany(x => x.Users)
-                   .HasForeignKey(x =>x.AddressId);
+                   .HasForeignKey(x => x.AddressId);
 
             builder.Navigation(x => x.Address)
                    .AutoInclude();
