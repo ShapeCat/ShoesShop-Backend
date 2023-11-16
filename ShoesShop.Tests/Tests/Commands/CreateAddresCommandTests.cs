@@ -33,7 +33,7 @@ namespace ShoesShop.Tests.Tests.Commands
             var createdAddressId = await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            DbContext.Addresses.SingleOrDefault(x => x.Id == createdAddressId
+            DbContext.Addresses.SingleOrDefault(x => x.AddressId == createdAddressId
                                                     && x.Country == addressToCreate.Country
                                                     && x.City == addressToCreate.City
                                                     && x.Street == x.Street

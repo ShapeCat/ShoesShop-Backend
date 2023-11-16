@@ -2,7 +2,7 @@
 {
     public class FavoritesItemVm
     {
-        public Guid Id { get; set; }
+        public Guid FavoritesItemId { get; set; }
         public Guid ModelVariantId { get; set; }
     }
 }

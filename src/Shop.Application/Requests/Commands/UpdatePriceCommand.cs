@@ -25,7 +25,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var priceRepository = UnitOfWork.GetRepositoryOf<Price>();
                 var price = new Price()
                 {
-                    Id = request.PriceId,
+                    PriceId = request.PriceId,
                     BasePrice = request.BasePrice,
                     Sale = request.Sale,
                     SaleEndDate = request.SaleEndDate,

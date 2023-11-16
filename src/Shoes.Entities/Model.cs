@@ -2,7 +2,7 @@
 {
     public class Model
     {
-        public Guid Id { get; set; }
+        public Guid ModelId { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
         public string Brend { get; set; }

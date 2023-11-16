@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Shopcart> builder)
         {
             builder.ToTable("shopcarts");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.ShopcartId);
             builder.HasOne(x => x.Owner)
                    .WithMany(x => x.Shopcarts)
                    .HasForeignKey(x => x.UserId);

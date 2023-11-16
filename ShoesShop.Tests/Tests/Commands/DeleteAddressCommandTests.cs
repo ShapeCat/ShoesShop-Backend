@@ -22,7 +22,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert 
-            DbContext.Addresses.FirstOrDefault(x => x.Id == TestData.DeleteAddressId).ShouldBeNull();
+            DbContext.Addresses.FirstOrDefault(x => x.AddressId == TestData.DeleteAddressId).ShouldBeNull();
         }
 
         [Fact]

@@ -2,7 +2,7 @@
 {
     public class ModelSizeVm
     {
-        public Guid Id { get; set; }
+        public Guid ModelSizeId { get; set; }
         public int Size { get; set; }
     }
 }

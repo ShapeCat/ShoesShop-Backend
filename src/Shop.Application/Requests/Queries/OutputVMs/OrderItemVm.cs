@@ -2,7 +2,7 @@
 {
     public class OrderItemVm
     {
-        public Guid Id { get; set; }
+        public Guid OrderItemId { get; set; }
         public Guid ModelVariantId { get; set; }
         public int Amount { get; set; }
     }

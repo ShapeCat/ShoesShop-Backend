@@ -27,7 +27,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var newModel = new Model()
                 {
-                    Id = request.ModelId,
+                    ModelId = request.ModelId,
                     Name = request.Name,
                     Color = request.Color,
                     Brend = request.Brend,

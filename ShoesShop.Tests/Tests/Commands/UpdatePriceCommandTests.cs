@@ -17,11 +17,11 @@ namespace ShoesShop.Tests.Tests.Commands
             var priceToCreate = new Price()
             {
                 BasePrice = 1,
-                Id = Guid.NewGuid(),
+                PriceId = Guid.NewGuid(),
             };
             var command = new UpdatePriceCommand()
             {
-                PriceId = priceToCreate.Id,
+                PriceId = priceToCreate.PriceId,
                 BasePrice = priceToCreate.BasePrice,
             };
             var handler = new UpdatePriceCommandHandler(UnitOfWork);
@@ -38,11 +38,11 @@ namespace ShoesShop.Tests.Tests.Commands
             var priceToCreate = new Price()
             {
                 BasePrice = 1,
-                Id = TestData.UpdatePriceId,
+                PriceId = TestData.UpdatePriceId,
             };
             var command = new UpdatePriceCommand()
             {
-                PriceId = priceToCreate.Id,
+                PriceId = priceToCreate.PriceId,
                 BasePrice = priceToCreate.BasePrice,
             };
             var handler = new UpdatePriceCommandHandler(UnitOfWork);
@@ -51,7 +51,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            await DbContext.Prices.SingleOrDefaultAsync(x => x.Id == priceToCreate.Id
+            await DbContext.Prices.SingleOrDefaultAsync(x => x.PriceId == priceToCreate.PriceId
                                                           && x.BasePrice == priceToCreate.BasePrice
                                                           && x.SaleEndDate == priceToCreate.SaleEndDate
                                                           && x.Sale == priceToCreate.Sale).ShouldNotBeNull();

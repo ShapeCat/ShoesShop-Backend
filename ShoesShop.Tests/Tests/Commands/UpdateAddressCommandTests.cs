@@ -36,7 +36,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            DbContext.Addresses.FirstOrDefault(x => x.Id == TestData.UpdateAddressId
+            DbContext.Addresses.FirstOrDefault(x => x.AddressId == TestData.UpdateAddressId
                                                    && x.Country == newAddress.Country
                                                    && x.City == newAddress.City
                                                    && x.Street == newAddress.Street

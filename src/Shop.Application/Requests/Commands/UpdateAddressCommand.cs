@@ -28,7 +28,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var addressRepository = UnitOfWork.GetRepositoryOf<Address>(true);
                 var newAddress = new Address()
                 {
-                    Id = request.AddressId,
+                    AddressId = request.AddressId,
                     Country = request.Country,
                     City = request.City,
                     Street = request.Street,

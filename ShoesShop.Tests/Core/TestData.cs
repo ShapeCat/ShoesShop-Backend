@@ -47,12 +47,12 @@ namespace ShoesShop.Tests.Core
             {
                 new ModelSize()
                 {
-                    Id = DeleteModelSizeId,
+                    ModelSizeId = DeleteModelSizeId,
                     Size = 1,
                 },
                 new ModelSize()
                 {
-                    Id = UpdateModelSizeId,
+                    ModelSizeId = UpdateModelSizeId,
                     Size = ExistedModelSize,
                 },
             };
@@ -60,13 +60,13 @@ namespace ShoesShop.Tests.Core
             {
                 new Image()
                 {
-                    Id = DeleteImageId,
+                    ImageId = DeleteImageId,
                     Url = "test url 1",
                     IsPreview = true,
                 },
                 new Image()
                 {
-                    Id = UpdateImageId,
+                    ImageId = UpdateImageId,
                     Url = "test url 2",
                     IsPreview = false,
                 },
@@ -75,7 +75,7 @@ namespace ShoesShop.Tests.Core
             {
                 new Model()
                 {
-                    Id = DeleteModelId,
+                    ModelId = DeleteModelId,
                     Name = "test name 1",
                     Color = "test color 1",
                     Brend = "test brend 1",
@@ -85,7 +85,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new Model()
                 {
-                    Id = UpdateModelId,
+                    ModelId = UpdateModelId,
                     Name = "test name 2",
                     Color = "test color 2",
                     Brend = "test brend 2",
@@ -98,12 +98,12 @@ namespace ShoesShop.Tests.Core
             {
                 new Price()
                 {
-                    Id = DeletePriceId,
+                    PriceId = DeletePriceId,
                     BasePrice = 1000,
                 },
                  new Price()
                  {
-                     Id = UpdatePriceId,
+                     PriceId = UpdatePriceId,
                      BasePrice = 1000,
                      Sale = 1,
                      SaleEndDate = DateTime.Now,
@@ -113,7 +113,7 @@ namespace ShoesShop.Tests.Core
             {
                 new ModelVariant()
                 {
-                    Id = DeleteModelVariantId,
+                    ModelVariantId = DeleteModelVariantId,
                     Model = models[0],
                     ModelSize = modelSizes[0],
                     Price = prices[0],
@@ -121,7 +121,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new ModelVariant()
                 {
-                    Id = UpdateModelVariantId,
+                    ModelVariantId = UpdateModelVariantId,
                     Model = models[1],
                     ModelSize = modelSizes[1],
                     Price = prices[1],
@@ -132,12 +132,12 @@ namespace ShoesShop.Tests.Core
             {
                 new FavoritesItem()
                 {
-                    Id = DeleteFavoriteItemId,
+                    FavoriteItemId = DeleteFavoriteItemId,
                     ModelVariant = modelVariants[0],
                 },
                 new FavoritesItem()
                 {
-                    Id = UpdateFavoriteItemId,
+                    FavoriteItemId = UpdateFavoriteItemId,
                     ModelVariant = modelVariants[1],
                 },
             };
@@ -145,7 +145,7 @@ namespace ShoesShop.Tests.Core
             {
                 new FavoritesList()
                 {
-                    Id = Guid.NewGuid(),
+                    FavoriteListId = Guid.NewGuid(),
                     Items = new List<FavoritesItem>()
                     {
                         favoriteItems[0]
@@ -153,7 +153,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new FavoritesList()
                 {
-                    Id= Guid.NewGuid(),
+                    FavoriteListId= Guid.NewGuid(),
                     Items = new List<FavoritesItem>(favoriteItems)
                 },
             };
@@ -161,13 +161,13 @@ namespace ShoesShop.Tests.Core
             {
                 new ShopcartItem()
                 {
-                    Id = DeleteCartItemId,
+                    ShopcartItemId = DeleteCartItemId,
                     ModelVariant = modelVariants[0],
                     Amount = 0,
                 },
                 new ShopcartItem()
                 {
-                    Id = UpdateCartItemId,
+                    ShopcartItemId = UpdateCartItemId,
                     ModelVariant = modelVariants[1],
                     Amount = 1,
                 }
@@ -176,7 +176,7 @@ namespace ShoesShop.Tests.Core
             {
                 new Shopcart()
                 {
-                    Id = Guid.NewGuid(),
+                    ShopcartId = Guid.NewGuid(),
                     Items = new List<ShopcartItem>
                     {
                         cartItems[0]
@@ -184,7 +184,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new Shopcart
                 {
-                    Id = Guid.NewGuid(),
+                    ShopcartId = Guid.NewGuid(),
                     Items = new List<ShopcartItem>(cartItems),
                 }
             };
@@ -192,13 +192,13 @@ namespace ShoesShop.Tests.Core
             {
                 new OrderItem()
                 {
-                    Id = Guid.NewGuid(),
+                    OrderItemId = Guid.NewGuid(),
                     ModelVariant = modelVariants[0],
                     Amount= 0,
                 },
                 new OrderItem()
                 {
-                    Id = Guid.NewGuid(),
+                    OrderItemId = Guid.NewGuid(),
                     ModelVariant = modelVariants[1],
                     Amount = 1,
                 },
@@ -207,7 +207,7 @@ namespace ShoesShop.Tests.Core
             {
                 new Order()
                 {
-                    Id = DeleteOrderId,
+                    OrderId = DeleteOrderId,
                     Status = OrderStatus.InProcess,
                     CreationDate = DateTime.Now,
                     Items = new List<OrderItem>()
@@ -217,7 +217,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new Order()
                 {
-                    Id = UpdateOrderId,
+                    OrderId = UpdateOrderId,
                     Status = OrderStatus.Finished,
                     CreationDate = DateTime.Now,
                     Items = new List<OrderItem>(orderItems),
@@ -227,7 +227,7 @@ namespace ShoesShop.Tests.Core
             {
                 new Review()
                 {
-                    Id = DeleteReviewId,
+                    ReviewId = DeleteReviewId,
                     Comment = "test commentary 1",
                     PublishDate = DateTime.Now,
                     Model = models[0],
@@ -235,7 +235,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new Review()
                 {
-                    Id = UpdateReviewId,
+                    ReviewId = UpdateReviewId,
                     Comment = "test commentary 2",
                     PublishDate = DateTime.Now,
                     Model = models[1],
@@ -246,7 +246,7 @@ namespace ShoesShop.Tests.Core
              {
                 new Address()
                 {
-                    Id = DeleteAddressId,
+                    AddressId = DeleteAddressId,
                     Country = "test country 1",
                     City = "test city 1",
                     Street = "test street 1",
@@ -255,7 +255,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new Address()
                 {
-                    Id = UpdateAddressId,
+                    AddressId = UpdateAddressId,
                     Country = "test country 2",
                     City = "test city 2",
                     Street = "test street 2",
@@ -266,7 +266,7 @@ namespace ShoesShop.Tests.Core
             {
                 new User()
                 {
-                    Id = DeleteUserId,
+                    UserId = DeleteUserId,
                     Address = addresses[0],
                     UserName = "test user 1",
                     Login = "test login 1",
@@ -288,7 +288,7 @@ namespace ShoesShop.Tests.Core
                 },
                 new User()
                 {
-                    Id = UpdateUserId,
+                    UserId = UpdateUserId,
                     Address = addresses[1],
                     UserName = "test user 2",
                     Login = "test login 2",

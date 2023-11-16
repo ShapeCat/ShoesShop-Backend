@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<FavoritesList> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.FavoriteListId == Id, cancellationToken)
                 ?? throw new NotFoundException(Id.ToString(), typeof(FavoritesList));
         }
 

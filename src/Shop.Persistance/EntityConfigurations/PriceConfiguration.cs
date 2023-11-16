@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Price> builder)
         {
             builder.ToTable("prices");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.PriceId);
             builder.Property(x => x.BasePrice)
                    .IsRequired();
             builder.Property(x => x.Sale);

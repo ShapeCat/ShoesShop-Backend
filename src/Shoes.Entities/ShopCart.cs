@@ -2,7 +2,7 @@
 {
     public class Shopcart
     {
-        public Guid Id { get; set; }
+        public Guid ShopcartId { get; set; }
         public Guid UserId { get; set; }
 
         public User Owner { get; set; }

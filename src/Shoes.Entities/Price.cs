@@ -2,7 +2,7 @@
 {
     public class Price
     {
-        public Guid Id { get; set; }
+        public Guid PriceId { get; set; }
         public Guid ModelVariantId { get; set; }
         public decimal BasePrice { get; set; }
         public decimal? Sale { get; set; }

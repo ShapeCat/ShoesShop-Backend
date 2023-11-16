@@ -28,7 +28,7 @@ namespace ShoesShop.Application.Requests.Commands
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             var createdImage = await imageRepository.FindAllAsync(x => x.Url == imageToAdd.Url
                                                                        && x.IsPreview == imageToAdd.IsPreview, cancellationToken);
-            return createdImage.First().Id;
+            return createdImage.First().ImageId;
         }
     }
 }

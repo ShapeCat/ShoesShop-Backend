@@ -24,7 +24,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<Review> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.ReviewId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(Review));
         }
 
@@ -36,7 +36,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var review = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var review = await dbSet.FirstOrDefaultAsync(x => x.ReviewId == Id, cancellationToken)
                                ?? throw new NotFoundException(Id.ToString(), typeof(Review));
             dbSet.Remove(review);
         }

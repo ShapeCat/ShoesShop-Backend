@@ -23,7 +23,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<User> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.UserId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(User));
         }
 
@@ -35,15 +35,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(User newItem, CancellationToken cancellationToken)
         {
-            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
-                        ?? throw new NotFoundException(newItem.Id.ToString(), typeof(User));
+            var user = await dbSet.FirstOrDefaultAsync(x => x.UserId == newItem.UserId, cancellationToken)
+                        ?? throw new NotFoundException(newItem.UserId.ToString(), typeof(User));
             (user.UserName, user.Phone, user.Login)
                 = (newItem.UserName, newItem.Phone, newItem.Login);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var user = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var user = await dbSet.FirstOrDefaultAsync(x => x.UserId == Id, cancellationToken)
                         ?? throw new NotFoundException(Id.ToString(), typeof(User));
             dbSet.Remove(user);
         }

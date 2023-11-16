@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<FavoritesList> builder)
         {
             builder.ToTable("favorites_lists");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.FavoriteListId);
             builder.HasOne(x => x.Owner)
                    .WithOne(x => x.Favorites)
                    .HasForeignKey<FavoritesList>(x => x.UserId);

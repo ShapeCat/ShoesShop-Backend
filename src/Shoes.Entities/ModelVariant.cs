@@ -2,7 +2,7 @@
 {
     public class ModelVariant
     {
-        public Guid Id { get; set; }
+        public Guid ModelVariantId { get; set; }
         public Guid ModelId { get; set; }
         public Guid ModelSizeId { get; set; }
         public int ItemsLeft { get; set; }

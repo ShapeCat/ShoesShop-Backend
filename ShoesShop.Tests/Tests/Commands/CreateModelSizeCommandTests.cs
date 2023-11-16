@@ -26,7 +26,7 @@ namespace ShoesShop.Tests.Tests.Commands
             var createdModelSizeId = await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            DbContext.ModelsSizes.SingleOrDefault(x => x.Id == createdModelSizeId
+            DbContext.ModelsSizes.SingleOrDefault(x => x.ModelSizeId == createdModelSizeId
                                                     && x.Size == modelSizeToCreate.Size).ShouldNotBeNull();
 
         }

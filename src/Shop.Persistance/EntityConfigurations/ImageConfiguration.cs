@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Image> builder)
         {
             builder.ToTable("images");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.ImageId);
             builder.Property(x => x.IsPreview);
             builder.Property(x => x.Url)
                    .HasMaxLength(256)

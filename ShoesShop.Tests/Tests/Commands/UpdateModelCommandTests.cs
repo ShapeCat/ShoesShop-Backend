@@ -41,7 +41,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            DbContext.Models.SingleOrDefault(x => x.Id == TestData.UpdateModelId
+            DbContext.Models.SingleOrDefault(x => x.ModelId == TestData.UpdateModelId
                                                  && x.Name == modelToUpdate.Name
                                                  && x.Color == modelToUpdate.Color
                                                  && x.Brend == modelToUpdate.Brend

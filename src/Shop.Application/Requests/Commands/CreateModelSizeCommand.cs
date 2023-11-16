@@ -31,7 +31,7 @@ namespace ShoesShop.Application.Requests.Commands
             await modelSizeRepository.AddAsync(modelSize, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             var createdModelSize = await modelSizeRepository.FindAllAsync(x => x.Size == modelSize.Size, cancellationToken);
-            return createdModelSize.First().Id;
+            return createdModelSize.First().ModelSizeId;
         }
     }
 }

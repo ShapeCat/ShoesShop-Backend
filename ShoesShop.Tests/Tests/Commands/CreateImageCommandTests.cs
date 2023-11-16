@@ -25,7 +25,7 @@ namespace ShoesShop.Tests.Tests.Commands
 
             var createdImageId = await handler.Handle(command, CancellationToken.None);
 
-            DbContext.Images.SingleOrDefault(x => x.Id == createdImageId
+            DbContext.Images.SingleOrDefault(x => x.ImageId == createdImageId
                                                   && x.Url == imageToCreate.Url
                                                   && x.IsPreview == imageToCreate.IsPreview).ShouldNotBeNull();
         }

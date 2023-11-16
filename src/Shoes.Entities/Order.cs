@@ -9,7 +9,7 @@
 
     public class Order
     {
-        public Guid Id { get; set; }
+        public Guid OrderId { get; set; }
         public Guid UserId { get; set; }
         public OrderStatus Status { get; set; }
         public DateTime CreationDate { get; set; }

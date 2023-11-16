@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("orders");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.OrderId);
             builder.Property(x => x.Status)
                    .IsRequired();
             builder.Property(x => x.CreationDate);

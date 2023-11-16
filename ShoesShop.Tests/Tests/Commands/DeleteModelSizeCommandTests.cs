@@ -21,7 +21,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert 
-            DbContext.ModelsSizes.FirstOrDefault(x => x.Id == TestData.DeleteModelSizeId).ShouldBeNull();
+            DbContext.ModelsSizes.FirstOrDefault(x => x.ModelSizeId == TestData.DeleteModelSizeId).ShouldBeNull();
         }
 
         [Fact]

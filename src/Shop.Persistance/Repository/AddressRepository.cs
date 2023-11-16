@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<Address> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.AddressId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(Address));
         }
 
@@ -33,15 +33,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(Address newItem, CancellationToken cancellationToken)
         {
-            var address = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
-                         ?? throw new NotFoundException(newItem.Id.ToString(), typeof(Address));
+            var address = await dbSet.FirstOrDefaultAsync(x => x.AddressId == newItem.AddressId, cancellationToken)
+                         ?? throw new NotFoundException(newItem.AddressId.ToString(), typeof(Address));
             (address.Country, address.City, address.Street, address.House, address.Room) =
                 (newItem.Country, newItem.City, newItem.Street, newItem.House, newItem.Room);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var address = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var address = await dbSet.FirstOrDefaultAsync(x => x.AddressId == Id, cancellationToken)
                          ?? throw new NotFoundException(Id.ToString(), typeof(Address)); dbSet.Remove(address);
             dbSet.Remove(address);
         }

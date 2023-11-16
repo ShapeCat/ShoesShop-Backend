@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<ModelSize> builder)
         {
             builder.ToTable("models_sizes");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.ModelSizeId);
             builder.Property(x => x.Size)
                    .IsRequired();
         }

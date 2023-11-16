@@ -24,7 +24,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
                 var newImage = new Image()
                 {
-                    Id = request.ImageId,
+                    ImageId = request.ImageId,
                     Url = request.Url,
                     IsPreview = request.IsPreview,
                 };

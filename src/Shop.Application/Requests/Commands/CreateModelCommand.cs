@@ -37,7 +37,7 @@ namespace ShoesShop.Application.Requests.Commands
                                                                  && x.Brend == model.Brend
                                                                  && x.SkuId == model.SkuId
                                                                  && x.ReleaseDate == model.ReleaseDate, cancellationToken);
-            return cratedModel.First().Id;
+            return cratedModel.First().ModelId;
         }
     }
 }

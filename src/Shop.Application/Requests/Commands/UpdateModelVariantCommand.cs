@@ -27,7 +27,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var newModelVariant = new ModelVariant()
                 {
-                    Id = request.ModelVariantId,
+                    ModelVariantId = request.ModelVariantId,
                     ItemsLeft = request.ItemsLeft,
                 };
                 if (request.ModelId is not null)

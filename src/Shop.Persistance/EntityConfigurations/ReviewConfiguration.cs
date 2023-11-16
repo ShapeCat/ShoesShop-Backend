@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder.ToTable("reviews");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.ReviewId);
             builder.Property(x => x.Rating)
                    .IsRequired();
             builder.Property(x => x.Comment);

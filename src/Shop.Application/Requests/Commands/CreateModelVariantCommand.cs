@@ -40,7 +40,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var createdModelVariant = await modelVariantRepository.FindAllAsync(x => x.Model == modelVariant.Model
                                                                                    && x.ModelSize == modelVariant.ModelSize
                                                                                    && x.ItemsLeft == request.ItemsLeft, cancellationToken);
-                return createdModelVariant.First().Id;
+                return createdModelVariant.First().ModelVariantId;
             }
             catch (NotFoundException ex)
             {

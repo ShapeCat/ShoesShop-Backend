@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<ModelVariant> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.ModelVariantId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(ModelVariant));
         }
 
@@ -33,15 +33,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(ModelVariant newItem, CancellationToken cancellationToken)
         {
-            var modelVariant = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
-                               ?? throw new NotFoundException(newItem.Id.ToString(), typeof(ModelVariant));
+            var modelVariant = await dbSet.FirstOrDefaultAsync(x => x.ModelVariantId == newItem.ModelVariantId, cancellationToken)
+                               ?? throw new NotFoundException(newItem.ModelVariantId.ToString(), typeof(ModelVariant));
             (modelVariant.ItemsLeft)
                 = (newItem.ItemsLeft);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var modelVariant = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var modelVariant = await dbSet.FirstOrDefaultAsync(x => x.ModelVariantId == Id, cancellationToken)
                                ?? throw new NotFoundException(Id.ToString(), typeof(ModelVariant));
             dbSet.Remove(modelVariant);
         }

@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<Order> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.OrderId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(Order));
         }
 
@@ -33,15 +33,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(Order newItem, CancellationToken cancellationToken)
         {
-            var order = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
-                               ?? throw new NotFoundException(newItem.Id.ToString(), typeof(Order));
+            var order = await dbSet.FirstOrDefaultAsync(x => x.OrderId == newItem.OrderId, cancellationToken)
+                               ?? throw new NotFoundException(newItem.OrderId.ToString(), typeof(Order));
             (order.Status)
                 = (newItem.Status);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var order = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var order = await dbSet.FirstOrDefaultAsync(x => x.OrderId == Id, cancellationToken)
                                ?? throw new NotFoundException(Id.ToString(), typeof(Order));
             dbSet.Remove(order);
         }

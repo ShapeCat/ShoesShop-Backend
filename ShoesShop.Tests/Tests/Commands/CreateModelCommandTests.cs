@@ -30,7 +30,7 @@ namespace ShoesShop.Tests.Tests.Commands
             var handler = new CreateModelCommandHandler(UnitOfWork);
 
             var createdModelId = await handler.Handle(command, CancellationToken.None);
-            DbContext.Models.SingleOrDefault(x => x.Id == createdModelId
+            DbContext.Models.SingleOrDefault(x => x.ModelId == createdModelId
                                                  && x.Name == modelToCreate.Name
                                                  && x.Color == modelToCreate.Color
                                                  && x.Brend == modelToCreate.Brend

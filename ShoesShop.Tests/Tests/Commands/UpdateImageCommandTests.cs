@@ -29,7 +29,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            DbContext.Images.FirstOrDefault(x => x.Id == TestData.UpdateImageId
+            DbContext.Images.FirstOrDefault(x => x.ImageId == TestData.UpdateImageId
                                                    && x.Url == newImage.Url
                                                    && x.IsPreview == newImage.IsPreview).ShouldNotBeNull();
         }

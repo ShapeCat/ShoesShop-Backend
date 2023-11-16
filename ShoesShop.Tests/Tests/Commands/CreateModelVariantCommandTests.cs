@@ -27,7 +27,7 @@ namespace ShoesShop.Tests.Tests.Commands
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
             var createdModelVariantId = await handler.Handle(command, CancellationToken.None);
-            DbContext.ModelsVariants.SingleOrDefault(x => x.Id == createdModelVariantId
+            DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == createdModelVariantId
                                                           && x.ModelId == modelToCreate.ModelId
                                                           && x.ModelSizeId == modelToCreate.ModelSizeId).ShouldNotBeNull();
         }

@@ -23,7 +23,7 @@ namespace ShoesShop.Application.Requests.Commands
                 var modelSizerepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var newmModelSize = new ModelSize()
                 {
-                    Id = request.ModelSizeId,
+                    ModelSizeId = request.ModelSizeId,
                     Size = request.Size,
                 };
 

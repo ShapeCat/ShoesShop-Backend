@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<Image> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.ImageId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(Image));
         }
 
@@ -33,15 +33,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(Image newItem, CancellationToken cancellationToken)
         {
-            var image = await dbSet.FirstOrDefaultAsync(x => x.Id == newItem.Id, cancellationToken)
-                        ?? throw new NotFoundException(newItem.Id.ToString(), typeof(Image));
+            var image = await dbSet.FirstOrDefaultAsync(x => x.ImageId == newItem.ImageId, cancellationToken)
+                        ?? throw new NotFoundException(newItem.ImageId.ToString(), typeof(Image));
             (image.IsPreview, image.Url) =
                 (newItem.IsPreview, newItem.Url);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var image = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
+            var image = await dbSet.FirstOrDefaultAsync(x => x.ImageId == Id, cancellationToken)
                         ?? throw new NotFoundException(Id.ToString(), typeof(Image));
             dbSet.Remove(image);
         }

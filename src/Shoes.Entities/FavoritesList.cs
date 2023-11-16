@@ -2,7 +2,7 @@
 {
     public class FavoritesList
     {
-        public Guid Id { get; set; }
+        public Guid FavoriteListId { get; set; }
         public Guid UserId { get; set; }
 
         public ICollection<FavoritesItem> Items { get; set; }

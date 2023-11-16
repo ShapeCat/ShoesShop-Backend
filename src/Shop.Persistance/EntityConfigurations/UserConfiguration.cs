@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("users");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.UserId);
             builder.Property(x => x.UserName)
                    .HasMaxLength(128)
                    .IsRequired();

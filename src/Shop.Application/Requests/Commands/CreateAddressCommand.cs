@@ -38,7 +38,7 @@ namespace ShoesShop.Application.Requests.Commands
                                                                      && x.Street == address.Street
                                                                      && x.House == address.House
                                                                      && x.Room == address.Room, cancellationToken);
-            return createddAddress.First().Id;
+            return createddAddress.First().AddressId;
         }
     }
 }

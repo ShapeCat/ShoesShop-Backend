@@ -15,12 +15,12 @@ namespace ShoesShop.Tests.Tests.Commands
             // Arrange
             var modelVariantToUpdate = new ModelVariant()
             {
-                Id = TestData.UpdateModelVariantId,
+                ModelVariantId = TestData.UpdateModelVariantId,
                 ItemsLeft = 0,
             };
             var command = new UpdateModelVariantCommand()
             {
-                ModelVariantId = modelVariantToUpdate.Id,
+                ModelVariantId = modelVariantToUpdate.ModelVariantId,
                 ItemsLeft = modelVariantToUpdate.ItemsLeft,
 
             };
@@ -30,7 +30,7 @@ namespace ShoesShop.Tests.Tests.Commands
             await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            DbContext.ModelsVariants.SingleOrDefault(x => x.Id == TestData.UpdateModelVariantId
+            DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == TestData.UpdateModelVariantId
                                                           && x.ItemsLeft == modelVariantToUpdate.ItemsLeft).ShouldNotBeNull();
         }
 
@@ -40,12 +40,12 @@ namespace ShoesShop.Tests.Tests.Commands
             // Arrange
             var modelVariantToUpdate = new ModelVariant()
             {
-                Id = Guid.NewGuid(),
+                ModelVariantId = Guid.NewGuid(),
                 ItemsLeft = 0,
             };
             var command = new UpdateModelVariantCommand()
             {
-                ModelVariantId = modelVariantToUpdate.Id,
+                ModelVariantId = modelVariantToUpdate.ModelVariantId,
                 ItemsLeft = modelVariantToUpdate.ItemsLeft,
 
             };
