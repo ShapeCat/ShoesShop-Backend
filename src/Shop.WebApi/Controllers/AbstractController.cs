@@ -10,11 +10,11 @@ namespace ShoesShop.WebAPI.Controllers
     public abstract class AbstractController : Controller
     {
         private IMediator mediator;
-        protected readonly IMapper mapper;
 
+        protected IMapper Mapper { get; }
         protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
-        protected AbstractController(IMapper mapper) => this.mapper = mapper;
+        protected AbstractController(IMapper mapper) => Mapper = mapper;
     }
 }
 

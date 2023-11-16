@@ -361,4 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/ShoesShop.Tests
+/Release_1-01.zip
+/Release_1-02.zip

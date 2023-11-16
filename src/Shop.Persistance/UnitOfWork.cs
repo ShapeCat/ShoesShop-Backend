@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Entities;
 using ShoesShop.Persistence.Repository;
 
@@ -8,49 +8,50 @@ namespace ShoesShop.Persistence
     public class UnitOfWork : IUnitOfWork
     {
         private bool _disposed;
-        private Dictionary<Type, object> customRepositories;
+        private readonly bool useServices;
+        private readonly ShopDbContext dbContext;
 
-        public ShopDbContext dbContext { get; }
-
-        public UnitOfWork(ShopDbContext context)
+        public UnitOfWork(ShopDbContext context, bool useServices = true)
         {
             dbContext = context ?? throw new ArgumentNullException(nameof(context));
-            customRepositories = new Dictionary<Type, object>
+            this.useServices = useServices;
+        }
+
+        private IRepositoryOf<T>? GetRepositoryOf<T>() where T : class
+        {
+            return typeof(T) switch
             {
-                { typeof(Shoes), new ShoesRepository(dbContext) },
-                { typeof(Description), new DescriptionRepository(dbContext) },
-                { typeof(ShoesSize), new ShoesSizeRepository(dbContext) },
+                Type t when t == typeof(Address) => new AddressRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(ShopcartItem) => new ShopcartItemRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(FavoritesItem) => new FavoritesItemRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(FavoritesList) => new FavoritesListRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Price) => new PriceRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Image) => new ImageRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Model) => new ModelRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(ModelSize) => new ModelSizeRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(ModelVariant) => new ModelVariantRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Order) => new OrderRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(OrderItem) => new OrderItemRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Review) => new ReviewRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Shopcart) => new ShopcartRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(User) => new UserRepository(dbContext) as IRepositoryOf<T>,
+                _ => null,
             };
         }
 
-        public IRepositoryOf<T> GetRepositoryOf<T>(bool hasCustomRepository = false) where T : class
+        public IRepositoryOf<T> GetRepositoryOf<T>(bool a = false) where T : class
         {
-            var entityType = typeof(T);
-            if (hasCustomRepository)
+            if (useServices)
             {
-                try
-                {
-                    var customRepository = dbContext.GetService<IRepositoryOf<T>>();
-                    return customRepository;
-
-                }
-                catch (InvalidOperationException)
-                {
-                    // For Unit-Tests or service exception
-                    if (customRepositories.ContainsKey(entityType))
-                    {
-                        return customRepositories[entityType] as IRepositoryOf<T>;
-                    }
-                }
+                return dbContext.GetService<IRepositoryOf<T>>();
             }
-            return new GenericRepository<T>(dbContext);
+            return GetRepositoryOf<T>() ?? new GenericRepository<T>(dbContext);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken)
         {
             await dbContext.SaveChangesAsync(cancellationToken);
         }
-
 
         public void Dispose()
         {
@@ -62,7 +63,6 @@ namespace ShoesShop.Persistence
         {
             if (!_disposed || disposing)
             {
-                customRepositories?.Clear();
                 dbContext?.Dispose();
             }
             _disposed = true;

@@ -1,48 +1,49 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
+using ShoesShop.Persistence.Exceptions;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class GenericRepository<T> : IRepositoryOf<T> where T : class
+    public class GenericRepository<TEntity> : IRepositoryOf<TEntity> where TEntity : class
     {
         protected ShopDbContext dbContext;
-        protected DbSet<T> dbSet;
+        protected DbSet<TEntity> dbSet;
 
         public GenericRepository(ShopDbContext dbContext)
         {
             this.dbContext = dbContext;
-            dbSet = dbContext.Set<T>();
+            dbSet = dbContext.Set<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        public virtual Task AddAsync(TEntity item, CancellationToken cancellationToken)
         {
-            return await dbSet.Where(predicate).ToListAsync(cancellationToken);
+            throw new ActionNotAllowedException(nameof(AddAsync), typeof(TEntity));
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
+        public virtual Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await dbSet.ToListAsync(cancellationToken);
+            throw new ActionNotAllowedException(nameof(GetAllAsync), typeof(TEntity));
         }
 
-        public virtual async Task<T> GetAsync(Guid Id, CancellationToken cancellationToken)
+        public virtual Task<TEntity> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FindAsync(Id, cancellationToken);
+            throw new ActionNotAllowedException(nameof(GetAsync), typeof(TEntity));
         }
 
-        public virtual async Task AddAsync(T item, CancellationToken cancellationToken)
+        public virtual Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
         {
-            await dbSet.AddAsync(item, cancellationToken);
+            throw new ActionNotAllowedException(nameof(FindAllAsync), typeof(TEntity));
         }
 
-        public virtual async Task EditAsync(T newItem, CancellationToken cancellationToken)
+        public virtual Task EditAsync(TEntity newItem, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new ActionNotAllowedException(nameof(EditAsync), typeof(TEntity));
         }
 
         public virtual Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new ActionNotAllowedException(nameof(RemoveAsync), typeof(TEntity));
         }
     }
 }

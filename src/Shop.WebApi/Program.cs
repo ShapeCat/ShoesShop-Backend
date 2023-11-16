@@ -2,7 +2,6 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using ShoesShop.Application;
-using ShoesShop.Application.Requests.Queries.OutputVMs.Profiles;
 using ShoesShop.Persistence;
 using ShoesShop.WebApi.Dto.Profiles;
 
@@ -17,7 +16,6 @@ namespace ShoesShop.WebAPI
             var app = builder.Build();
             Configure(app, builder.Environment);
             InitializeDb(app);
-            SeedTestData(app);
             app.Run();
         }
 
@@ -28,10 +26,8 @@ namespace ShoesShop.WebAPI
                             .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             builder.Services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile(new VmProfiles());
                 cfg.AddProfile(new DtoProfiles());
             });
-            builder.Services.AddTransient<TestData>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddRouting();
             builder.Services.AddSwaggerGen(options =>
@@ -102,16 +98,6 @@ namespace ShoesShop.WebAPI
                 {
                     Console.WriteLine(ex);
                 }
-            }
-        }
-        private static void SeedTestData(IHost app)
-        {
-            var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-
-            using (var scope = scopedFactory.CreateScope())
-            {
-                var service = scope.ServiceProvider.GetService<TestData>();
-                service.SeedDataContext();
             }
         }
     }
