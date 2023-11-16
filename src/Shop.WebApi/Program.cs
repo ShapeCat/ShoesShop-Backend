@@ -2,7 +2,6 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using ShoesShop.Application;
-using ShoesShop.Application.Requests.Queries.OutputVMs.Profiles;
 using ShoesShop.Persistence;
 using ShoesShop.WebApi.Dto.Profiles;
 
@@ -27,7 +26,6 @@ namespace ShoesShop.WebAPI
                             .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             builder.Services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile(new VmProfiles());
                 cfg.AddProfile(new DtoProfiles());
             });
             builder.Services.AddEndpointsApiExplorer();
