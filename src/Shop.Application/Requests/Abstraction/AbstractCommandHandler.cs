@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 
 namespace ShoesShop.Application.Requests.Abstraction
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using ShoesShop.Application.Exceptions;
+using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository

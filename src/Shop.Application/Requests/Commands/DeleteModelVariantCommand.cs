@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using ShoesShop.Application.Exceptions;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
 

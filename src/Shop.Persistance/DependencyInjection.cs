@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Entities;
 using ShoesShop.Persistence.Repository;
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Persistence.Exceptions;
 
 namespace ShoesShop.Persistence.Repository

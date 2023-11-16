@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using ShoesShop.Entities;
-using ShoesShop.Application.Exceptions;
+using ShoesShop.Application.Common.Exceptions;
 
 namespace ShoesShop.Persistence.Repository
 {

@@ -1,4 +1,4 @@
-﻿using ShoesShop.Application.Exceptions;
+﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Tests.Core;
 using Shouldly;

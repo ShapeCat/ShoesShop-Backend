@@ -1,4 +1,4 @@
-﻿using ShoesShop.Application.Interfaces;
+﻿using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Persistence;
 
 namespace ShoesShop.Tests.Core

@@ -1,4 +1,4 @@
-﻿namespace ShoesShop.Application.Interfaces
+﻿namespace ShoesShop.Application.Common.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

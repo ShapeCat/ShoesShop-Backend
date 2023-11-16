@@ -1,4 +1,4 @@
-﻿using ShoesShop.Application.Exceptions;
+﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;

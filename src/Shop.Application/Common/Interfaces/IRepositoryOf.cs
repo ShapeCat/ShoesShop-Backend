@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ShoesShop.Application.Interfaces
+namespace ShoesShop.Application.Common.Interfaces
 {
     public interface IRepositoryOf<T> where T : class
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Persistence;
 using Xunit;
 

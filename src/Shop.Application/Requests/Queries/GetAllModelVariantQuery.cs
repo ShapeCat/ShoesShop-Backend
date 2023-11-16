@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using ShoesShop.Application.Interfaces;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Application.Requests.Queries.OutputVMs;
 using ShoesShop.Entities;

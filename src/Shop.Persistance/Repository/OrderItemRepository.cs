@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShoesShop.Application.Exceptions;
+using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Entities;
 using System.Linq.Expressions;
 

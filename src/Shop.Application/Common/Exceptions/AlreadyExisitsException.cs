@@ -1,4 +1,4 @@
-﻿namespace ShoesShop.Application.Exceptions
+﻿namespace ShoesShop.Application.Common.Exceptions
 {
     public class AlreadyExistsException : Exception
     {
