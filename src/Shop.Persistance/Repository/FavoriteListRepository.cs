@@ -5,9 +5,9 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class FavoriteListRepository : GenericRepository<FavoritesList>
+    public class FavoritesListRepository : GenericRepository<FavoritesList>
     {
-        public FavoriteListRepository(ShopDbContext dbContext) : base(dbContext) { }
+        public FavoritesListRepository(ShopDbContext dbContext) : base(dbContext) { }
 
         public override async Task AddAsync(FavoritesList item, CancellationToken cancellationToken)
         {

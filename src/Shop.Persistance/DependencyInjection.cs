@@ -27,19 +27,19 @@ namespace ShoesShop.Persistence
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services.AddScoped<IRepositoryOf<Address>, AddressRepository>()
-                .AddScoped<IRepositoryOf<CartItem>, CartItemRepository>()
-                .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
-                .AddScoped<IRepositoryOf<FavoritesList>, FavoriteListRepository>()
-                .AddScoped<IRepositoryOf<Image>, ImageRepository>()
-                .AddScoped<IRepositoryOf<Model>, ModelRepository>()
-                .AddScoped<IRepositoryOf<ModelSize>, ModelSizeRepository>()
-                .AddScoped<IRepositoryOf<ModelVariant>, ModelVariantRepository>()
-                .AddScoped<IRepositoryOf<Order>, OrderRepository>()
-                .AddScoped<IRepositoryOf<OrderItem>, OrderItemRepository>()
-                .AddScoped<IRepositoryOf<Price>, PriceRepository>()
-                .AddScoped<IRepositoryOf<Review>, ReviewRepository>()
-                .AddScoped<IRepositoryOf<ShopCart>, ShopCartRepository>()
-                .AddScoped<IRepositoryOf<User>, UserRepository>();
+                           .AddScoped<IRepositoryOf<CartItem>, CartItemRepository>()
+                           .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
+                           .AddScoped<IRepositoryOf<FavoritesList>, FavoritesListRepository>()
+                           .AddScoped<IRepositoryOf<Image>, ImageRepository>()
+                           .AddScoped<IRepositoryOf<Model>, ModelRepository>()
+                           .AddScoped<IRepositoryOf<ModelSize>, ModelSizeRepository>()
+                           .AddScoped<IRepositoryOf<ModelVariant>, ModelVariantRepository>()
+                           .AddScoped<IRepositoryOf<Order>, OrderRepository>()
+                           .AddScoped<IRepositoryOf<OrderItem>, OrderItemRepository>()
+                           .AddScoped<IRepositoryOf<Price>, PriceRepository>()
+                           .AddScoped<IRepositoryOf<Review>, ReviewRepository>()
+                           .AddScoped<IRepositoryOf<ShopCart>, ShopCartRepository>()
+                           .AddScoped<IRepositoryOf<User>, UserRepository>();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ShoesShop.Persistence
         {
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new CartItemConfiguration());
-            modelBuilder.ApplyConfiguration(new FavoriteItemConfiguration());
+            modelBuilder.ApplyConfiguration(new FavoritesItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new ModelConfiguration());

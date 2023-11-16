@@ -4,7 +4,7 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.EntityConfigurations
 {
-    internal class FavoriteItemConfiguration : IEntityTypeConfiguration<FavoritesItem>
+    internal class FavoritesItemConfiguration : IEntityTypeConfiguration<FavoritesItem>
     {
         public void Configure(EntityTypeBuilder<FavoritesItem> builder)
         {
