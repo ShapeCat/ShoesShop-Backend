@@ -9,11 +9,6 @@ namespace ShoesShop.Persistence.Repository
     {
         public PriceRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task AddAsync(Price item, CancellationToken cancellationToken)
-        {
-            await dbSet.AddAsync(item, cancellationToken);
-        }
-
         public override async Task<IEnumerable<Price>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
@@ -37,13 +32,6 @@ namespace ShoesShop.Persistence.Repository
                         ?? throw new NotFoundException(newItem.Id.ToString(), typeof(Price));
             (price.BasePrice, price.Sale, price.SaleEndDate)
                 = (newItem.BasePrice, newItem.Sale, newItem.SaleEndDate);
-        }
-
-        public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
-        {
-            var price = await dbSet.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken)
-                        ?? throw new NotFoundException(Id.ToString(), typeof(Price));
-            dbSet.Remove(price);
         }
     }
 }
