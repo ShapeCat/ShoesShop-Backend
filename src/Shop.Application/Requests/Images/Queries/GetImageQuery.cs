@@ -21,7 +21,7 @@ namespace ShoesShop.Application.Requests.Images.Queries
         {
             try
             {
-                var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
+                var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
                 var image = await imageRepository.GetAsync(request.ImageId, cancellationToken);
                 return Mapper.Map<ImageVm>(image);
             }

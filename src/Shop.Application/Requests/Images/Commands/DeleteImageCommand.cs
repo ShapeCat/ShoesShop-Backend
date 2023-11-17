@@ -19,7 +19,7 @@ namespace ShoesShop.Application.Requests.Images.Commands
         {
             try
             {
-                var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
+                var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
                 await imageRepository.RemoveAsync(request.ImageId, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;

@@ -39,9 +39,9 @@ namespace ShoesShop.Persistence
             };
         }
 
-        public IRepositoryOf<T> GetRepositoryOf<T>(bool a = false) where T : class
+        public IRepositoryOf<T> GetRepositoryOf<T>(bool ignoreServices = false) where T : class
         {
-            if (useServices)
+            if (useServices && !ignoreServices)
             {
                 return dbContext.GetService<IRepositoryOf<T>>();
             }

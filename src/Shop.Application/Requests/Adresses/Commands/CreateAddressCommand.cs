@@ -20,7 +20,7 @@ namespace ShoesShop.Application.Requests.Commands
 
         public override async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {            
-            var addressRepository = UnitOfWork.GetRepositoryOf<Address>(true);
+            var addressRepository = UnitOfWork.GetRepositoryOf<Address>();
             var address = new Address()
             {
                 Country = request.Country,

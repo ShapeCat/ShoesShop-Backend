@@ -17,7 +17,7 @@ namespace ShoesShop.Application.Requests.Images.Commands
 
         public override async Task<Guid> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-            var imageRepository = UnitOfWork.GetRepositoryOf<Image>(true);
+            var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
             var imageToAdd = new Image()
             {
                 Url = request.Url,
