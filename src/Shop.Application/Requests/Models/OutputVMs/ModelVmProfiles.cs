@@ -7,6 +7,10 @@ namespace ShoesShop.Application.Requests.Models.OutputVMs
     {
         public ModelVmProfiles()
         {
+            CreateMap<Image, ModelImageVm>().ForMember(x => x.ImageId, y => y.MapFrom(x => x.ImageId))
+                                    .ForMember(x => x.IsPreview, y => y.MapFrom(x => x.IsPreview))
+                                    .ForMember(x => x.Url, y => y.MapFrom(x => x.Url));
+
             CreateMap<Model, ModelVm>().ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
                                        .ForMember(x => x.Name, y => y.MapFrom(x => x.Name))
                                        .ForMember(x => x.Color, y => y.MapFrom(x => x.Color))

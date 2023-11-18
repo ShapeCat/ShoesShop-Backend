@@ -10,6 +10,6 @@ namespace ShoesShop.Application.Requests.Models.OutputVMs
         public string Brend { get; set; }
         public string SkuId { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public IEnumerable<ImageVm> Images { get; set; }
+        public IEnumerable<ModelImageVm> Images { get; set; }
     }
 }

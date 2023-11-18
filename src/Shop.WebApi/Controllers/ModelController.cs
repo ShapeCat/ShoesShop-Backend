@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Images.OutputVMs;
+using ShoesShop.Application.Requests.Images.Queries;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
@@ -106,6 +108,23 @@ namespace ShoesShop.WebApi.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet("{modelId}/Images}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ModelImageVm>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages(Guid modelId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var query = new GetAllModelImagesQuery()
+            {
+                ModelId = modelId,
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

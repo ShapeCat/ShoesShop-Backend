@@ -25,7 +25,7 @@ namespace ShoesShop.Tests.Models.Queries
             allModels.ShouldAllBe(x => x is ModelVm);
             allModels.Count().ShouldBe(2);
             //Additional test for images
-            allModels.ShouldAllBe(x => x.Images is IEnumerable<ImageVm>);
+            allModels.ShouldAllBe(x => x.Images is IEnumerable<ModelImageVm>);
         }
     }
 }
