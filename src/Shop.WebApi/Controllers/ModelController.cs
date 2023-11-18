@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Images.Commands;
-using ShoesShop.Application.Requests.Images.OutputVMs;
-using ShoesShop.Application.Requests.Images.Queries;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
