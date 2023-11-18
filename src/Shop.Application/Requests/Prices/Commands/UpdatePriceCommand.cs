@@ -34,10 +34,7 @@ namespace ShoesShop.Application.Requests.Prices.Commands
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
-            catch (NotFoundException)
-            {
-                throw;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

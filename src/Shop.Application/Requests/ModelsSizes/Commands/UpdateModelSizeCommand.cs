@@ -34,14 +34,8 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
-            catch (AlreadyExistsException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
+            catch (AlreadyExistsException) { throw; }
         }
     }
 }

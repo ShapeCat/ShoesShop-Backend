@@ -25,10 +25,7 @@ namespace ShoesShop.Application.Requests.Adresses.Queries
                 var address = await addressRepository.GetAsync(request.AddressId, cancellationToken);
                 return Mapper.Map<AddressVm>(address);
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

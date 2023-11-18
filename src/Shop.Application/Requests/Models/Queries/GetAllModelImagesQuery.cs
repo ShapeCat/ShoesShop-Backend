@@ -25,10 +25,8 @@ namespace ShoesShop.Application.Requests.Models.Queries
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 await modelRepository.GetAsync(request.ModelId, cancellationToken);
             }
-            catch (NotFoundException)
-            {
-                throw;
-            }
+            catch (NotFoundException) { throw; }
+
             var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
             var images = await imageRepository.FindAllAsync(x => x.ModelId == request.ModelId, cancellationToken);
             return Mapper.Map<IEnumerable<ModelImageVm>>(images);

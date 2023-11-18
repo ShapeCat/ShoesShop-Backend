@@ -38,10 +38,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return modelVariant.ModelVariantId;
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

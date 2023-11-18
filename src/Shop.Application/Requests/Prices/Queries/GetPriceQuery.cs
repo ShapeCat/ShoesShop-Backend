@@ -30,10 +30,7 @@ namespace ShoesShop.Application.Requests.Prices.Queries
                 var price = await priceRepository.GetAsync(request.PriceId, cancellationToken);
                 return Mapper.Map<PriceVm>(price);
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

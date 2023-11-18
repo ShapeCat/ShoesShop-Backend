@@ -24,10 +24,7 @@ namespace ShoesShop.Application.Requests.Adresses.Commands
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }
