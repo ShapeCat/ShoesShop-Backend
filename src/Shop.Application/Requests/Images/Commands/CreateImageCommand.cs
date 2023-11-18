@@ -18,17 +18,16 @@ namespace ShoesShop.Application.Requests.Images.Commands
         public override async Task<Guid> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
             var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
-            var imageToAdd = new Image()
+            var image = new Image()
             {
+                ImageId = Guid.NewGuid(),
                 Url = request.Url,
                 IsPreview = request.IsPreview
             };
 
-            await imageRepository.AddAsync(imageToAdd, cancellationToken);
+            await imageRepository.AddAsync(image, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
-            var createdImage = await imageRepository.FindAllAsync(x => x.Url == imageToAdd.Url
-                                                                       && x.IsPreview == imageToAdd.IsPreview, cancellationToken);
-            return createdImage.First().ImageId;
+            return image.ImageId;
         }
     }
 }

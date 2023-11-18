@@ -23,6 +23,7 @@ namespace ShoesShop.Application.Requests.Models.Commands
             var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
             var model = new Model()
             {
+                ModelId = Guid.NewGuid(),
                 Name = request.Name,
                 Color = request.Color,
                 Brend = request.Brend,
@@ -31,13 +32,8 @@ namespace ShoesShop.Application.Requests.Models.Commands
             };
 
             await modelRepository.AddAsync(model, cancellationToken);
-            await UnitOfWork.SaveChangesAsync(cancellationToken);           
-            var cratedModel = await modelRepository.FindAllAsync(x => x.Name == model.Name
-                                                                 && x.Color == model.Color
-                                                                 && x.Brend == model.Brend
-                                                                 && x.SkuId == model.SkuId
-                                                                 && x.ReleaseDate == model.ReleaseDate, cancellationToken);
-            return cratedModel.First().ModelId;
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
+            return model.ModelId;
         }
     }
 }

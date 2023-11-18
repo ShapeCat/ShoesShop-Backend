@@ -23,6 +23,7 @@ namespace ShoesShop.Application.Requests.Commands
             var addressRepository = UnitOfWork.GetRepositoryOf<Address>();
             var address = new Address()
             {
+                AddressId = new Guid(),
                 Country = request.Country,
                 City = request.City,
                 Street = request.Street,
@@ -31,13 +32,8 @@ namespace ShoesShop.Application.Requests.Commands
             };
 
             await addressRepository.AddAsync(address, cancellationToken);
-            await UnitOfWork.SaveChangesAsync(cancellationToken);
-            var createddAddress = await addressRepository.FindAllAsync(x => x.Country == address.Country
-                                                                     && x.City == address.City
-                                                                     && x.Street == address.Street
-                                                                     && x.House == address.House
-                                                                     && x.Room == address.Room, cancellationToken);
-            return createddAddress.First().AddressId;
+            await UnitOfWork.SaveChangesAsync(cancellationToken);;
+            return address.AddressId;
         }
     }
 }

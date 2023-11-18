@@ -21,8 +21,6 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
         {
             try
             {
-
-
                 var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
@@ -31,16 +29,14 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
                 var modelVariant = new ModelVariant()
                 {
+                ModelVariantId = Guid.NewGuid(),
                     Model = model,
                     ModelSize = modelSize,
                     ItemsLeft = request.ItemsLeft,
                 };
                 await modelVariantRepository.AddAsync(modelVariant, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
-                var createdModelVariant = await modelVariantRepository.FindAllAsync(x => x.Model == modelVariant.Model
-                                                                                   && x.ModelSize == modelVariant.ModelSize
-                                                                                   && x.ItemsLeft == request.ItemsLeft, cancellationToken);
-                return createdModelVariant.First().ModelVariantId;
+                return modelVariant.ModelVariantId;
             }
             catch (NotFoundException ex)
             {

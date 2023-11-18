@@ -20,6 +20,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
             var modelSize = new ModelSize()
             {
+            ModelSizeId = Guid.NewGuid(),
                 Size = request.Size,
             };
 
@@ -30,8 +31,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             }
             await modelSizeRepository.AddAsync(modelSize, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
-            var createdModelSize = await modelSizeRepository.FindAllAsync(x => x.Size == modelSize.Size, cancellationToken);
-            return createdModelSize.First().ModelSizeId;
+            return modelSize.ModelSizeId;
         }
     }
 }
