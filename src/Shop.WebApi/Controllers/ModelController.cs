@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Images.Queries;
 using ShoesShop.Application.Requests.Models.Commands;
@@ -110,7 +111,7 @@ namespace ShoesShop.WebApi.Controllers
             }
         }
 
-        [HttpGet("{modelId}/Images}")]
+        [HttpGet("{modelId}/images")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ModelImageVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -124,6 +125,22 @@ namespace ShoesShop.WebApi.Controllers
                 ModelId = modelId,
             };
             var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPost("{modelId}/images")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Guid>> CreateImage(Guid modelId, [FromBody] ImageDto imageDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (imageDto is null) return BadRequest(ModelState);
+
+            var command = Mapper.Map<CreateModelImageCommand>(imageDto);
+            command.ModelId = modelId;
+            var result = await Mediator.Send(command);
             return Ok(result);
         }
     }
