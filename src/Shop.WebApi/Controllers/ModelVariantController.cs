@@ -6,6 +6,8 @@ using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
+using ShoesShop.Application.Requests.Models.OutputVMs;
+using ShoesShop.Application.Requests.Models.Queries;
 
 namespace ShoesShop.WebApi.Controllers
 {
@@ -104,6 +106,29 @@ namespace ShoesShop.WebApi.Controllers
                 };
                 await Mediator.Send(command);
                 return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("{modelVariantId}/model")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelVm>> GetModel(Guid modelVariantId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetModelByVariantQuery()
+                {
+                    ModelVariantId = modelVariantId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
             }
             catch (NotFoundException ex)
             {
