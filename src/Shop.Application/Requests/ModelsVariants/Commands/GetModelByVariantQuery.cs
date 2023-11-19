@@ -6,7 +6,7 @@ using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.ModelsVariants.OutputVMs
+namespace ShoesShop.Application.Requests.ModelsVariants.Commands
 {
     public record GetModelByVariantQuery : IRequest<ModelVm>
     {
