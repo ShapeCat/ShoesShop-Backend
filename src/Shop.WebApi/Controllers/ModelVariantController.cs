@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Models.OutputVMs;
+using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
+using ShoesShop.Application.Requests.ModelsVariants.Commands;
+using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
+using ShoesShop.Application.Requests.ModelsVariants.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
-using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.ModelsVariants.Commands;
-using ShoesShop.Application.Requests.ModelsVariants.Queries;
-using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
-using ShoesShop.Application.Requests.Models.OutputVMs;
-using ShoesShop.Application.Requests.Models.Queries;
 
 namespace ShoesShop.WebApi.Controllers
 {
@@ -124,6 +124,29 @@ namespace ShoesShop.WebApi.Controllers
             try
             {
                 var query = new GetModelByVariantQuery()
+                {
+                    ModelVariantId = modelVariantId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("{modelVariantId}/modelSize")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelSizeVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelVm>> GetModelSize(Guid modelVariantId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var query = new GetModelSizeByVariantQuery()
                 {
                     ModelVariantId = modelVariantId
                 };
