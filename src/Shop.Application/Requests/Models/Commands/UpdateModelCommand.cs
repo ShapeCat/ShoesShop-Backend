@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -16,6 +17,18 @@ namespace ShoesShop.Application.Requests.Models.Commands
         public DateTime ReleaseDate { get; set; }
     }
 
+    public class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand> 
+    {
+        public UpdateModelCommandValidator()
+        {
+            RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
+            RuleFor(x => x.Name).NotEmpty().MaximumLength(255);
+            RuleFor(x => x.Color).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Brend).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Brend).NotEmpty().MaximumLength(255);
+            RuleFor(x => x.ReleaseDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
+        }
+    }
     public class UpdateModelCommandHandler : AbstractCommandHandler<UpdateModelCommand, Unit>
     {
         public UpdateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

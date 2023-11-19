@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -14,6 +15,13 @@ namespace ShoesShop.Application.Requests.Prices.Commands
         public DateTime? SaleEndDate { get; set; }
     }
 
+    public class UpdatePriceCommandValidator : AbstractValidator<UpdatePriceCommand> {
+        public UpdatePriceCommandValidator()
+        {
+            RuleFor(x => x.PriceId).NotEqual(Guid.Empty);
+            RuleFor(x => x.BasePrice).GreaterThan(0);
+        }
+    }
     public class UpdatePriceCommandHandler : AbstractCommandHandler<UpdatePriceCommand, Unit>
     {
         public UpdatePriceCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

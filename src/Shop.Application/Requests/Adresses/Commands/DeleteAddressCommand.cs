@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
+using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Adresses.Commands
@@ -11,6 +13,13 @@ namespace ShoesShop.Application.Requests.Adresses.Commands
         public Guid AddressId { get; set; }
     }
 
+    public class DeleteAddressCommandValidator : AbstractValidator<DeleteAddressCommand>
+    {
+        public DeleteAddressCommandValidator()
+        {
+            RuleFor(x => x.AddressId).NotEqual(Guid.Empty);
+        }
+    }
     public class DeleteAddressCommandHandler : AbstractCommandHandler<DeleteAddressCommand, Unit>
     {
         public DeleteAddressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

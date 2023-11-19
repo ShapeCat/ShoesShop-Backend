@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -13,6 +14,14 @@ namespace ShoesShop.Application.Requests.Images.Commands
         public bool IsPreview { get; set; }
     }
 
+    public class UpdateImageCommandValidator : AbstractValidator<UpdateImageCommand>
+    {
+        public UpdateImageCommandValidator()
+        {
+            RuleFor(x => x.ImageId).NotEqual(Guid.Empty);
+            RuleFor(x => x.Url).NotEmpty().MaximumLength(256);
+        }
+    }
     public class UpdateImageCommandhandler : AbstractCommandHandler<UpdateImageCommand, Unit>
     {
         public UpdateImageCommandhandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

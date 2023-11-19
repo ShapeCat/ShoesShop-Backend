@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -11,6 +12,14 @@ namespace ShoesShop.Application.Requests.Models.Queries
     public record GetModelQuery : IRequest<ModelVm>
     {
         public Guid ModelId { get; set; }
+    }
+
+    public class GetModelQueryValidator : AbstractValidator<GetModelQuery>
+    {
+        public GetModelQueryValidator()
+        {
+            RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
+        }
     }
 
     public class GetModelQueryHandler : AbstractQueryHandler<GetModelQuery, ModelVm>

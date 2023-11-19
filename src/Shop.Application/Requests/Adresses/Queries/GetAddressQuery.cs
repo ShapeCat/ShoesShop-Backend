@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -11,6 +12,14 @@ namespace ShoesShop.Application.Requests.Adresses.Queries
     public record GetAddressQuery : IRequest<AddressVm>
     {
         public Guid AddressId { get; set; }
+    }
+
+    public class GetAddressQueryValidator : AbstractValidator<GetAddressQuery>
+    {
+        public GetAddressQueryValidator()
+        {
+            RuleFor(x => x.AddressId).NotEqual(Guid.Empty);
+        }
     }
 
     public class GetAddressQueryHandler : AbstractQueryHandler<GetAddressQuery, AddressVm>

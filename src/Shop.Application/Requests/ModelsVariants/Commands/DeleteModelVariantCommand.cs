@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -11,6 +12,12 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
         public Guid ModelvariantId { get; set; }
     }
 
+    public class DeleteModelVariantCommandValidator : AbstractValidator<DeleteModelVariantCommand> {
+        public DeleteModelVariantCommandValidator()
+        {
+            RuleFor(x => x.ModelvariantId).NotEqual(Guid.Empty);
+        }
+    }
     public class DeleteModelVariantCommandHandler : AbstractCommandHandler<DeleteModelVariantCommand, Unit>
     {
         public DeleteModelVariantCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -13,6 +14,13 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Queries
         public Guid ModelVariantId { get; set; }
     }
 
+    public class GetModelSizeByVariantQueryValidator : AbstractValidator<GetModelSizeByVariantQuery>
+    {
+        public GetModelSizeByVariantQueryValidator()
+        {
+            RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
+        }
+    }
     public class GetModelSizeByVariantQueryHandler : AbstractQueryHandler<GetModelSizeByVariantQuery, ModelSizeVm>
     {
         public GetModelSizeByVariantQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -11,6 +12,13 @@ namespace ShoesShop.Application.Requests.Images.Commands
         public Guid ImageId { get; set; }
     }
 
+    public class DeleteImageCommandValidator : AbstractValidator<DeleteImageCommand> 
+    {
+        public DeleteImageCommandValidator()
+        {
+            RuleFor(x => x.ImageId).NotEqual(Guid.Empty);
+        }
+    }
     public class DeleteImageCommandHandler : AbstractCommandHandler<DeleteImageCommand, Unit>
     {
         public DeleteImageCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

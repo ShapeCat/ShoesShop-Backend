@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
@@ -12,6 +13,17 @@ namespace ShoesShop.Application.Requests.Commands
         public string Street { get; set; }
         public string House { get; set; }
         public int? Room { get; set; }
+    }
+
+    public class CreateAddressCommandValidator : AbstractValidator<CreateAddressCommand>
+    {
+        public CreateAddressCommandValidator()
+        {
+            RuleFor(x => x.Country).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.City).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.Street).NotEmpty().MaximumLength(128);
+            RuleFor(x=> x.House).NotEmpty().MaximumLength(128);
+        }
     }
 
     public class CreateAddressCommandHandler : AbstractCommandHandler<CreateAddressCommand, Guid>

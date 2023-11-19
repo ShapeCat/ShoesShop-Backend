@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -18,6 +19,13 @@ namespace ShoesShop.Application.Requests.Prices.Queries
         public Guid PriceId { get; set; }
     }
 
+    public class GetPriceQueryValidator : AbstractValidator<GetPriceQuery>
+    {
+        public GetPriceQueryValidator()
+        {
+            RuleFor(x => x.PriceId).NotEqual(Guid.Empty);
+        }
+    }
     public class GetPriceQueryHandler : AbstractQueryHandler<GetPriceQuery, PriceVm>
     {
         public GetPriceQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }

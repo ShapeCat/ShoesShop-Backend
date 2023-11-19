@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Models.Commands
@@ -11,6 +13,15 @@ namespace ShoesShop.Application.Requests.Models.Commands
         public Guid ModelId { get; set; }
         public string Url { get; set; }
         public bool IsPreview { get; set; }
+    }
+
+    public class CreateModelImageCommandValidator : AbstractValidator<CreateModelImageCommand>
+    {
+        public CreateModelImageCommandValidator()
+        {
+            RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
+            RuleFor(x => x.Url).NotEmpty().MaximumLength(256);
+        }
     }
 
     public class CreateModelImageCommandHandler : AbstractCommandHandler<CreateModelImageCommand, Guid>

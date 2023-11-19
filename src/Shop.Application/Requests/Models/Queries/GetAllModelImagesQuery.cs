@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -14,6 +15,13 @@ namespace ShoesShop.Application.Requests.Models.Queries
         public Guid ModelId { get; set; }
     }
 
+    public class GetAllModelImagesQueryValidator : AbstractValidator<GetAllModelImagesQuery>
+    {
+        public GetAllModelImagesQueryValidator()
+        {
+            RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
+        }
+    }
     public class GetAllModelImagesQueryHandler : AbstractQueryHandler<GetAllModelImagesQuery, IEnumerable<ModelImageVm>>
     {
         public GetAllModelImagesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }

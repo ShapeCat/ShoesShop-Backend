@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
@@ -12,6 +13,14 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
         public int Size { get; set; }
     }
 
+    public class UpdateModelSizeCommandValidator : AbstractValidator<UpdateModelSizeCommand>
+    {
+        public UpdateModelSizeCommandValidator()
+        {
+            RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
+            RuleFor(x => x.Size).GreaterThan(0);
+        }
+    }
     public class UpdateModelSizeCommandHandler : AbstractCommandHandler<UpdateModelSizeCommand, Unit>
     {
         public UpdateModelSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
