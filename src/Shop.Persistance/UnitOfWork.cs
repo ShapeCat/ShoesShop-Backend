@@ -25,7 +25,6 @@ namespace ShoesShop.Persistence
                 Type t when t == typeof(ShopcartItem) => new ShopcartItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesItem) => new FavoritesItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(FavoritesList) => new FavoritesListRepository(dbContext) as IRepositoryOf<T>,
-                Type t when t == typeof(Price) => new PriceRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Image) => new ImageRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Model) => new ModelRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(ModelSize) => new ModelSizeRepository(dbContext) as IRepositoryOf<T>,
@@ -35,6 +34,7 @@ namespace ShoesShop.Persistence
                 Type t when t == typeof(Review) => new ReviewRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Shopcart) => new ShopcartRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(User) => new UserRepository(dbContext) as IRepositoryOf<T>,
+                Type t when t == typeof(Sale) => new SaleRepository(dbContext) as IRepositoryOf<T>,
                 _ => null,
             };
         }

@@ -35,6 +35,8 @@ namespace ShoesShop.Tests.Core
         public static Guid UpdateOrderId { get; } = Guid.NewGuid();
         public static Guid DeletePriceId { get; } = Guid.NewGuid();
         public static Guid UpdatePriceId { get; } = Guid.NewGuid();
+        public static Guid DeleteSaleId { get; } = Guid.NewGuid();
+        public static Guid UpdateSaleId { get; } = Guid.NewGuid();
         public static Guid DeleteReviewId { get; } = Guid.NewGuid();
         public static Guid UpdateReviewId { get; } = Guid.NewGuid();
         public static Guid DeleteUserId { get; } = Guid.NewGuid();
@@ -94,20 +96,33 @@ namespace ShoesShop.Tests.Core
                     Images = new List<Image>(){images[1]},
                 },
             };
-            var prices = new List<Price>()
+            //var prices = new List<Price>()
+            //{
+            //    new Price()
+            //    {
+            //        PriceId = DeletePriceId,
+            //        BasePrice = 1000,
+            //    },
+            //     new Price()
+            //     {
+            //         PriceId = UpdatePriceId,
+            //         BasePrice = 1000,
+            //     }
+            //};
+            var sales = new List<Sale>()
             {
-                new Price()
-                {
-                    PriceId = DeletePriceId,
-                    BasePrice = 1000,
-                },
-                 new Price()
-                 {
-                     PriceId = UpdatePriceId,
-                     BasePrice = 1000,
-                     Sale = 1,
-                     SaleEndDate = DateTime.Now,
-                 }
+            new Sale()
+            {
+                SaleId = DeleteSaleId,
+                Percent = 1,
+                SaleEndDate = DateTime.Now,
+            },
+            new Sale()
+            {
+                SaleId = UpdateSaleId,
+                Percent = 2,
+                SaleEndDate = DateTime.Now,
+            }
             };
             var modelVariants = new List<ModelVariant>()
             {
@@ -116,7 +131,7 @@ namespace ShoesShop.Tests.Core
                     ModelVariantId = DeleteModelVariantId,
                     Model = models[0],
                     ModelSize = modelSizes[0],
-                    Price = prices[0],
+                    //Price = prices[0],
                     ItemsLeft = 0,
                 },
                 new ModelVariant()
@@ -124,7 +139,7 @@ namespace ShoesShop.Tests.Core
                     ModelVariantId = UpdateModelVariantId,
                     Model = models[1],
                     ModelSize = modelSizes[1],
-                    Price = prices[1],
+                    //Price = prices[1],
                     ItemsLeft = 1,
                 }
             };

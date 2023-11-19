@@ -23,8 +23,6 @@ namespace ShoesShop.Persistence.EntityConfigurations
                    .AutoInclude();
             builder.Navigation(x => x.ModelSize)
                    .AutoInclude();
-            builder.Navigation(x => x.Price)
-                   .AutoInclude();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
         public Guid? ModelId { get; set; }
         public Guid? ModelSizeId { get; set; }
         public int ItemsLeft { get; set; }
+        public decimal Price { get; set; }
     }
 
     public class UpdateModelVariantCommandValidator : AbstractValidator<UpdateModelVariantCommand>
@@ -22,7 +23,8 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
-            RuleFor(x => x.ItemsLeft).GreaterThan(0);
+            RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0);
+            RuleFor(x=>x.Price).GreaterThan(0);
         }
     }
 

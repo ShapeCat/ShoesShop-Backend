@@ -17,20 +17,23 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = TestData.UpdateModelSizeId,
-                ItemsLeft = 4
+                ItemsLeft = 4,
+                Price = 1000,
             };
             var command = new CreateModelVariantCommand()
             {
                 ModelId = modelToCreate.ModelId,
                 ModelSizeId = modelToCreate.ModelSizeId,
                 ItemsLeft = modelToCreate.ItemsLeft,
+                Price = modelToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
             var createdModelVariantId = await handler.Handle(command, CancellationToken.None);
             DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == createdModelVariantId
                                                           && x.ModelId == modelToCreate.ModelId
-                                                          && x.ModelSizeId == modelToCreate.ModelSizeId).ShouldNotBeNull();
+                                                          && x.ModelSizeId == modelToCreate.ModelSizeId
+                                                          && x.Price == modelToCreate.Price).ShouldNotBeNull();
         }
 
         [Fact]
@@ -40,13 +43,15 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             {
                 ModelId = Guid.NewGuid(),
                 ModelSizeId = TestData.UpdateModelSizeId,
-                ItemsLeft = 4
+                ItemsLeft = 4,
+                Price = 1000,
             };
             var command = new CreateModelVariantCommand()
             {
                 ModelId = modelToCreate.ModelId,
                 ModelSizeId = modelToCreate.ModelSizeId,
                 ItemsLeft = modelToCreate.ItemsLeft,
+                Price = modelToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
@@ -60,13 +65,15 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = Guid.NewGuid(),
-                ItemsLeft = 4
+                ItemsLeft = 4,
+                Price = 1000,
             };
             var command = new CreateModelVariantCommand()
             {
                 ModelId = modelToCreate.ModelId,
                 ModelSizeId = modelToCreate.ModelSizeId,
                 ItemsLeft = modelToCreate.ItemsLeft,
+                Price = modelToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 

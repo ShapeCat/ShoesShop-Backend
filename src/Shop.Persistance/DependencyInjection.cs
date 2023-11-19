@@ -36,8 +36,8 @@ namespace ShoesShop.Persistence
                            .AddScoped<IRepositoryOf<ModelVariant>, ModelVariantRepository>()
                            .AddScoped<IRepositoryOf<Order>, OrderRepository>()
                            .AddScoped<IRepositoryOf<OrderItem>, OrderItemRepository>()
-                           .AddScoped<IRepositoryOf<Price>, PriceRepository>()
                            .AddScoped<IRepositoryOf<Review>, ReviewRepository>()
+                           .AddScoped<IRepositoryOf<Sale>, SaleRepository>()
                            .AddScoped<IRepositoryOf<Shopcart>, ShopcartRepository>()
                            .AddScoped<IRepositoryOf<User>, UserRepository>();
         }

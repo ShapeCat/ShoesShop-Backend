@@ -16,10 +16,10 @@ namespace ShoesShop.Persistence
         public DbSet<ModelVariant> ModelsVariants { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderItem> OrdersItems { get; set; } = null!;
-        public DbSet<Price> Prices { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
         public DbSet<Shopcart> Shopcarts { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Sale> Sales { get; set; } = null!;
 
         public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) { }
 
@@ -34,10 +34,10 @@ namespace ShoesShop.Persistence
             modelBuilder.ApplyConfiguration(new ModelSizeConfiguration());
             modelBuilder.ApplyConfiguration(new ModelVariantConfiguration());
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
-            modelBuilder.ApplyConfiguration(new PriceConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new ShopcartConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

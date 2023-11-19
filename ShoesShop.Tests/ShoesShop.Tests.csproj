@@ -29,4 +29,9 @@
 		<ProjectReference Include="..\src\Shop.Persistance\ShoesShop.Persistence.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Sales\Commands\" />
+	  <Folder Include="Sales\Queries\" />
+	</ItemGroup>
+
 </Project>

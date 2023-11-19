@@ -5,7 +5,7 @@ using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
-using ShoesShop.Application.Requests.Prices.Commands;
+//using ShoesShop.Application.Requests.Prices.Commands;
 
 namespace ShoesShop.WebApi.Dto.Profiles
 {
@@ -49,13 +49,13 @@ namespace ShoesShop.WebApi.Dto.Profiles
 
             CreateMap<ModelVariantDto, CreateModelVariantCommand>().ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
                                                                    .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
-                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft));
+                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
+                                                                   .ForMember(x=>x.Price, y => y.MapFrom(x=>x.Price));
 
             CreateMap<ModelVariantDto, UpdateModelVariantCommand>().ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
                                                                    .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
-                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft));
-
-            CreateMap<PriceDto, UpdatePriceCommand>().ForMember(x => x.BasePrice, y => y.MapFrom(x => x.BasePrice));
+                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
+                                                                   .ForMember(x => x.Price, y => y.MapFrom(x => x.Price));
         }
     }
 }
