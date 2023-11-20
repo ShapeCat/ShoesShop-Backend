@@ -24,7 +24,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Requests\Sales\Commands\" />
-	  <Folder Include="Requests\Sales\Queries\" />
 	</ItemGroup>
 
 </Project>

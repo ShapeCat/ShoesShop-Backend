@@ -31,7 +31,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Sales\Commands\" />
-	  <Folder Include="Sales\Queries\" />
 	</ItemGroup>
 
 </Project>
