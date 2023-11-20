@@ -12,7 +12,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasKey(x => x.SaleId);
             builder.HasOne(x => x.ModelVariant)
                    .WithMany(x => x.Sales)
-                   .HasForeignKey(x => x.SaleId);
+                   .HasForeignKey(x => x.ModelVariantId);
             builder.Property(x => x.Percent)
                    .IsRequired();
             builder.Property(x => x.SaleEndDate)
