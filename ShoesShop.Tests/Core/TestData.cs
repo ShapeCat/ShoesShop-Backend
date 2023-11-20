@@ -96,33 +96,20 @@ namespace ShoesShop.Tests.Core
                     Images = new List<Image>(){images[1]},
                 },
             };
-            //var prices = new List<Price>()
-            //{
-            //    new Price()
-            //    {
-            //        PriceId = DeletePriceId,
-            //        BasePrice = 1000,
-            //    },
-            //     new Price()
-            //     {
-            //         PriceId = UpdatePriceId,
-            //         BasePrice = 1000,
-            //     }
-            //};
             var sales = new List<Sale>()
             {
-            new Sale()
-            {
-                SaleId = DeleteSaleId,
-                Percent = 1,
-                SaleEndDate = DateTime.Now,
-            },
-            new Sale()
-            {
-                SaleId = UpdateSaleId,
-                Percent = 2,
-                SaleEndDate = DateTime.Now,
-            }
+                new Sale()
+                {
+                    SaleId = DeleteSaleId,
+                    Percent = 1,
+                    SaleEndDate = DateTime.Now,
+                },
+                new Sale()
+                {
+                    SaleId = UpdateSaleId,
+                    Percent = 2,
+                    SaleEndDate = DateTime.Now,
+                }
             };
             var modelVariants = new List<ModelVariant>()
             {
@@ -131,7 +118,10 @@ namespace ShoesShop.Tests.Core
                     ModelVariantId = DeleteModelVariantId,
                     Model = models[0],
                     ModelSize = modelSizes[0],
-                    //Price = prices[0],
+                    Sales = new List<Sale>()
+                    {
+                        sales[0]
+                    },
                     ItemsLeft = 0,
                 },
                 new ModelVariant()
@@ -139,7 +129,10 @@ namespace ShoesShop.Tests.Core
                     ModelVariantId = UpdateModelVariantId,
                     Model = models[1],
                     ModelSize = modelSizes[1],
-                    //Price = prices[1],
+                    Sales = new List<Sale>()
+                    {
+                        sales[1]
+                    },
                     ItemsLeft = 1,
                 }
             };
