@@ -5,7 +5,6 @@ using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
-//using ShoesShop.Application.Requests.Prices.Commands;
 
 namespace ShoesShop.WebApi.Dto.Profiles
 {
@@ -56,6 +55,9 @@ namespace ShoesShop.WebApi.Dto.Profiles
                                                                    .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
                                                                    .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
                                                                    .ForMember(x => x.Price, y => y.MapFrom(x => x.Price));
+
+            CreateMap<SaleDto, CreateModelVariantSaleCommand>().ForMember(x => x.Percent, y => y.MapFrom(x => x.Percent))
+                                                               .ForMember(x => x.SaleEndDate, y => y.MapFrom(x => x.SaleEndDate));
         }
     }
 }

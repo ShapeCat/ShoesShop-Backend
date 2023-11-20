@@ -158,5 +158,21 @@ namespace ShoesShop.WebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpPost("{modelVariantId}/Sales")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Guid>> CreateSale(Guid modelVariantId, [FromBody] SaleDto saleDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (saleDto is null) return BadRequest(ModelState);
+
+            var command = Mapper.Map<CreateModelVariantSaleCommand>(saleDto);
+            command.ModelVariantId = modelVariantId;
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
