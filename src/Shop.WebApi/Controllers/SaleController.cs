@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Adresses.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
+using ShoesShop.Application.Requests.Sales.Commands;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
 using ShoesShop.Application.Requests.Sales.Queries;
+using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
@@ -42,6 +45,28 @@ namespace ShoesShop.WebApi.Controllers
                 };
                 var result = await Mediator.Send(query);
                 return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{saleId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Update(Guid addressId, [FromBody] SaleDto saleDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (saleDto is null) return BadRequest(ModelState);
+            try
+            {
+                var command = Mapper.Map<UpdateSaleCommand>(saleDto);
+                command.SaleId = addressId;
+                await Mediator.Send(command);
+                return NoContent();
             }
             catch (NotFoundException ex)
             {
