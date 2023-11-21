@@ -16,7 +16,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.Property(x => x.Color)
                    .HasMaxLength(50)
                    .IsRequired();
-            builder.Property(x => x.Brend)
+            builder.Property(x => x.Brand)
                    .HasMaxLength(50)
                    .IsRequired();
             builder.Property(x => x.SkuId)

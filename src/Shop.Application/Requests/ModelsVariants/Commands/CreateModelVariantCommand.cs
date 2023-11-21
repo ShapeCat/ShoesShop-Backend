@@ -22,9 +22,10 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
             RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0);
-            RuleFor(x=>x.Price).GreaterThan(0);
+            RuleFor(x => x.Price).GreaterThan(0);
         }
     }
+
     public class CreateModelVariantCommandHandler : AbstractCommandHandler<CreateModelVariantCommand, Guid>
     {
         public CreateModelVariantCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -36,7 +37,6 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
-
                 var model = await modelRepository.GetAsync(request.ModelId, cancellationToken);
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
                 var modelVariant = new ModelVariant()

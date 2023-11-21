@@ -9,7 +9,6 @@ namespace ShoesShop.Application.Requests.ModelsSizes.OutputVMs
         {
             CreateMap<ModelSize, ModelSizeVm>().ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
                                                .ForMember(x => x.Size, y => y.MapFrom(x => x.Size));
-
         }
     }
 }

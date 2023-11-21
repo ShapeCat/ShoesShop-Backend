@@ -12,7 +12,7 @@ namespace ShoesShop.Tests.ModelsSizes.Queries
         public GetModelSizeQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnModelSize_WhenModelSizeExists()
+        public async void Should_ReturnModelSize_WhenCorrect()
         {
             var query = new GetModelSizeQuery()
             {
@@ -20,24 +20,20 @@ namespace ShoesShop.Tests.ModelsSizes.Queries
             };
             var handler = new GetModelSizeQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var modelSize = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             modelSize.ShouldBeOfType<ModelSizeVm>();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenModelSizeNotExists()
         {
-            // Arrange
             var query = new GetModelSizeQuery()
             {
                 ModelSizeId = Guid.NewGuid(),
             };
             var handler = new GetModelSizeQueryHandler(UnitOfWork, Mapper);
-            // Act
-            // Assert
+
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
     }

@@ -1,44 +1,44 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using ShoesShop.Entities;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Entities;
 
 namespace ShoesShop.Persistence.Repository
 {
-    public class ShopcartItemRepository : GenericRepository<ShopcartItem>
+    public class ShopCartItemRepository : GenericRepository<ShopCartItem>
     {
-        public ShopcartItemRepository(ShopDbContext dbContext) : base(dbContext) { }
+        public ShopCartItemRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<IEnumerable<ShopcartItem>> GetAllAsync(CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ShopCartItem>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
         }
 
-        public override async Task<ShopcartItem> GetAsync(Guid Id, CancellationToken cancellationToken)
+        public override async Task<ShopCartItem> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
             return await dbSet.FirstOrDefaultAsync(cancellationToken)
-                   ?? throw new NotFoundException(Id.ToString(), typeof(ShopcartItem));
+                   ?? throw new NotFoundException(Id.ToString(), typeof(ShopCartItem));
         }
 
-        public override async Task<IEnumerable<ShopcartItem>> FindAllAsync(Expression<Func<ShopcartItem, bool>> predicate, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ShopCartItem>> FindAllAsync(Expression<Func<ShopCartItem, bool>> predicate, CancellationToken cancellationToken)
         {
             return await dbSet.Where(predicate)
                               .ToListAsync(cancellationToken);
         }
 
-        public override async Task EditAsync(ShopcartItem newItem, CancellationToken cancellationToken)
+        public override async Task EditAsync(ShopCartItem newItem, CancellationToken cancellationToken)
         {
-            var shopcartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopcartItemId == newItem.ShopcartItemId, cancellationToken)
-                           ?? throw new NotFoundException(newItem.ShopcartItemId.ToString(), typeof(ShopcartItem));
-            (shopcartItem.Amount)
-                = (newItem.Amount);
+            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == newItem.ShopCartItemId, cancellationToken)
+                           ?? throw new NotFoundException(newItem.ShopCartItemId.ToString(), typeof(ShopCartItem));
+            shopCartItem.Amount
+                = newItem.Amount;
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var shopcartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopcartItemId == Id, cancellationToken)
-                           ?? throw new NotFoundException(Id.ToString(), typeof(ShopcartItem));
-            dbSet.Remove(shopcartItem);
+            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == Id, cancellationToken)
+                           ?? throw new NotFoundException(Id.ToString(), typeof(ShopCartItem));
+            dbSet.Remove(shopCartItem);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
 
             builder.Navigation(x => x.Address)
                    .AutoInclude();
-            builder.Navigation(x => x.Shopcarts)
+            builder.Navigation(x => x.ShopCarts)
                    .AutoInclude();
             builder.Navigation(x => x.Favorites)
                    .AutoInclude();

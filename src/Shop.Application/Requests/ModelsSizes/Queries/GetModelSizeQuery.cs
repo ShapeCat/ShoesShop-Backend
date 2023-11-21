@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
@@ -13,6 +14,14 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Queries
         public Guid ModelSizeId { get; set; }
     }
 
+    public class GetModelSizeQueryValidator : AbstractValidator<GetModelSizeQuery>
+    {
+        public GetModelSizeQueryValidator()
+        {
+            RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
+        }
+    }
+
     public class GetModelSizeQueryHandler : AbstractQueryHandler<GetModelSizeQuery, ModelSizeVm>
     {
         public GetModelSizeQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
@@ -25,10 +34,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Queries
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
                 return Mapper.Map<ModelSizeVm>(modelSize);
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

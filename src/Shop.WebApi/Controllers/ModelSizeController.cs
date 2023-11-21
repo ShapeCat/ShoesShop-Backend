@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.Queries;
@@ -69,7 +68,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateDescription(Guid modelSizeId, [FromBody] ModelSizeDto modelSizeDto)
+        public async Task<ActionResult> Update(Guid modelSizeId, [FromBody] ModelSizeDto modelSizeDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (modelSizeDto is null) return BadRequest(ModelState);

@@ -19,6 +19,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
         }
     }
+
     public class DeleteModelSizeCommandHandler : AbstractCommandHandler<DeleteModelSizeCommand, Unit>
     {
         public DeleteModelSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

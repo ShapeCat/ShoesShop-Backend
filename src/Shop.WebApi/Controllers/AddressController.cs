@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Adresses.Commands;
-using ShoesShop.Application.Requests.Adresses.OutputVMs;
-using ShoesShop.Application.Requests.Adresses.Queries;
-using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Addresses.Commands;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -47,8 +46,6 @@ namespace ShoesShop.WebApi.Controllers
             var command = Mapper.Map<CreateAddressCommand>(addressDto);
             var result = await Mediator.Send(command);
             return Ok(result);
-
-
         }
 
         /// <summary>
@@ -143,7 +140,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateDescription(Guid addressId, [FromBody] AddressDto descriptionDto)
+        public async Task<ActionResult> Update(Guid addressId, [FromBody] AddressDto descriptionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (descriptionDto is null) return BadRequest(ModelState);

@@ -3,7 +3,6 @@ using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
-using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Models.Commands
@@ -28,7 +27,7 @@ namespace ShoesShop.Application.Requests.Models.Commands
     {
         public CreateModelImageCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public async override Task<Guid> Handle(CreateModelImageCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(CreateModelImageCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -42,11 +41,9 @@ namespace ShoesShop.Application.Requests.Models.Commands
                     Url = request.Url,
                     Model = model,
                 };
-
                 await imageRepository.AddAsync(image, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return image.ImageId;
-
             }
             catch (NotFoundException) { throw; }
         }

@@ -33,8 +33,8 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
             try
             {
                 var saleRepository = UnitOfWork.GetRepositoryOf<Sale>();
-                var modelVarinatRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
-                var modelVariant = await modelVarinatRepository.GetAsync(request.ModelVariantId, cancellationToken);
+                var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
+                var modelVariant = await modelVariantRepository.GetAsync(request.ModelVariantId, cancellationToken);
                 var sale = new Sale()
                 {
                     SaleId = Guid.NewGuid(),

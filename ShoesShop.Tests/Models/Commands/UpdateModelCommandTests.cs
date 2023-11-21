@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
+﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -16,36 +10,34 @@ namespace ShoesShop.Tests.Models.Commands
     public class UpdateModelCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void SHould_UpdateModel_WhenModeExists()
+        public async void Should_UpdateModel_WhenCorrect()
         {
-            // Arrange
             var modelToUpdate = new Model()
             {
+                ModelId = TestData.UpdateModelId,
                 Name = "update test name",
                 Color = "update test color",
-                Brend = "update test brend",
-                SkuId = "update test skuid",
+                Brand = "update test brand",
+                SkuId = "update test SkuId",
                 ReleaseDate = DateTime.Now,
             };
             var command = new UpdateModelCommand()
             {
-                ModelId = TestData.UpdateModelId,
+                ModelId = modelToUpdate.ModelId,
                 Name = modelToUpdate.Name,
                 Color = modelToUpdate.Color,
-                Brend = modelToUpdate.Brend,
+                Brand = modelToUpdate.Brand,
                 SkuId = modelToUpdate.SkuId,
                 ReleaseDate = modelToUpdate.ReleaseDate,
             };
             var handler = new UpdateModelCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
             DbContext.Models.SingleOrDefault(x => x.ModelId == TestData.UpdateModelId
                                                  && x.Name == modelToUpdate.Name
                                                  && x.Color == modelToUpdate.Color
-                                                 && x.Brend == modelToUpdate.Brend
+                                                 && x.Brand == modelToUpdate.Brand
                                                  && x.SkuId == modelToUpdate.SkuId
                                                  && x.ReleaseDate == modelToUpdate.ReleaseDate).ShouldNotBeNull();
         }
@@ -53,13 +45,12 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async Task Should_ThrowException_WhenImageNotExists()
         {
-            // Arrange
             var modelToUpdate = new Model()
             {
                 Name = "update test name",
                 Color = "update test color",
-                Brend = "update test brend",
-                SkuId = "update test skuid",
+                Brand = "update test brand",
+                SkuId = "update test SkuId",
                 ReleaseDate = DateTime.Now,
             };
             var command = new UpdateModelCommand()
@@ -67,16 +58,13 @@ namespace ShoesShop.Tests.Models.Commands
                 ModelId = Guid.NewGuid(),
                 Name = modelToUpdate.Name,
                 Color = modelToUpdate.Color,
-                Brend = modelToUpdate.Brend,
+                Brand = modelToUpdate.Brand,
                 SkuId = modelToUpdate.SkuId,
                 ReleaseDate = modelToUpdate.ReleaseDate,
             };
             var handler = new UpdateModelCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
-
         }
     }
 }

@@ -4,10 +4,10 @@ using MediatR;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
-using ShoesShop.Application.Requests.Adresses.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.Adresses.Queries
+namespace ShoesShop.Application.Requests.Addresses.Queries
 {
     public record GetAddressQuery : IRequest<AddressVm>
     {

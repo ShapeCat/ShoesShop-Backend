@@ -13,7 +13,7 @@ namespace ShoesShop.Application.Requests.Sales.Queries
     {
         public GetAllSalesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async override Task<IEnumerable<SaleVm>> Handle(GetAllSalesQuery request, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<SaleVm>> Handle(GetAllSalesQuery request, CancellationToken cancellationToken)
         {
             var salesRepository = UnitOfWork.GetRepositoryOf<Sale>();
             var allSales = await salesRepository.GetAllAsync(cancellationToken);

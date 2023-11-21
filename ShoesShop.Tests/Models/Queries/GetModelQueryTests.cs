@@ -12,34 +12,28 @@ namespace ShoesShop.Tests.Models.Queries
         public GetModelQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnModel_WhenMOdelExists()
+        public async void Should_ReturnModel_WhenCorrect()
         {
-            // Arrange
             var query = new GetModelQuery()
             {
                 ModelId = TestData.UpdateModelId,
             };
             var handler = new GetModelQueryHandler(UnitOfWork, Mapper);
 
-            // Act
-            var address = await handler.Handle(query, CancellationToken.None);
+            var model = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
-            address.ShouldBeOfType<ModelVm>();
+            model.ShouldBeOfType<ModelVm>();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenModelNotExists()
         {
-            // Arrange
             var query = new GetModelQuery()
             {
                 ModelId = Guid.NewGuid(),
             };
             var handler = new GetModelQueryHandler(UnitOfWork, Mapper);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
     }

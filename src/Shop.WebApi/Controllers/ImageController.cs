@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.WebApi.Dto;
-using ShoesShop.WebAPI.Controllers;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Images.Commands;
-using ShoesShop.Application.Requests.Images.Queries;
 using ShoesShop.Application.Requests.Images.OutputVMs;
+using ShoesShop.Application.Requests.Images.Queries;
+using ShoesShop.WebApi.Dto;
+using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
 {
@@ -54,7 +54,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateDescription(Guid imageId, [FromBody] ImageDto imageDto)
+        public async Task<ActionResult> Update(Guid imageId, [FromBody] ImageDto imageDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (imageDto is null) return BadRequest(ModelState);

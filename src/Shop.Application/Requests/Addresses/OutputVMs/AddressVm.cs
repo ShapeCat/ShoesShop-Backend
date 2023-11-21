@@ -1,8 +1,8 @@
-﻿namespace ShoesShop.Application.Requests.Adresses.OutputVMs
+﻿namespace ShoesShop.Application.Requests.Addresses.OutputVMs
 {
     public class AddressVm
     {
-        public Guid AdressId { get; set; }
+        public Guid AddressId { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

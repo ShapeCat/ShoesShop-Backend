@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -11,7 +10,7 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
     public class CreateModelSizeCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_CreateModelSize_WhenModelSizeNotExists()
+        public async void Should_CreateModelSize_WhenCorrect()
         {
             var modelSizeToCreate = new ModelSize()
             {
@@ -23,13 +22,10 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
             };
             var handler = new CreateModelSizeCommandHandler(UnitOfWork);
 
-            //Act 
             var createdModelSizeId = await handler.Handle(command, CancellationToken.None);
 
-            //Assert
             DbContext.ModelsSizes.SingleOrDefault(x => x.ModelSizeId == createdModelSizeId
                                                     && x.Size == modelSizeToCreate.Size).ShouldNotBeNull();
-
         }
 
         [Fact]
@@ -45,8 +41,6 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
             };
             var handler = new CreateModelSizeCommandHandler(UnitOfWork);
 
-            //Act
-            //Assert
             await Should.ThrowAsync<AlreadyExistsException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

@@ -11,8 +11,8 @@
 
         public Address Address { get; set; }
         public FavoritesList Favorites { get; set; }
-        public ICollection<Shopcart> Shopcarts { get; set; }
+        public ICollection<ShopCart> ShopCarts { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<Review> Rewiews { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }

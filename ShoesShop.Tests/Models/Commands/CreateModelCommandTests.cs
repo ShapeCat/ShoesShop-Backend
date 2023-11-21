@@ -1,5 +1,4 @@
-﻿using ShoesShop.Application.Requests.Commands;
-using ShoesShop.Application.Requests.Models.Commands;
+﻿using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -10,21 +9,21 @@ namespace ShoesShop.Tests.Models.Commands
     public class CreateModelCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_CreateModel_WhenNotExists()
+        public async void Should_CreateModel_WhenCorrect()
         {
             var modelToCreate = new Model()
             {
                 Name = "create test name",
                 Color = "create test color",
-                Brend = "create test brend",
-                SkuId = "create test skuid",
+                Brand = "create test brand",
+                SkuId = "create test SkuId",
                 ReleaseDate = DateTime.Now,
             };
             var command = new CreateModelCommand()
             {
                 Name = modelToCreate.Name,
                 Color = modelToCreate.Color,
-                Brend = modelToCreate.Brend,
+                Brand = modelToCreate.Brand,
                 SkuId = modelToCreate.SkuId,
                 ReleaseDate = modelToCreate.ReleaseDate,
             };
@@ -34,7 +33,7 @@ namespace ShoesShop.Tests.Models.Commands
             DbContext.Models.SingleOrDefault(x => x.ModelId == createdModelId
                                                  && x.Name == modelToCreate.Name
                                                  && x.Color == modelToCreate.Color
-                                                 && x.Brend == modelToCreate.Brend
+                                                 && x.Brand == modelToCreate.Brand
                                                  && x.SkuId == modelToCreate.SkuId
                                                  && x.ReleaseDate == modelToCreate.ReleaseDate).ShouldNotBeNull();
         }

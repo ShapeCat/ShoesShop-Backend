@@ -12,13 +12,14 @@ namespace ShoesShop.Application.Requests.Images.Commands
         public Guid ImageId { get; set; }
     }
 
-    public class DeleteImageCommandValidator : AbstractValidator<DeleteImageCommand> 
+    public class DeleteImageCommandValidator : AbstractValidator<DeleteImageCommand>
     {
         public DeleteImageCommandValidator()
         {
             RuleFor(x => x.ImageId).NotEqual(Guid.Empty);
         }
     }
+
     public class DeleteImageCommandHandler : AbstractCommandHandler<DeleteImageCommand, Unit>
     {
         public DeleteImageCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

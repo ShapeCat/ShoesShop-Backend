@@ -11,16 +11,13 @@ namespace ShoesShop.Tests.ModelsSizes.Queries
         public GetAllModelSizesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnAllSizes()
+        public async void Should_ReturnAllSizes_WhenCorrect()
         {
-            // Arraange
             var query = new GetAllModelSizesQuery();
             var handler = new GetAllModelSizesQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var allAddresses = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             allAddresses.ShouldAllBe(x => x is ModelSizeVm);
             allAddresses.Count().ShouldBe(2);
         }

@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -11,9 +10,8 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
     public class UpdateModelVariantCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_UpdateModelVariant_WhenModelvariantExists()
+        public async void Should_UpdateModelVariant_WhenCorrect()
         {
-            // Arrange
             var modelVariantToUpdate = new ModelVariant()
             {
                 ModelVariantId = TestData.UpdateModelVariantId,
@@ -27,10 +25,8 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             };
             var handler = new UpdateModelVariantCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
             DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == TestData.UpdateModelVariantId
                                                           && x.ItemsLeft == modelVariantToUpdate.ItemsLeft).ShouldNotBeNull();
         }
@@ -38,7 +34,6 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async Task Should_ThrowException_WhenModelVariantNotExists()
         {
-            // Arrange
             var modelVariantToUpdate = new ModelVariant()
             {
                 ModelVariantId = Guid.NewGuid(),
@@ -52,8 +47,6 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             };
             var handler = new UpdateModelVariantCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

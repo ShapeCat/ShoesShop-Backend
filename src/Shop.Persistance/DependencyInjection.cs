@@ -27,7 +27,7 @@ namespace ShoesShop.Persistence
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services.AddScoped<IRepositoryOf<Address>, AddressRepository>()
-                           .AddScoped<IRepositoryOf<ShopcartItem>, ShopcartItemRepository>()
+                           .AddScoped<IRepositoryOf<ShopCartItem>, ShopCartItemRepository>()
                            .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
                            .AddScoped<IRepositoryOf<FavoritesList>, FavoritesListRepository>()
                            .AddScoped<IRepositoryOf<Image>, ImageRepository>()
@@ -38,7 +38,7 @@ namespace ShoesShop.Persistence
                            .AddScoped<IRepositoryOf<OrderItem>, OrderItemRepository>()
                            .AddScoped<IRepositoryOf<Review>, ReviewRepository>()
                            .AddScoped<IRepositoryOf<Sale>, SaleRepository>()
-                           .AddScoped<IRepositoryOf<Shopcart>, ShopcartRepository>()
+                           .AddScoped<IRepositoryOf<ShopCart>, ShopCartRepository>()
                            .AddScoped<IRepositoryOf<User>, UserRepository>();
         }
     }

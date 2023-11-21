@@ -35,8 +35,8 @@ namespace ShoesShop.Persistence.Repository
         {
             var order = await dbSet.FirstOrDefaultAsync(x => x.OrderId == newItem.OrderId, cancellationToken)
                                ?? throw new NotFoundException(newItem.OrderId.ToString(), typeof(Order));
-            (order.Status)
-                = (newItem.Status);
+            order.Status
+                = newItem.Status;
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)

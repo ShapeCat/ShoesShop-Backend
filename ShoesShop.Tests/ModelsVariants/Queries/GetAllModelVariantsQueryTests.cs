@@ -11,18 +11,15 @@ namespace ShoesShop.Tests.ModelsVariants.Queries
         public GetAllModelVariantsQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnAllModelVariants()
+        public async void Should_ReturnAllModelVariants_WhenCorrect()
         {
-            // Arraange
             var query = new GetAllModelVariantQuery();
             var handler = new GetAllModelVariantsQueryHander(UnitOfWork, Mapper);
 
-            // Act
-            var allAddresses = await handler.Handle(query, CancellationToken.None);
+            var allModelVariants = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
-            allAddresses.ShouldAllBe(x => x is ModelVariantVm);
-            allAddresses.Count().ShouldBe(2);
+            allModelVariants.ShouldAllBe(x => x is ModelVariantVm);
+            allModelVariants.Count().ShouldBe(2);
         }
     }
 }

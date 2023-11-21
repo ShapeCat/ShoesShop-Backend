@@ -24,7 +24,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
             RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0);
-            RuleFor(x=>x.Price).GreaterThan(0);
+            RuleFor(x => x.Price).GreaterThan(0);
         }
     }
 
@@ -54,8 +54,8 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 }
                 if (request.ModelId is not null && request.ModelSizeId is not null)
                 {
-                    var sameModelvariants = await modelVariantRepository.FindAllAsync(x => x.ModelSizeId == request.ModelSizeId && x.ModelSizeId == request.ModelId, cancellationToken);
-                    if (sameModelvariants.Any()) throw new AlreadyExistsException($"(Model:{request.ModelId}, Size:{request.ModelSizeId})", typeof(ModelVariant));
+                    var sameModelVariants = await modelVariantRepository.FindAllAsync(x => x.ModelSizeId == request.ModelSizeId && x.ModelSizeId == request.ModelId, cancellationToken);
+                    if (sameModelVariants.Any()) throw new AlreadyExistsException($"(Model:{request.ModelId}, Size:{request.ModelSizeId})", typeof(ModelVariant));
                 }
                 await modelVariantRepository.EditAsync(newModelVariant, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);

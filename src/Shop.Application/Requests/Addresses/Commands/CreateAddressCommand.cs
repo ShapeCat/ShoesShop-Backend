@@ -4,7 +4,7 @@ using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.Commands
+namespace ShoesShop.Application.Requests.Addresses.Commands
 {
     public record CreateAddressCommand : IRequest<Guid>
     {
@@ -22,7 +22,7 @@ namespace ShoesShop.Application.Requests.Commands
             RuleFor(x => x.Country).NotEmpty().MaximumLength(128);
             RuleFor(x => x.City).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Street).NotEmpty().MaximumLength(128);
-            RuleFor(x=> x.House).NotEmpty().MaximumLength(128);
+            RuleFor(x => x.House).NotEmpty().MaximumLength(128);
         }
     }
 
@@ -31,7 +31,7 @@ namespace ShoesShop.Application.Requests.Commands
         public CreateAddressCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public override async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
-        {            
+        {
             var addressRepository = UnitOfWork.GetRepositoryOf<Address>();
             var address = new Address()
             {
@@ -42,9 +42,8 @@ namespace ShoesShop.Application.Requests.Commands
                 House = request.House,
                 Room = request.Room
             };
-
             await addressRepository.AddAsync(address, cancellationToken);
-            await UnitOfWork.SaveChangesAsync(cancellationToken);;
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
             return address.AddressId;
         }
     }

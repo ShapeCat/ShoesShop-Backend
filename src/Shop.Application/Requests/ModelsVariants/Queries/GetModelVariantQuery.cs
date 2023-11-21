@@ -21,6 +21,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Queries
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
         }
     }
+
     public class GetModelVariantQueryHandler : AbstractQueryHandler<GetModelVariantQuery, ModelVariantVm>
     {
         public GetModelVariantQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
@@ -33,10 +34,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Queries
                 var modelVariant = await modelVariantRepository.GetAsync(request.ModelVariantId, cancellationToken);
                 return Mapper.Map<ModelVariantVm>(modelVariant);
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

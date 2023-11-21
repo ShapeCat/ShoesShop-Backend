@@ -16,10 +16,10 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.Property(x => x.PublishDate)
                    .IsRequired();
             builder.HasOne(x => x.Model)
-                   .WithMany(x => x.Rewiews)
+                   .WithMany(x => x.Reviews)
                    .HasForeignKey(x => x.ModelId);
             builder.HasOne(x => x.Author)
-                   .WithMany(x => x.Rewiews)
+                   .WithMany(x => x.Reviews)
                    .HasForeignKey(x => x.UserId);
 
             builder.Navigation(x => x.Author)

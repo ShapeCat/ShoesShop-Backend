@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -10,7 +9,7 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
     public class DeleteModelSizeCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_DeleteModelSize_WhenModelSizeExists()
+        public async void Should_DeleteModelSize_WhenCorrect()
         {
             var command = new DeleteModelSizeCommand()
             {
@@ -18,10 +17,8 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
             };
             var handler = new DeleteModelSizeCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert 
             DbContext.ModelsSizes.FirstOrDefault(x => x.ModelSizeId == TestData.DeleteModelSizeId).ShouldBeNull();
         }
 
@@ -34,8 +31,6 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
             };
             var handler = new DeleteModelSizeCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert 
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

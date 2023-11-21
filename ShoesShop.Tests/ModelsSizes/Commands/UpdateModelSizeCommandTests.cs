@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -11,55 +10,50 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
     public class UpdateModelSizeCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_ThrowException_WhenModelSizeNotExists()
+        public async void Should_UpdateModelSize_WhenCorrect()
         {
-            // Arrange
             var modelSizeToUpdate = new ModelSize()
             {
+                ModelSizeId = TestData.UpdateModelSizeId,
                 Size = 100,
             };
             var command = new UpdateModelSizeCommand()
             {
-                ModelSizeId = TestData.UpdateModelSizeId,
+                ModelSizeId = modelSizeToUpdate.ModelSizeId,
                 Size = modelSizeToUpdate.Size,
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
             DbContext.ModelsSizes.SingleOrDefault(x => x.ModelSizeId == TestData.UpdateModelSizeId
                                                        && x.Size == modelSizeToUpdate.Size).ShouldNotBeNull();
-
         }
 
         [Fact]
-        public async void Should_ThrrowException_WhenModelSizeNotExists()
+        public async void Should_ThrowException_WhenModelSizeNotExists()
         {
-            // Arrange
             var modelSizeToUpdate = new ModelSize()
             {
+                ModelSizeId = Guid.NewGuid(),
                 Size = 100,
             };
             var command = new UpdateModelSizeCommand()
             {
-                ModelSizeId = Guid.NewGuid(),
+                ModelSizeId = modelSizeToUpdate.ModelSizeId,
                 Size = modelSizeToUpdate.Size,
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
 
         [Fact]
         public async void Should_ThrowException_WhenSameModelSizeExists()
         {
-            // Arrange
             var modelSizeToUpdate = new ModelSize()
             {
+                ModelSizeId = Guid.NewGuid(),
                 Size = TestData.ExistedModelSize,
             };
             var command = new UpdateModelSizeCommand()
@@ -69,8 +63,6 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<AlreadyExistsException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

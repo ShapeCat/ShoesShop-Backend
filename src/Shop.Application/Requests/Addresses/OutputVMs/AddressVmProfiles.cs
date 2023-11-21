@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.Adresses.OutputVMs
+namespace ShoesShop.Application.Requests.Addresses.OutputVMs
 {
     public class AddressVmProfiles : Profile
     {
         public AddressVmProfiles()
         {
-            CreateMap<Address, AddressVm>().ForMember(x => x.AdressId, y => y.MapFrom(x => x.AddressId))
+            CreateMap<Address, AddressVm>().ForMember(x => x.AddressId, y => y.MapFrom(x => x.AddressId))
                                            .ForMember(x => x.Country, y => y.MapFrom(x => x.Country))
                                            .ForMember(x => x.City, y => y.MapFrom(x => x.City))
                                            .ForMember(x => x.Street, y => y.MapFrom(x => x.Street))

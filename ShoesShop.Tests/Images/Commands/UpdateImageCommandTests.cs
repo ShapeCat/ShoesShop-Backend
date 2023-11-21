@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -11,48 +10,44 @@ namespace ShoesShop.Tests.Images.Commands
     public class UpdateImageCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async Task Should_UpdateImage_WhenImageExists()
+        public async Task Should_UpdateImage_WhenCorrect()
         {
-            // Arrange
-            var newImage = new Image()
+            var imageToUpdate = new Image()
             {
+                ImageId = TestData.UpdateImageId,
                 Url = "update test url"
             };
             var command = new UpdateImageCommand()
             {
-                ImageId = TestData.UpdateImageId,
-                Url = newImage.Url,
-                IsPreview = newImage.IsPreview,
+                ImageId = imageToUpdate.ImageId,
+                Url = imageToUpdate.Url,
+                IsPreview = imageToUpdate.IsPreview,
             };
-            var handler = new UpdateImageCommandhandler(UnitOfWork);
+            var handler = new UpdateImageCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
-            DbContext.Images.FirstOrDefault(x => x.ImageId == TestData.UpdateImageId
-                                                   && x.Url == newImage.Url
-                                                   && x.IsPreview == newImage.IsPreview).ShouldNotBeNull();
+            DbContext.Images.FirstOrDefault(x => x.ImageId == imageToUpdate.ImageId
+                                                   && x.Url == imageToUpdate.Url
+                                                   && x.IsPreview == imageToUpdate.IsPreview).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenImageNotExists()
         {
-            // Arrange
-            var newImage = new Image()
+            var imageToUpdate = new Image()
             {
+                ImageId = Guid.NewGuid(),
                 Url = "update test url"
             };
             var command = new UpdateImageCommand()
             {
-                ImageId = Guid.NewGuid(),
-                Url = newImage.Url,
-                IsPreview = newImage.IsPreview,
+                ImageId = imageToUpdate.ImageId,
+                Url = imageToUpdate.Url,
+                IsPreview = imageToUpdate.IsPreview,
             };
-            var handler = new UpdateImageCommandhandler(UnitOfWork);
+            var handler = new UpdateImageCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

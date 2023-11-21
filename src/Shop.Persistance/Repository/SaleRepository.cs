@@ -9,17 +9,17 @@ namespace ShoesShop.Persistence.Repository
     {
         public SaleRepository(ShopDbContext dbContext) : base(dbContext) { }
 
-        public async override Task AddAsync(Sale item, CancellationToken cancellationToken)
+        public override async Task AddAsync(Sale item, CancellationToken cancellationToken)
         {
             await dbSet.AddAsync(item, cancellationToken);
         }
 
-        public async override Task<IEnumerable<Sale>> GetAllAsync(CancellationToken cancellationToken)
+        public override async Task<IEnumerable<Sale>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
         }
 
-        public async override Task<Sale> GetAsync(Guid Id, CancellationToken cancellationToken)
+        public override async Task<Sale> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
             return await dbSet.FirstOrDefaultAsync(x => x.SaleId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(Address));
@@ -31,7 +31,7 @@ namespace ShoesShop.Persistence.Repository
                               .ToListAsync(cancellationToken);
         }
 
-        public async override Task EditAsync(Sale newItem, CancellationToken cancellationToken)
+        public override async Task EditAsync(Sale newItem, CancellationToken cancellationToken)
         {
             var sale = await dbSet.FirstOrDefaultAsync(x => x.SaleId == newItem.SaleId, cancellationToken)
                         ?? throw new NotFoundException(newItem.SaleId.ToString(), typeof(Sale));
@@ -39,7 +39,7 @@ namespace ShoesShop.Persistence.Repository
                 = (newItem.Percent, newItem.SaleEndDate);
         }
 
-        public async override Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
+        public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
             var address = await dbSet.FirstOrDefaultAsync(x => x.SaleId == Id, cancellationToken)
                          ?? throw new NotFoundException(Id.ToString(), typeof(Address)); dbSet.Remove(address);

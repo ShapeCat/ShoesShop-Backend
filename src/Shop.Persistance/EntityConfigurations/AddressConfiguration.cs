@@ -8,7 +8,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable("adresses");
+            builder.ToTable("addresses");
             builder.HasKey(x => x.AddressId);
             builder.Property(x => x.Country)
                    .HasMaxLength(128)

@@ -9,7 +9,7 @@ namespace ShoesShop.Tests.Sales.Commands
     public class DeleteSaleCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_DeleteSale_WhenSaleExists()
+        public async void Should_DeleteSale_WhenCorrect()
         {
             var command = new DeleteSaleCommand()
             {
@@ -17,10 +17,8 @@ namespace ShoesShop.Tests.Sales.Commands
             };
             var handler = new DeleteSaleCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert 
             DbContext.Sales.FirstOrDefault(x => x.ModelVariantId == TestData.DeleteModelVariantId).ShouldBeNull();
         }
 
@@ -33,8 +31,6 @@ namespace ShoesShop.Tests.Sales.Commands
             };
             var handler = new DeleteSaleCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert 
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

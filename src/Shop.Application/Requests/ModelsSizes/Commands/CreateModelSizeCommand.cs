@@ -19,6 +19,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             RuleFor(x => x.Size).GreaterThan(0);
         }
     }
+
     public class CreateModelSizeCommandHandler : AbstractCommandHandler<CreateModelSizeCommand, Guid>
     {
         public CreateModelSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }

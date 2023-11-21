@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Images.Commands;
+﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -16,9 +10,8 @@ namespace ShoesShop.Tests.Models.Commands
     public class CreateModelImageCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void SHould_CreateImage_WhenModeExists()
+        public async void Should_CreateImage_WhenCorrect()
         {
-            // Arrange
             var imageToCreate = new Image()
             {
                 ModelId = TestData.UpdateModelId,
@@ -33,10 +26,8 @@ namespace ShoesShop.Tests.Models.Commands
             };
             var handler = new CreateModelImageCommandHandler(UnitOfWork);
 
-            // Act
             var createdImageId = await handler.Handle(command, CancellationToken.None);
 
-            // Assert
             DbContext.Images.SingleOrDefault(x => x.ImageId == createdImageId
                                                   && x.Url == imageToCreate.Url
                                                   && x.ModelId == x.ModelId
@@ -46,7 +37,6 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async Task Should_ThrowException_WhenModelNotExists()
         {
-            // Arrange
             var imageToCreate = new Image()
             {
                 ModelId = Guid.NewGuid(),
@@ -60,8 +50,7 @@ namespace ShoesShop.Tests.Models.Commands
                 IsPreview = imageToCreate.IsPreview,
             };
             var handler = new CreateModelImageCommandHandler(UnitOfWork);
-            // Act
-            // Assert
+
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

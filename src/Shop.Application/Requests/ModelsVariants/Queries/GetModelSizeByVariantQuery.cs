@@ -21,6 +21,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Queries
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
         }
     }
+
     public class GetModelSizeByVariantQueryHandler : AbstractQueryHandler<GetModelSizeByVariantQuery, ModelSizeVm>
     {
         public GetModelSizeByVariantQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }

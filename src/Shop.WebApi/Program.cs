@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using ShoesShop.Application;
 using ShoesShop.Persistence;
-using ShoesShop.WebApi.Dto.Profiles;
+using ShoesShop.WebApi.Dto.Mapping;
 
 namespace ShoesShop.WebAPI
 {
@@ -40,7 +40,7 @@ namespace ShoesShop.WebAPI
                         Title = "Shoes Shop API",
                         Contact = new OpenApiContact()
                         {
-                            Name = "Shape The Moonlgiht",
+                            Name = "Shape Cat",
                             Url = new Uri("https://github.com/ShapeTheMoonlight")
                         }
                     });

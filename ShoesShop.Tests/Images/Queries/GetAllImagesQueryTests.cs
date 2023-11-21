@@ -11,16 +11,13 @@ namespace ShoesShop.Tests.Images.Queries
         public GetAllImagesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async Task Should_ReturnAllImages()
+        public async Task Should_ReturnAllImages_WhenCorrect()
         {
-            // Arraange
             var query = new GetAllImagesQuery();
-            var handler = new GetAllImagesQueryHadler(UnitOfWork, Mapper);
+            var handler = new GetAllImagesQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var allImages = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             allImages.ShouldAllBe(x => x is ImageVm);
             allImages.Count().ShouldBe(2);
         }

@@ -1,6 +1,5 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Adresses.Commands;
-using ShoesShop.Application.Requests.Commands;
+using ShoesShop.Application.Requests.Addresses.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -11,11 +10,11 @@ namespace ShoesShop.Tests.Addresses.Commands
     public class UpdateAddressCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async Task Should_UpdateAddress_WhenAddressExists()
+        public async Task Should_UpdateAddress_WhenCorrect()
         {
-            // Arrange
             var newAddress = new Address()
             {
+                AddressId = TestData.UpdateAddressId,
                 Country = "edit test country",
                 City = "edit test city",
                 Street = "edit test street",
@@ -24,7 +23,7 @@ namespace ShoesShop.Tests.Addresses.Commands
             };
             var command = new UpdateAddressCommand()
             {
-                AddressId = TestData.UpdateAddressId,
+                AddressId = newAddress.AddressId,
                 Country = newAddress.Country,
                 City = newAddress.City,
                 Street = newAddress.Street,
@@ -33,11 +32,9 @@ namespace ShoesShop.Tests.Addresses.Commands
             };
             var handler = new UpdateAddressCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
-            DbContext.Addresses.FirstOrDefault(x => x.AddressId == TestData.UpdateAddressId
+            DbContext.Addresses.FirstOrDefault(x => x.AddressId == newAddress.AddressId
                                                    && x.Country == newAddress.Country
                                                    && x.City == newAddress.City
                                                    && x.Street == newAddress.Street
@@ -48,9 +45,9 @@ namespace ShoesShop.Tests.Addresses.Commands
         [Fact]
         public async Task Should_ThrowException_WhenAddressNotExists()
         {
-            // Arrange
             var newAddress = new Address()
             {
+                AddressId = Guid.NewGuid(),
                 Country = "edit test country",
                 City = "edit test city",
                 Street = "edit test street",
@@ -59,7 +56,7 @@ namespace ShoesShop.Tests.Addresses.Commands
             };
             var command = new UpdateAddressCommand()
             {
-                AddressId = Guid.NewGuid(),
+                AddressId = newAddress.AddressId,
                 Country = newAddress.Country,
                 City = newAddress.City,
                 Street = newAddress.Street,
@@ -68,8 +65,6 @@ namespace ShoesShop.Tests.Addresses.Commands
             };
             var handler = new UpdateAddressCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

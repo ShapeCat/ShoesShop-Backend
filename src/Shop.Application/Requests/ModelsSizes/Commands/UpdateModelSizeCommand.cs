@@ -21,25 +21,24 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             RuleFor(x => x.Size).GreaterThan(0);
         }
     }
+
     public class UpdateModelSizeCommandHandler : AbstractCommandHandler<UpdateModelSizeCommand, Unit>
     {
         public UpdateModelSizeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public async override Task<Unit> Handle(UpdateModelSizeCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(UpdateModelSizeCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var modelSizerepository = UnitOfWork.GetRepositoryOf<ModelSize>();
-                var newmModelSize = new ModelSize()
+                var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
+                var newModelSize = new ModelSize()
                 {
                     ModelSizeId = request.ModelSizeId,
                     Size = request.Size,
                 };
-
-                var sameModelSizes = await modelSizerepository.FindAllAsync(x => x.Size == newmModelSize.Size, cancellationToken);
-                if (sameModelSizes.Any()) throw new AlreadyExistsException(newmModelSize.Size.ToString(), typeof(ModelSize));
-
-                await modelSizerepository.EditAsync(newmModelSize, cancellationToken);
+                var sameModelSizes = await modelSizeRepository.FindAllAsync(x => x.Size == newModelSize.Size, cancellationToken);
+                if (sameModelSizes.Any()) throw new AlreadyExistsException(newModelSize.Size.ToString(), typeof(ModelSize));
+                await modelSizeRepository.EditAsync(newModelSize, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

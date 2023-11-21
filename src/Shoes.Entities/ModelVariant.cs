@@ -11,7 +11,7 @@
         public Model Model { get; set; }
         public ModelSize ModelSize { get; set; }
         public IEnumerable<Sale> Sales { get; set; }
-        public ICollection<ShopcartItem> ShopcartsIn { get; set; }
+        public ICollection<ShopCartItem> ShopCartsIn { get; set; }
         public ICollection<OrderItem> OrdersIn { get; set; }
         public ICollection<FavoritesItem> FavoritesIn { get; set; }
     }

@@ -12,34 +12,28 @@ namespace ShoesShop.Tests.Images.Queries
         public GetImageQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async Task Should_ReturnImage_WhenImageExists()
+        public async Task Should_ReturnImage_WhenCorrect()
         {
-            // Arrange
             var query = new GetImageQuery()
             {
                 ImageId = TestData.UpdateImageId,
             };
             var handler = new GetImageQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var image = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             image.ShouldBeOfType<ImageVm>();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenImageNotExists()
         {
-            // Arrange
             var query = new GetImageQuery()
             {
                 ImageId = Guid.NewGuid(),
             };
             var handler = new GetImageQueryHandler(UnitOfWork, Mapper);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
     }

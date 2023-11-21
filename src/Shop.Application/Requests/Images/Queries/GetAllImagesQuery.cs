@@ -9,9 +9,9 @@ namespace ShoesShop.Application.Requests.Images.Queries
 {
     public record GetAllImagesQuery : IRequest<IEnumerable<ImageVm>> { }
 
-    public class GetAllImagesQueryHadler : AbstractQueryHandler<GetAllImagesQuery, IEnumerable<ImageVm>>
+    public class GetAllImagesQueryHandler : AbstractQueryHandler<GetAllImagesQuery, IEnumerable<ImageVm>>
     {
-        public GetAllImagesQueryHadler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+        public GetAllImagesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         public override async Task<IEnumerable<ImageVm>> Handle(GetAllImagesQuery request, CancellationToken cancellationToken)
         {

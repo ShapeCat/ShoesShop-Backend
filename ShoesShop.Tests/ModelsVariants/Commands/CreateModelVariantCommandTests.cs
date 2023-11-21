@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -11,9 +10,9 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
     public class CreateModelVariantCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_CreateModelVariant_WhenModelVariantNotExists()
+        public async void Should_CreateModelVariant_WhenCorrect()
         {
-            var modelToCreate = new ModelVariant()
+            var modelVariantToCreate = new ModelVariant()
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = TestData.UpdateModelSizeId,
@@ -22,24 +21,24 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             };
             var command = new CreateModelVariantCommand()
             {
-                ModelId = modelToCreate.ModelId,
-                ModelSizeId = modelToCreate.ModelSizeId,
-                ItemsLeft = modelToCreate.ItemsLeft,
-                Price = modelToCreate.Price
+                ModelId = modelVariantToCreate.ModelId,
+                ModelSizeId = modelVariantToCreate.ModelSizeId,
+                ItemsLeft = modelVariantToCreate.ItemsLeft,
+                Price = modelVariantToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
             var createdModelVariantId = await handler.Handle(command, CancellationToken.None);
             DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == createdModelVariantId
-                                                          && x.ModelId == modelToCreate.ModelId
-                                                          && x.ModelSizeId == modelToCreate.ModelSizeId
-                                                          && x.Price == modelToCreate.Price).ShouldNotBeNull();
+                                                          && x.ModelId == modelVariantToCreate.ModelId
+                                                          && x.ModelSizeId == modelVariantToCreate.ModelSizeId
+                                                          && x.Price == modelVariantToCreate.Price).ShouldNotBeNull();
         }
 
         [Fact]
         public async void Should_ThrowException_WhenModelNotExists()
         {
-            var modelToCreate = new ModelVariant()
+            var modelVariantToCreate = new ModelVariant()
             {
                 ModelId = Guid.NewGuid(),
                 ModelSizeId = TestData.UpdateModelSizeId,
@@ -48,10 +47,10 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             };
             var command = new CreateModelVariantCommand()
             {
-                ModelId = modelToCreate.ModelId,
-                ModelSizeId = modelToCreate.ModelSizeId,
-                ItemsLeft = modelToCreate.ItemsLeft,
-                Price = modelToCreate.Price
+                ModelId = modelVariantToCreate.ModelId,
+                ModelSizeId = modelVariantToCreate.ModelSizeId,
+                ItemsLeft = modelVariantToCreate.ItemsLeft,
+                Price = modelVariantToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
@@ -61,7 +60,7 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async void Should_ThrowException_WhenModelSizeNotExists()
         {
-            var modelToCreate = new ModelVariant()
+            var modelVariantToCreate = new ModelVariant()
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = Guid.NewGuid(),
@@ -70,10 +69,10 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             };
             var command = new CreateModelVariantCommand()
             {
-                ModelId = modelToCreate.ModelId,
-                ModelSizeId = modelToCreate.ModelSizeId,
-                ItemsLeft = modelToCreate.ItemsLeft,
-                Price = modelToCreate.Price
+                ModelId = modelVariantToCreate.ModelId,
+                ModelSizeId = modelVariantToCreate.ModelSizeId,
+                ItemsLeft = modelVariantToCreate.ItemsLeft,
+                Price = modelVariantToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 

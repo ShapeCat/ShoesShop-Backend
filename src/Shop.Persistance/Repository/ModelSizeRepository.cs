@@ -35,7 +35,7 @@ namespace ShoesShop.Persistence.Repository
         {
             var modelSize = await dbSet.FirstOrDefaultAsync(x => x.ModelSizeId == newItem.ModelSizeId, cancellationToken)
                             ?? throw new NotFoundException(newItem.ModelSizeId.ToString(), typeof(ModelSize));
-            (modelSize.Size) = (newItem.Size);
+            modelSize.Size = newItem.Size;
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)

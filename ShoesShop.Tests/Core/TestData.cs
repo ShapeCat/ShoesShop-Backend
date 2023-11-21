@@ -11,7 +11,7 @@ namespace ShoesShop.Tests.Core
         {
             get
             {
-                using SHA256 sHA256 = SHA256.Create();
+                using var sHA256 = SHA256.Create();
                 var Password = Guid.NewGuid().ToString();
                 return sHA256.ComputeHash(Encoding.UTF8.GetBytes("test password 1"));
             }
@@ -47,12 +47,12 @@ namespace ShoesShop.Tests.Core
         {
             var modelSizes = new List<ModelSize>()
             {
-                new ModelSize()
+                new ()
                 {
                     ModelSizeId = DeleteModelSizeId,
                     Size = 1,
                 },
-                new ModelSize()
+                new ()
                 {
                     ModelSizeId = UpdateModelSizeId,
                     Size = ExistedModelSize,
@@ -60,13 +60,13 @@ namespace ShoesShop.Tests.Core
             };
             var images = new List<Image>()
             {
-                new Image()
+                new ()
                 {
                     ImageId = DeleteImageId,
                     Url = "test url 1",
                     IsPreview = true,
                 },
-                new Image()
+                new ()
                 {
                     ImageId = UpdateImageId,
                     Url = "test url 2",
@@ -75,36 +75,39 @@ namespace ShoesShop.Tests.Core
             };
             var models = new List<Model>()
             {
-                new Model()
+                new ()
                 {
                     ModelId = DeleteModelId,
                     Name = "test name 1",
                     Color = "test color 1",
-                    Brend = "test brend 1",
-                    SkuId = "test skuid 1",
+                    Brand = "test brand 1",
+                    SkuId = "test SkuId 1",
                     ReleaseDate = DateTime.Now,
                     Images = new List<Image>(images),
                 },
-                new Model()
+                new ()
                 {
                     ModelId = UpdateModelId,
                     Name = "test name 2",
                     Color = "test color 2",
-                    Brend = "test brend 2",
-                    SkuId = "test skuid 2",
+                    Brand = "test brand 2",
+                    SkuId = "test SkuId 2",
                     ReleaseDate = DateTime.Now,
-                    Images = new List<Image>(){images[1]},
+                    Images = new List<Image>()
+                    {
+                        images[1]
+                    },
                 },
             };
             var sales = new List<Sale>()
             {
-                new Sale()
+                new ()
                 {
                     SaleId = DeleteSaleId,
                     Percent = 1,
                     SaleEndDate = DateTime.Now,
                 },
-                new Sale()
+                new ()
                 {
                     SaleId = UpdateSaleId,
                     Percent = 2,
@@ -113,7 +116,7 @@ namespace ShoesShop.Tests.Core
             };
             var modelVariants = new List<ModelVariant>()
             {
-                new ModelVariant()
+                new ()
                 {
                     ModelVariantId = DeleteModelVariantId,
                     Model = models[0],
@@ -124,7 +127,7 @@ namespace ShoesShop.Tests.Core
                     },
                     ItemsLeft = 0,
                 },
-                new ModelVariant()
+                new ()
                 {
                     ModelVariantId = UpdateModelVariantId,
                     Model = models[1],
@@ -138,12 +141,12 @@ namespace ShoesShop.Tests.Core
             };
             var favoriteItems = new List<FavoritesItem>()
             {
-                new FavoritesItem()
+                new ()
                 {
                     FavoriteItemId = DeleteFavoriteItemId,
                     ModelVariant = modelVariants[0],
                 },
-                new FavoritesItem()
+                new ()
                 {
                     FavoriteItemId = UpdateFavoriteItemId,
                     ModelVariant = modelVariants[1],
@@ -151,7 +154,7 @@ namespace ShoesShop.Tests.Core
             };
             var favoriteLists = new List<FavoritesList>()
             {
-                new FavoritesList()
+                new ()
                 {
                     FavoriteListId = Guid.NewGuid(),
                     Items = new List<FavoritesItem>()
@@ -159,52 +162,52 @@ namespace ShoesShop.Tests.Core
                         favoriteItems[0]
                     },
                 },
-                new FavoritesList()
+                new ()
                 {
                     FavoriteListId= Guid.NewGuid(),
                     Items = new List<FavoritesItem>(favoriteItems)
                 },
             };
-            var cartItems = new List<ShopcartItem>()
+            var cartItems = new List<ShopCartItem>()
             {
-                new ShopcartItem()
+                new ()
                 {
-                    ShopcartItemId = DeleteCartItemId,
+                    ShopCartItemId = DeleteCartItemId,
                     ModelVariant = modelVariants[0],
                     Amount = 0,
                 },
-                new ShopcartItem()
+                new ()
                 {
-                    ShopcartItemId = UpdateCartItemId,
+                    ShopCartItemId = UpdateCartItemId,
                     ModelVariant = modelVariants[1],
                     Amount = 1,
                 }
             };
-            var shopCarts = new List<Shopcart>()
+            var shopCarts = new List<ShopCart>()
             {
-                new Shopcart()
+                new ()
                 {
-                    ShopcartId = Guid.NewGuid(),
-                    Items = new List<ShopcartItem>
+                    ShopCartId = Guid.NewGuid(),
+                    Items = new List<ShopCartItem>
                     {
                         cartItems[0]
                     },
                 },
-                new Shopcart
+                new ()
                 {
-                    ShopcartId = Guid.NewGuid(),
-                    Items = new List<ShopcartItem>(cartItems),
+                    ShopCartId = Guid.NewGuid(),
+                    Items = new List<ShopCartItem>(cartItems),
                 }
             };
             var orderItems = new List<OrderItem>()
             {
-                new OrderItem()
+                new ()
                 {
                     OrderItemId = Guid.NewGuid(),
                     ModelVariant = modelVariants[0],
                     Amount= 0,
                 },
-                new OrderItem()
+                new ()
                 {
                     OrderItemId = Guid.NewGuid(),
                     ModelVariant = modelVariants[1],
@@ -213,7 +216,7 @@ namespace ShoesShop.Tests.Core
             };
             var orders = new List<Order>()
             {
-                new Order()
+                new ()
                 {
                     OrderId = DeleteOrderId,
                     Status = OrderStatus.InProcess,
@@ -223,7 +226,7 @@ namespace ShoesShop.Tests.Core
                         orderItems[0]
                     },
                 },
-                new Order()
+                new ()
                 {
                     OrderId = UpdateOrderId,
                     Status = OrderStatus.Finished,
@@ -233,7 +236,7 @@ namespace ShoesShop.Tests.Core
             };
             var reviews = new List<Review>()
             {
-                new Review()
+                new ()
                 {
                     ReviewId = DeleteReviewId,
                     Comment = "test commentary 1",
@@ -241,7 +244,7 @@ namespace ShoesShop.Tests.Core
                     Model = models[0],
                     Rating = 1,
                 },
-                new Review()
+                new ()
                 {
                     ReviewId = UpdateReviewId,
                     Comment = "test commentary 2",
@@ -252,7 +255,7 @@ namespace ShoesShop.Tests.Core
             };
             var addresses = new List<Address>()
              {
-                new Address()
+                new ()
                 {
                     AddressId = DeleteAddressId,
                     Country = "test country 1",
@@ -261,7 +264,7 @@ namespace ShoesShop.Tests.Core
                     House = "444",
                     Room = 1,
                 },
-                new Address()
+                new ()
                 {
                     AddressId = UpdateAddressId,
                     Country = "test country 2",
@@ -272,7 +275,7 @@ namespace ShoesShop.Tests.Core
             };
             var users = new List<User>()
             {
-                new User()
+                new ()
                 {
                     UserId = DeleteUserId,
                     Address = addresses[0],
@@ -281,7 +284,7 @@ namespace ShoesShop.Tests.Core
                     Password = RandomPasswordHash,
                     Phone = "test phone 1",
                     Favorites = favoriteLists[0],
-                    Shopcarts = new List<Shopcart>()
+                    ShopCarts = new List<ShopCart>()
                     {
                         shopCarts[0],
                     },
@@ -289,12 +292,12 @@ namespace ShoesShop.Tests.Core
                     {
                         orders[0]
                     },
-                    Rewiews = new List<Review>()
+                    Reviews = new List<Review>()
                     {
                         reviews[0]
                     },
                 },
-                new User()
+                new ()
                 {
                     UserId = UpdateUserId,
                     Address = addresses[1],
@@ -303,7 +306,7 @@ namespace ShoesShop.Tests.Core
                     Password = RandomPasswordHash,
                     Phone = "test phone 2",
                     Favorites = favoriteLists[1],
-                    Shopcarts = new List<Shopcart>()
+                    ShopCarts = new List<ShopCart>()
                     {
                         shopCarts[1],
                     },
@@ -311,7 +314,7 @@ namespace ShoesShop.Tests.Core
                     {
                         orders[1]
                     },
-                    Rewiews = new List<Review>(reviews),
+                    Reviews = new List<Review>(reviews),
                 }
             };
             dbContext.Users.AddRange(users);

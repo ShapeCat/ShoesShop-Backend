@@ -10,22 +10,23 @@ namespace ShoesShop.Application.Requests.Models.Commands
     {
         public string Name { get; set; }
         public string Color { get; set; }
-        public string Brend { get; set; }
+        public string Brand { get; set; }
         public string SkuId { get; set; }
         public DateTime ReleaseDate { get; set; }
     }
 
-    public class CreateModelCommandValidator : AbstractValidator<CreateModelCommand> 
+    public class CreateModelCommandValidator : AbstractValidator<CreateModelCommand>
     {
         public CreateModelCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty().MaximumLength(255);
-            RuleFor(x=>x.Color).NotEmpty().MaximumLength(50);
-            RuleFor(x => x.Brend).NotEmpty().MaximumLength(50);
-            RuleFor(x => x.Brend).NotEmpty().MaximumLength(255);
+            RuleFor(x => x.Color).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Brand).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.SkuId).NotEmpty().MaximumLength(255);
             RuleFor(x => x.ReleaseDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
         }
     }
+
     public class CreateModelCommandHandler : AbstractCommandHandler<CreateModelCommand, Guid>
     {
         public CreateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -38,11 +39,10 @@ namespace ShoesShop.Application.Requests.Models.Commands
                 ModelId = Guid.NewGuid(),
                 Name = request.Name,
                 Color = request.Color,
-                Brend = request.Brend,
+                Brand = request.Brand,
                 SkuId = request.SkuId,
                 ReleaseDate = request.ReleaseDate,
             };
-
             await modelRepository.AddAsync(model, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             return model.ModelId;

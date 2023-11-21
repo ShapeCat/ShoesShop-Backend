@@ -13,7 +13,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Queries
     {
         public GetAllModelSizesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async override Task<IEnumerable<ModelSizeVm>> Handle(GetAllModelSizesQuery request, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ModelSizeVm>> Handle(GetAllModelSizesQuery request, CancellationToken cancellationToken)
         {
             var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
             var allSizes = await modelSizeRepository.GetAllAsync(cancellationToken);

@@ -1,5 +1,4 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -10,18 +9,16 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
     public class DeleteModelVariantCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_DeleteModelVariant_WhenModelVariantExists()
+        public async void Should_DeleteModelVariant_WhenCorrect()
         {
             var command = new DeleteModelVariantCommand()
             {
-                ModelvariantId = TestData.DeleteModelVariantId
+                ModelVariantId = TestData.DeleteModelVariantId
             };
             var handler = new DeleteModelVariantCommandHandler(UnitOfWork);
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert 
             DbContext.ModelsVariants.FirstOrDefault(x => x.ModelVariantId == TestData.DeleteModelVariantId).ShouldBeNull();
         }
 
@@ -30,12 +27,10 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         {
             var command = new DeleteModelVariantCommand()
             {
-                ModelvariantId = Guid.NewGuid(),
+                ModelVariantId = Guid.NewGuid(),
             };
             var handler = new DeleteModelVariantCommandHandler(UnitOfWork);
 
-            // Act
-            // Assert 
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
     }

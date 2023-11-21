@@ -70,17 +70,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateStock(Guid modelVariantId, int ItemsLeft)
+        public async Task<ActionResult> Update(Guid modelVariantId, ModelVariantDto modelVariantDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (ItemsLeft < 0) return BadRequest(ModelState);
             try
             {
-                var command = new UpdateModelVariantCommand()
-                {
-                    ModelVariantId = modelVariantId,
-                    ItemsLeft = ItemsLeft,
-                };
+                var command = Mapper.Map<UpdateModelVariantCommand>(modelVariantDto);
+                command.ModelVariantId = modelVariantId;
                 await Mediator.Send(command);
                 return NoContent();
             }
@@ -102,7 +98,7 @@ namespace ShoesShop.WebApi.Controllers
             {
                 var command = new DeleteModelVariantCommand()
                 {
-                    ModelvariantId = modelVariantId
+                    ModelVariantId = modelVariantId
                 };
                 await Mediator.Send(command);
                 return NoContent();
@@ -113,7 +109,7 @@ namespace ShoesShop.WebApi.Controllers
             }
         }
 
-        [HttpGet("{modelVariantId}/model")]
+        [HttpGet("{modelVariantId}/Model")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelVm))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -136,7 +132,7 @@ namespace ShoesShop.WebApi.Controllers
             }
         }
 
-        [HttpGet("{modelVariantId}/modelSize")]
+        [HttpGet("{modelVariantId}/Size")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ModelSizeVm))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

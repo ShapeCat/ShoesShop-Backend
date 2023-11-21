@@ -68,7 +68,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateDescription(Guid addressId, [FromBody] ModelDto modelDto)
+        public async Task<ActionResult> Update(Guid addressId, [FromBody] ModelDto modelDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (modelDto is null) return BadRequest(ModelState);

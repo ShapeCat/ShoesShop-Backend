@@ -10,7 +10,7 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
     public class CreateModelVariantSaleCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async void Should_CreateSale_WhenModelVariantExists()
+        public async void Should_CreateSale_WhenCorrect()
         {
             var saleToCreate = new Sale()
             {

@@ -12,34 +12,28 @@ namespace ShoesShop.Tests.ModelsVariants.Queries
         public GetModelSizeByVariantQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async Task Should_ReturnModelSize_WhenModelVariantExists()
+        public async Task Should_ReturnModelSize_WhenCorrect()
         {
-            // Arrange
             var query = new GetModelSizeByVariantQuery()
             {
                 ModelVariantId = TestData.UpdateModelVariantId,
             };
             var handler = new GetModelSizeByVariantQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var modelSize = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             modelSize.ShouldBeOfType<ModelSizeVm>();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenModelVariantNotExists()
         {
-            // Arrange
             var query = new GetModelSizeByVariantQuery()
             {
                 ModelVariantId = Guid.NewGuid(),
             };
             var handler = new GetModelSizeByVariantQueryHandler(UnitOfWork, Mapper);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
     }

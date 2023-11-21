@@ -22,9 +22,10 @@ namespace ShoesShop.Application.Requests.Images.Commands
             RuleFor(x => x.Url).NotEmpty().MaximumLength(256);
         }
     }
-    public class UpdateImageCommandhandler : AbstractCommandHandler<UpdateImageCommand, Unit>
+
+    public class UpdateImageCommandHandler : AbstractCommandHandler<UpdateImageCommand, Unit>
     {
-        public UpdateImageCommandhandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public UpdateImageCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public override async Task<Unit> Handle(UpdateImageCommand request, CancellationToken cancellationToken)
         {

@@ -13,7 +13,6 @@ namespace ShoesShop.Tests.Sales.Commands
         [Fact]
         public async void Should_ThrowException_WhenSaleNotExists()
         {
-            //Arrange
             var saleToUpdate = new Sale()
             {
                 SaleId = Guid.NewGuid(),
@@ -28,15 +27,12 @@ namespace ShoesShop.Tests.Sales.Commands
             };
             var handler = new UpdateSaleCommandHandler(UnitOfWork);
 
-            //Act 
-            //Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
 
         [Fact]
-        public async void Should_UpdateSale_WhenSaleExists()
+        public async void Should_UpdateSale_WhenCorrect()
         {
-            //Arrange
             var saleToUpdate = new Sale()
             {
                 SaleId = TestData.UpdateSaleId,
@@ -51,10 +47,8 @@ namespace ShoesShop.Tests.Sales.Commands
             };
             var handler = new UpdateSaleCommandHandler(UnitOfWork);
 
-            //Act 
             await handler.Handle(command, CancellationToken.None);
 
-            //Assert
             await DbContext.Sales.SingleOrDefaultAsync(x => x.SaleId == saleToUpdate.SaleId
                                                           && x.Percent == saleToUpdate.Percent
                                                           && x.SaleEndDate == saleToUpdate.SaleEndDate).ShouldNotBeNull();

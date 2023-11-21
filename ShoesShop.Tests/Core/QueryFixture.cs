@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
-using ShoesShop.Application.Requests.Adresses.OutputVMs;
-using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
-using ShoesShop.Application.Requests.Models.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Images.OutputVMs;
+using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
-//using ShoesShop.Application.Requests.Prices.OutputVMs;
+using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
+using ShoesShop.Application.Requests.Sales.OutputVMs;
 using ShoesShop.Persistence;
 using Xunit;
-using ShoesShop.Application.Requests.Sales.OutputVMs;
-
 namespace ShoesShop.Tests.Core
 {
     public class QueryFixture : IDisposable
@@ -26,7 +24,6 @@ namespace ShoesShop.Tests.Core
                 new ModelVmProfiles(),
                 new ModelSizeVmProfiles(),
                 new ModelVariantVmProfiles(),
-                //new PriceVmProfiles(),
                 new SaleVmProfiles(),
             })).CreateMapper();
         }

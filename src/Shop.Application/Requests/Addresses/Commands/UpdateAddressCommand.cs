@@ -5,7 +5,7 @@ using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.Adresses.Commands
+namespace ShoesShop.Application.Requests.Addresses.Commands
 {
     public record UpdateAddressCommand : IRequest<Unit>
     {
@@ -17,16 +17,15 @@ namespace ShoesShop.Application.Requests.Adresses.Commands
         public int? Room { get; set; }
     }
 
-    public class UpdateAdressCommandValidator : AbstractValidator<UpdateAddressCommand>
+    public class UpdateAddressCommandValidator : AbstractValidator<UpdateAddressCommand>
     {
-        public UpdateAdressCommandValidator()
+        public UpdateAddressCommandValidator()
         {
             RuleFor(x => x.AddressId).NotEqual(Guid.Empty);
             RuleFor(x => x.Country).NotEmpty().MaximumLength(128);
             RuleFor(x => x.City).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Street).NotEmpty().MaximumLength(128);
             RuleFor(x => x.House).NotEmpty().MaximumLength(128);
-
         }
     }
 
@@ -48,7 +47,6 @@ namespace ShoesShop.Application.Requests.Adresses.Commands
                     House = request.House,
                     Room = request.Room,
                 };
-
                 await addressRepository.EditAsync(newAddress, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;

@@ -21,6 +21,7 @@ namespace ShoesShop.Application.Requests.Images.Queries
             RuleFor(x => x.ImageId).NotEqual(Guid.Empty);
         }
     }
+
     public class GetImageQueryHandler : AbstractQueryHandler<GetImageQuery, ImageVm>
     {
         public GetImageQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
@@ -33,10 +34,7 @@ namespace ShoesShop.Application.Requests.Images.Queries
                 var image = await imageRepository.GetAsync(request.ImageId, cancellationToken);
                 return Mapper.Map<ImageVm>(image);
             }
-            catch (NotFoundException ex)
-            {
-                throw ex;
-            }
+            catch (NotFoundException) { throw; }
         }
     }
 }

@@ -21,11 +21,12 @@ namespace ShoesShop.Application.Requests.Sales.Queries
             RuleFor(x => x.SaleId).NotEmpty();
         }
     }
+
     public class GetSaleQueryHandler : AbstractQueryHandler<GetSaleQuery, SaleVm>
     {
         public GetSaleQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async override Task<SaleVm> Handle(GetSaleQuery request, CancellationToken cancellationToken)
+        public override async Task<SaleVm> Handle(GetSaleQuery request, CancellationToken cancellationToken)
         {
             try
             {

@@ -1,30 +1,27 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Adresses.OutputVMs;
-using ShoesShop.Application.Requests.Adresses.Queries;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.Queries;
 using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
-namespace ShoesShop.Addresses.Queries
+namespace ShoesShop.Tests.Addresses.Queries
 {
     public class GetAddressQueryTests : AbstractQueryTests
     {
         public GetAddressQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async Task Should_ReturnAddress_WhenAddressExists()
+        public async Task Should_ReturnAddress_WhenCorrect()
         {
-            // Arrange
             var query = new GetAddressQuery()
             {
                 AddressId = TestData.UpdateAddressId,
             };
             var handler = new GetAddressQueryHandler(UnitOfWork, Mapper);
 
-            // Act
             var address = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             address.ShouldBeOfType<AddressVm>();
         }
 
@@ -38,10 +35,7 @@ namespace ShoesShop.Addresses.Queries
             };
             var handler = new GetAddressQueryHandler(UnitOfWork, Mapper);
 
-            // Act
-            // Assert
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
-
     }
 }

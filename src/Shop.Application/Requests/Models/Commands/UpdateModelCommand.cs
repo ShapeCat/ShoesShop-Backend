@@ -12,23 +12,24 @@ namespace ShoesShop.Application.Requests.Models.Commands
         public Guid ModelId { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
-        public string Brend { get; set; }
+        public string Brand { get; set; }
         public string SkuId { get; set; }
         public DateTime ReleaseDate { get; set; }
     }
 
-    public class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand> 
+    public class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand>
     {
         public UpdateModelCommandValidator()
         {
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
             RuleFor(x => x.Name).NotEmpty().MaximumLength(255);
             RuleFor(x => x.Color).NotEmpty().MaximumLength(50);
-            RuleFor(x => x.Brend).NotEmpty().MaximumLength(50);
-            RuleFor(x => x.Brend).NotEmpty().MaximumLength(255);
+            RuleFor(x => x.Brand).NotEmpty().MaximumLength(50);
+            RuleFor(x => x.Brand).NotEmpty().MaximumLength(255);
             RuleFor(x => x.ReleaseDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
         }
     }
+
     public class UpdateModelCommandHandler : AbstractCommandHandler<UpdateModelCommand, Unit>
     {
         public UpdateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -43,7 +44,7 @@ namespace ShoesShop.Application.Requests.Models.Commands
                     ModelId = request.ModelId,
                     Name = request.Name,
                     Color = request.Color,
-                    Brend = request.Brend,
+                    Brand = request.Brand,
                     SkuId = request.SkuId,
                     ReleaseDate = request.ReleaseDate,
                 };

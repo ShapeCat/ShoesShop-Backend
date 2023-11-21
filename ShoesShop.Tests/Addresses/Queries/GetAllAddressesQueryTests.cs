@@ -1,5 +1,5 @@
-﻿using ShoesShop.Application.Requests.Adresses.OutputVMs;
-using ShoesShop.Application.Requests.Adresses.Queries;
+﻿using ShoesShop.Application.Requests.Addresses.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.Queries;
 using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
@@ -11,16 +11,13 @@ namespace ShoesShop.Tests.Addresses.Queries
         public GetAllAddressesQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async Task Should_ReturnAllAddresses()
+        public async Task Should_ReturnAllAddresses_WhenCorrect()
         {
-            // Arraange
             var query = new GetAllAddressesQuery();
             var handler = new GetAllAddressesQueryHander(UnitOfWork, Mapper);
 
-            // Act
             var allAddresses = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
             allAddresses.ShouldAllBe(x => x is AddressVm);
             allAddresses.Count().ShouldBe(2);
         }

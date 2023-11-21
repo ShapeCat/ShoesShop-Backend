@@ -1,4 +1,4 @@
-﻿using ShoesShop.Application.Requests.Commands;
+﻿using ShoesShop.Application.Requests.Addresses.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
 using Shouldly;
@@ -6,12 +6,11 @@ using Xunit;
 
 namespace ShoesShop.Tests.Addresses.Commands
 {
-    public class CreateAddresCommandTests : AbstractCommandTests
+    public class CreateAddressCommandTests : AbstractCommandTests
     {
         [Fact]
-        public async Task Should_CreateAddress_WhenAddressNotExists()
+        public async Task Should_CreateAddress_WhenCorrect()
         {
-            //Arrange
             var addressToCreate = new Address()
             {
                 Country = "add test country",
@@ -29,10 +28,8 @@ namespace ShoesShop.Tests.Addresses.Commands
             };
             var handler = new CreateAddressCommandHandler(UnitOfWork);
 
-            //Act 
             var createdAddressId = await handler.Handle(command, CancellationToken.None);
 
-            //Assert
             DbContext.Addresses.SingleOrDefault(x => x.AddressId == createdAddressId
                                                     && x.Country == addressToCreate.Country
                                                     && x.City == addressToCreate.City
