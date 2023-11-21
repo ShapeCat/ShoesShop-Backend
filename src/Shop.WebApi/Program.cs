@@ -36,7 +36,7 @@ namespace ShoesShop.WebAPI
                     "v1",
                     new OpenApiInfo()
                     {
-                        Version = "1.02",
+                        Version = "1.03",
                         Title = "Shoes Shop API",
                         Contact = new OpenApiContact()
                         {
