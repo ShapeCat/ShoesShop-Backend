@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Adresses.Commands;
-using ShoesShop.Application.Requests.Models.OutputVMs;
-using ShoesShop.Application.Requests.Models.Queries;
 using ShoesShop.Application.Requests.Sales.Commands;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
 using ShoesShop.Application.Requests.Sales.Queries;
@@ -65,6 +62,29 @@ namespace ShoesShop.WebApi.Controllers
             {
                 var command = Mapper.Map<UpdateSaleCommand>(saleDto);
                 command.SaleId = addressId;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpDelete("{saleId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete(Guid saleId)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            try
+            {
+                var command = new DeleteSaleCommand()
+                {
+                    SaleId = saleId
+                };
                 await Mediator.Send(command);
                 return NoContent();
             }
