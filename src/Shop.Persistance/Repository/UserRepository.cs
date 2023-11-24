@@ -12,7 +12,6 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task AddAsync(User item, CancellationToken cancellationToken)
         {
-            item.Password = SHA256.HashData(item.Password);
             await dbSet.AddAsync(item, cancellationToken);
         }
 
