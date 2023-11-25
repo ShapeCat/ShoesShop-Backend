@@ -1,4 +1,7 @@
-﻿namespace ShoesShop.Entities
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace ShoesShop.Entities
 {
     public enum Roles
     {
@@ -6,6 +9,7 @@
         Manager,
         Administrator,
     }
+
     public class User
     {
         public Guid UserId { get; set; }
@@ -21,5 +25,18 @@
         public ICollection<ShopCart> ShopCarts { get; set; } = new List<ShopCart>();
         public ICollection<Order> Orders { get; set; } = new List<Order>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+        public static string GenerateNewUsername() => $"User {new Random().Next(0, 99999)}";
+
+        public static byte[] HashPassword(string password) => SHA256.HashData(Encoding.UTF8.GetBytes(password));
+
+        public bool IsValidPassword(byte[] password)
+        {
+            for (var i = 0; i < password.Length; i++)
+            {
+                if (Password[i] != password[i]) return false;
+            }
+            return true;
+        }
     }
 }

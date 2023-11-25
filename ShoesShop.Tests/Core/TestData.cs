@@ -13,7 +13,7 @@ namespace ShoesShop.Tests.Core
             {
                 using var sHA256 = SHA256.Create();
                 var Password = Guid.NewGuid().ToString();
-                return sHA256.ComputeHash(Encoding.UTF8.GetBytes("test password 1"));
+                return User.HashPassword(Password);
             }
         }
 
@@ -42,6 +42,7 @@ namespace ShoesShop.Tests.Core
         public static Guid DeleteUserId { get; } = Guid.NewGuid();
         public static Guid UpdateUserId { get; } = Guid.NewGuid();
         public static int ExistedModelSize { get; } = 44;
+        public static string ExistedLogin = "login 12345ty67";
 
         public static void SeedData(ShopDbContext dbContext)
         {
@@ -280,7 +281,7 @@ namespace ShoesShop.Tests.Core
                     UserId = DeleteUserId,
                     Address = addresses[0],
                     UserName = "test user 1",
-                    Login = "test login 1",
+                    Login = ExistedLogin,
                     Password = RandomPasswordHash,
                     Phone = "test phone 1",
                     Favorites = favoriteLists[0],
