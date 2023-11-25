@@ -16,9 +16,11 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.Property(x => x.Login)
                    .HasMaxLength(128)
                    .IsRequired();
-            builder.Property(x => x.Password)
-                   .HasMaxLength(256)
+            builder.Property(x => x.Role)
                    .IsRequired();
+            builder.Property(x => x.Password)
+            .HasMaxLength(256)
+            .IsRequired();
             builder.Property(x => x.Phone)
                    .HasMaxLength(50);
             builder.HasOne(x => x.Address)

@@ -2,16 +2,16 @@
 
 namespace ShoesShop.Persistence
 {
-    public class DbInitializer
+    public static class DbInitializer
     {
         public static void Initialize(ShopDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            FixUserNullableFields(dbContext);
+            dbContext.FixUserNullableFields().AddUserRoles();
         }
 
-
-        public static void FixUserNullableFields(ShopDbContext dbContext)
+        #region DatabaseFixes
+        private static ShopDbContext FixUserNullableFields(this ShopDbContext dbContext)
         {
             dbContext.Database.ExecuteSqlRaw(@"
             ALTER TABLE [dbo].[users]
@@ -19,6 +19,21 @@ namespace ShoesShop.Persistence
             ALTER TABLE [dbo].[users]
             ALTER COLUMN [AddressId] UNIQUEIDENTIFIER NULL;
             ");
+            return dbContext;
         }
+
+        private static ShopDbContext AddUserRoles(this ShopDbContext dbContext)
+        {
+            try
+            {
+                dbContext.Database.ExecuteSqlRaw(@"
+            ALTER TABLE [dbo].[users]
+            ADD [Role] INT NOT NULL DEFAULT 0;
+            ");
+            }
+            catch { }
+            return dbContext;
+        }
+        #endregion
     }
 }

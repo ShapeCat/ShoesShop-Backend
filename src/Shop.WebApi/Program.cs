@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using ShoesShop.Application;
 using ShoesShop.Persistence;
+using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto.Mapping;
 
 namespace ShoesShop.WebAPI
@@ -93,6 +94,7 @@ namespace ShoesShop.WebAPI
                 {
                     var context = service.GetRequiredService<ShopDbContext>();
                     DbInitializer.Initialize(context);
+                    context.AddRole(Entities.Roles.Administrator, "admin", "admin");
                 }
                 catch (Exception ex)
                 {

@@ -1,10 +1,17 @@
 ﻿namespace ShoesShop.Entities
 {
+    public enum Roles
+    {
+        User,
+        Manager,
+        Administrator,
+    }
     public class User
     {
         public Guid UserId { get; set; }
         public Guid? AddressId { get; set; }
         public string UserName { get; set; }
+        public Roles Role { get; set; } = Roles.User;
         public string Login { get; set; }
         public byte[] Password { get; set; }
         public string? Phone { get; set; }
