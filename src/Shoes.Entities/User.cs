@@ -30,11 +30,12 @@ namespace ShoesShop.Entities
 
         public static byte[] HashPassword(string password) => SHA256.HashData(Encoding.UTF8.GetBytes(password));
 
-        public bool IsValidPassword(byte[] password)
+        public bool IsValidPassword(string password)
         {
+            var hashedPassword = HashPassword(password);
             for (var i = 0; i < password.Length; i++)
             {
-                if (Password[i] != password[i]) return false;
+                if (Password[i] != hashedPassword[i]) return false;
             }
             return true;
         }
