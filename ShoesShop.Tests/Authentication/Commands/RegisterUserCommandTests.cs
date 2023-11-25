@@ -29,7 +29,7 @@ namespace ShoesShop.Tests.Authentication.Commands
         {
             var command = new RegisterUserCommand()
             {
-                Login = TestData.ExistedLogin,
+                Login = TestData.ExistedLoginData.login,
                 Password = "register test password"
             };
             var handler = new RegisterUserCommandHandler(UnitOfWork);

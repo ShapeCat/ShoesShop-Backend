@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Entities;
 
 namespace ShoesShop.WebAPI.Controllers
 {
@@ -13,6 +15,7 @@ namespace ShoesShop.WebAPI.Controllers
 
         protected IMapper Mapper { get; }
         protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        protected Guid UserId => User.Identity.IsAuthenticated ? Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) : Guid.Empty;
 
         protected AbstractController(IMapper mapper) => Mapper = mapper;
     }

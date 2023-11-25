@@ -42,7 +42,7 @@ namespace ShoesShop.Tests.Core
         public static Guid DeleteUserId { get; } = Guid.NewGuid();
         public static Guid UpdateUserId { get; } = Guid.NewGuid();
         public static int ExistedModelSize { get; } = 44;
-        public static string ExistedLogin = "login 12345ty67";
+        public static (string login, string password) ExistedLoginData = ("login1234565432", "pass1234567");
 
         public static void SeedData(ShopDbContext dbContext)
         {
@@ -281,8 +281,8 @@ namespace ShoesShop.Tests.Core
                     UserId = DeleteUserId,
                     Address = addresses[0],
                     UserName = "test user 1",
-                    Login = ExistedLogin,
-                    Password = RandomPasswordHash,
+                    Login = ExistedLoginData.login,
+                    Password = User.HashPassword(ExistedLoginData.password),
                     Phone = "test phone 1",
                     Favorites = favoriteLists[0],
                     ShopCarts = new List<ShopCart>()

@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ShoesShop.Application.Common.Validation;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
+using ShoesShop.Application.Requests.Authentication.OutputVMs;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
@@ -32,6 +33,7 @@ namespace ShoesShop.Application
                 new ModelSizeVmProfiles(),
                 new ModelVariantVmProfiles(),
                 new SaleVmProfiles(),
+                new AuthenticationUserProfiles(),
             }));
         }
 

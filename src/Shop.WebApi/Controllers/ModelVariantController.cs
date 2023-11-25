@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.OutputVMs;
@@ -16,6 +17,7 @@ namespace ShoesShop.WebApi.Controllers
         public ModelVariantController(IMapper mapper) : base(mapper) { }
 
         [HttpPost]
+        [Authorize(Policy = "UpdateGoods")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -66,6 +68,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPut("{modelVariantId}")]
+        [Authorize(Policy = "UpdateGoods")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -87,6 +90,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpDelete("{modelVariantId}")]
+        [Authorize(Policy = "UpdateGoods")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -156,6 +160,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPost("{modelVariantId}/Sales")]
+        [Authorize(Policy = "UpdateGoods")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

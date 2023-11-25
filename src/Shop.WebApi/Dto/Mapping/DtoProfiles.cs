@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using ShoesShop.Application.Requests.Addresses.Commands;
+using ShoesShop.Application.Requests.Authentication.Commands;
+using ShoesShop.Application.Requests.Authentication.Queries;
 using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
@@ -61,6 +63,13 @@ namespace ShoesShop.WebApi.Dto.Mapping
 
             CreateMap<SaleDto, UpdateSaleCommand>().ForMember(x => x.Percent, y => y.MapFrom(x => x.Percent))
                                                    .ForMember(x => x.SaleEndDate, y => y.MapFrom(x => x.SaleEndDate));
+
+            CreateMap<LoginDto, CheckUserPasswordQuery>().ForMember(x => x.Login, y => y.MapFrom(x => x.Login))
+                                                           .ForMember(x => x.Password, y => y.MapFrom(x => x.Password));
+
+            CreateMap<RegisterDto, RegisterUserCommand>().ForMember(x => x.Login, y => y.MapFrom(x => x.Login))
+                                                           .ForMember(x => x.Password, y => y.MapFrom(x => x.Password));
+
 
         }
     }

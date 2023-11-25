@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Addresses.Commands;
@@ -35,6 +36,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -63,6 +65,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AddressVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -92,6 +95,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="404">Address with the same ID not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet("{addressId}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressVm))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -136,6 +140,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="404">address with the same ID not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPut("{addressId}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -173,6 +178,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="400">Invalid request</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpDelete("{addressId}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
