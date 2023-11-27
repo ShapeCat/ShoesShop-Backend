@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
@@ -21,11 +22,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ImageVm>>> GetAll()
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var query = new GetAllImagesQuery();
-            var result = await Mediator.Send(query);
-            return Ok(result);
+            try
+            {
+                var query = new GetAllImagesQuery();
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet("{imageId}")]
@@ -35,7 +38,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ImageVm>> GetById(Guid ImageId)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
                 var query = new GetImageQuery()
@@ -45,10 +47,9 @@ namespace ShoesShop.WebApi.Controllers
                 var result = await Mediator.Send(query);
                 return Ok(result);
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+
         }
 
         [HttpPut("{imageId}")]
@@ -59,8 +60,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid imageId, [FromBody] ImageDto imageDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (imageDto is null) return BadRequest(ModelState);
             try
             {
                 var command = Mapper.Map<UpdateImageCommand>(imageDto);
@@ -68,10 +67,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpDelete("{imageId}")]
@@ -82,7 +79,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid imageId)
         {
-            if (!ModelState.IsValid) return BadRequest();
             try
             {
                 var command = new DeleteImageCommand()
@@ -92,10 +88,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
     }
 }

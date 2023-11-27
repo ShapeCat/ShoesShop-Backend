@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
@@ -24,14 +25,16 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole(Roles role)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var query = new GetUsersByRoleQuery()
+            try
             {
-                Role = role
-            };
-            var result = await Mediator.Send(query);
-            return Ok(result);
+                var query = new GetUsersByRoleQuery()
+                {
+                    Role = role
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet]
@@ -51,10 +54,8 @@ namespace ShoesShop.WebApi.Controllers
                 var result = await Mediator.Send(query);
                 return Ok(result);
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpPut]
@@ -65,8 +66,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update([FromBody] UserDto userDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (userDto is null) return BadRequest(ModelState);
             try
             {
                 var command = Mapper.Map<UpdateUserCommand>(userDto);
@@ -74,10 +73,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpPut("{userId}/role")]
@@ -98,10 +95,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet]
@@ -121,11 +116,8 @@ namespace ShoesShop.WebApi.Controllers
                 var result = await Mediator.Send(query);
                 return Ok(result);
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
     }
 }

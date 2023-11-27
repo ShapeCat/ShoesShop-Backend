@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Reviews.Commands;
@@ -18,9 +19,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ReviewDto reviewDto)
         {
-            var command = Mapper.Map<CreateReviewCommand>(reviewDto);
-            var result = await Mediator.Send(command);
-            return Ok(result);
+            try
+            {
+                var command = Mapper.Map<CreateReviewCommand>(reviewDto);
+                var result = await Mediator.Send(command);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
     }
 }

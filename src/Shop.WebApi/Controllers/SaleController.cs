@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
@@ -20,11 +21,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<SaleVm>>> GetAll()
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var query = new GetAllSalesQuery();
-            var result = await Mediator.Send(query);
-            return Ok(result);
+            try
+            {
+                var query = new GetAllSalesQuery();
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet("{saleId}")]
@@ -34,7 +37,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<SaleVm>> GetById(Guid saleId)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
                 var query = new GetSaleQuery()
@@ -44,10 +46,8 @@ namespace ShoesShop.WebApi.Controllers
                 var result = await Mediator.Send(query);
                 return Ok(result);
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpPut("{saleId}")]
@@ -58,8 +58,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid addressId, [FromBody] SaleDto saleDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (saleDto is null) return BadRequest(ModelState);
             try
             {
                 var command = Mapper.Map<UpdateSaleCommand>(saleDto);
@@ -67,10 +65,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpDelete("{saleId}")]
@@ -81,7 +77,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid saleId)
         {
-            if (!ModelState.IsValid) return BadRequest();
             try
             {
                 var command = new DeleteSaleCommand()
@@ -91,10 +86,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
     }
 }

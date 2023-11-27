@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
@@ -30,10 +31,8 @@ namespace ShoesShop.WebApi.Controllers
             {
                 await Mediator.Send(command);
             }
-            catch (AlreadyExistsException)
-            {
-                return Conflict();
-            }
+            catch (AlreadyExistsException) { return Conflict(); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
             return Ok();
         }
 
@@ -48,7 +47,8 @@ namespace ShoesShop.WebApi.Controllers
                 user = await Mediator.Send(command);
             }
             catch (NotFoundException) { return NotFound(); }
-            catch (AuthenticationException) { return BadRequest(); }
+            catch (AuthenticationException ex) { return BadRequest(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
             var token = tokenService.BuildToken(user);
             return Ok(token);
         }

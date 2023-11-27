@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
@@ -21,12 +22,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ModelDto modelDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (modelDto is null) return BadRequest(ModelState);
-
-            var command = Mapper.Map<CreateModelCommand>(modelDto);
-            var result = await Mediator.Send(command);
-            return Ok(result);
+            try
+            {
+                var command = Mapper.Map<CreateModelCommand>(modelDto);
+                var result = await Mediator.Send(command);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet]
@@ -35,11 +37,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelVm>>> GetAll()
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var query = new GetAllModelsQuery();
-            var result = await Mediator.Send(query);
-            return Ok(result);
+            try
+            {
+                var query = new GetAllModelsQuery();
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet("{modelId}")]
@@ -49,7 +53,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelVm>> GetById(Guid modelId)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
                 var query = new GetModelQuery()
@@ -59,10 +62,8 @@ namespace ShoesShop.WebApi.Controllers
                 var result = await Mediator.Send(query);
                 return Ok(result);
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpPut("{modelId}")]
@@ -73,8 +74,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid addressId, [FromBody] ModelDto modelDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (modelDto is null) return BadRequest(ModelState);
             try
             {
                 var command = Mapper.Map<UpdateModelCommand>(modelDto);
@@ -82,10 +81,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpDelete("{modelId}")]
@@ -96,7 +93,6 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid modelId)
         {
-            if (!ModelState.IsValid) return BadRequest();
             try
             {
                 var command = new DeleteModelCommand()
@@ -106,10 +102,8 @@ namespace ShoesShop.WebApi.Controllers
                 await Mediator.Send(command);
                 return NoContent();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpGet("{modelId}/images")]
@@ -119,14 +113,16 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages(Guid modelId)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var query = new GetAllModelImagesQuery()
+            try
             {
-                ModelId = modelId,
-            };
-            var result = await Mediator.Send(query);
-            return Ok(result);
+                var query = new GetAllModelImagesQuery()
+                {
+                    ModelId = modelId,
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
         [HttpPost("{modelId}/images")]
@@ -137,13 +133,14 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> CreateImage(Guid modelId, [FromBody] ImageDto imageDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (imageDto is null) return BadRequest(ModelState);
-
-            var command = Mapper.Map<CreateModelImageCommand>(imageDto);
-            command.ModelId = modelId;
-            var result = await Mediator.Send(command);
-            return Ok(result);
+            try
+            {
+                var command = Mapper.Map<CreateModelImageCommand>(imageDto);
+                command.ModelId = modelId;
+                var result = await Mediator.Send(command);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
     }
 }
