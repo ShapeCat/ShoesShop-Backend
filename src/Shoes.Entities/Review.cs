@@ -14,8 +14,8 @@
 
         public Review(Guid reviewId, Guid modelId, Guid userId, DateTime publishDate, byte rating, string comment)
         {
-            (ReviewId, ModelId, UserId, Rating, Comment)
-                = (reviewId, modelId, userId, rating, comment);
+            (ReviewId, ModelId, UserId, Rating, Comment, PublishDate)
+                = (reviewId, modelId, userId, rating, comment, publishDate);
         }
 
         public Review(Guid modelId, Guid userId, byte rating, string comment, DateTime? publishDate = null)
