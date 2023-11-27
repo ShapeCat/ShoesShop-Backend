@@ -7,6 +7,7 @@ using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.Sales.Commands;
+using ShoesShop.Application.Requests.Users.Command;
 
 namespace ShoesShop.WebApi.Dto.Mapping
 {
@@ -68,7 +69,9 @@ namespace ShoesShop.WebApi.Dto.Mapping
             CreateMap<RegisterDto, RegisterUserCommand>().ForMember(x => x.Login, y => y.MapFrom(x => x.Login))
                                                            .ForMember(x => x.Password, y => y.MapFrom(x => x.Password));
 
-
+            CreateMap<UserDto, UpdateUserCommand>().ForMember(x => x.UserName, y => y.MapFrom(x => x.UserName))
+                                                   .ForMember(x => x.AddressId, y => y.MapFrom(x => x.AddressId))
+                                                   .ForMember(x => x.Phone, y => y.MapFrom(x => x.Phone));
         }
     }
 }
