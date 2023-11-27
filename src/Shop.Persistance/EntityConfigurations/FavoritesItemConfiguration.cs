@@ -12,7 +12,7 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasKey(x => x.FavoriteItemId);
             builder.HasOne(x => x.ModelVariant)
                    .WithMany(x => x.FavoritesIn)
-                   .HasForeignKey(x => x.FavoriteItemId);
+                   .HasForeignKey(x => x.ModelVariantId);
             builder.HasOne(x => x.FavoritesList)
                    .WithMany(x => x.Items)
                    .HasForeignKey(x => x.FavoritesListId);

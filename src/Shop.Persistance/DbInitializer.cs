@@ -7,7 +7,7 @@ namespace ShoesShop.Persistence
         public static void Initialize(ShopDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            dbContext.FixUserNullableFields().AddUserRoles();
+            dbContext.FixUserNullableFields().AddUserRoles().FixFavoriteItemKeys();
         }
 
         #region DatabaseFixes
@@ -35,5 +35,20 @@ namespace ShoesShop.Persistence
             return dbContext;
         }
         #endregion
+
+        private static ShopDbContext FixFavoriteItemKeys(this ShopDbContext dbContext)
+        {
+            try
+            {
+                dbContext.Database.ExecuteSqlRaw(@"
+                ALTER TABLE [dbo].[favorites_items]
+                    ADD CONSTRAINT [FK_favorites_items_model_variants]
+                    FOREIGN KEY ([ModelVariantId])
+                    REFERENCES [dbo].[models_variants] ([ModelVariantId]);
+            ");
+            }
+            catch { }
+            return dbContext;
+        }
     }
 }
