@@ -34,51 +34,6 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update([FromBody] UserDto userDto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (userDto is null) return BadRequest(ModelState);
-            try
-            {
-                var command = Mapper.Map<UpdateUserCommand>(userDto);
-                command.UserId = UserId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-
-        [Authorize(Policy = "Administrator")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateRole(Guid userId, Roles role)
-        {
-            try
-            {
-                var command = new UpdateUserRoleCommand()
-                {
-                    UserId = userId,
-                    Role = role,
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-
         [HttpGet]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserVm))]
@@ -102,5 +57,51 @@ namespace ShoesShop.WebApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Update([FromBody] UserDto userDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (userDto is null) return BadRequest(ModelState);
+            try
+            {
+                var command = Mapper.Map<UpdateUserCommand>(userDto);
+                command.UserId = UserId;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{userId}/role")]
+        [Authorize(Policy = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateRole(Guid userId, Roles role)
+        {
+            try
+            {
+                var command = new UpdateUserRoleCommand()
+                {
+                    UserId = userId,
+                    Role = role,
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }
