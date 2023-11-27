@@ -36,7 +36,9 @@ namespace ShoesShop.Tests.Core
         public static Guid DeleteUserId { get; } = Guid.NewGuid();
         public static Guid UpdateUserId { get; } = Guid.NewGuid();
         public static int ExistedModelSize { get; } = 44;
-        public static (string login, string password) ExistedLoginData = ("login1234565432", "pass1234567");
+        public static (string login, string password) ExistedLoginData { get; } = ("login1234565432", "pass1234567");
+        public static Guid UserIdWithoutAddress { get; } = Guid.NewGuid();
+
 
         public static void SeedData(ShopDbContext dbContext)
         {
@@ -66,7 +68,8 @@ namespace ShoesShop.Tests.Core
             );
             dbContext.Users.AddRange(
                     new User(DeleteUserId, ExistedLoginData.login, User.HashPassword(ExistedLoginData.password), DeleteAddressId, "test user 1", Roles.User, "test phone 1"),
-                    new User(UpdateUserId, "some login", User.HashPassword("user test password"), DeleteAddressId, "test user 2", Roles.User, "test phone 2")
+                    new User(UpdateUserId, "some login", User.HashPassword("user test password"), DeleteAddressId, "test user 2", Roles.User, "test phone 2"),
+                    new User(UserIdWithoutAddress, "some login", User.HashPassword("user test password"), null, "test user 2", Roles.User, "test phone 2")
             );
             dbContext.FavoritesLists.AddRange(
                 new FavoritesList(DeleteFavoriteListId, DeleteUserId),

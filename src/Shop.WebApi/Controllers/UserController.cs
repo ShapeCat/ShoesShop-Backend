@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Sales.OutputVMs;
-using ShoesShop.Application.Requests.Sales.Queries;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
+using ShoesShop.Application.Requests.Addresses.Queries;
 using ShoesShop.Application.Requests.Users.Command;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Application.Requests.Users.Queries;
@@ -101,6 +101,30 @@ namespace ShoesShop.WebApi.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<AddressVm>> GetAddress()
+        {
+            try
+            {
+                var query = new GetAddressByUserQuery()
+                {
+                    UserId = UserId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+
             }
         }
     }
