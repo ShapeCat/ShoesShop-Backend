@@ -5,7 +5,7 @@ using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.ModelsVariants.Commands
+namespace ShoesShop.Application.Requests.Sales.Commands
 {
     public record CreateModelVariantSaleCommand : IRequest<Guid>
     {

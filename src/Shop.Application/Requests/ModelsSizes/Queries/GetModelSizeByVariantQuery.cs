@@ -7,7 +7,7 @@ using ShoesShop.Application.Requests.Abstraction;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Entities;
 
-namespace ShoesShop.Application.Requests.ModelsVariants.Queries
+namespace ShoesShop.Application.Requests.ModelsSizes.Queries
 {
     public record GetModelSizeByVariantQuery : IRequest<ModelSizeVm>
     {

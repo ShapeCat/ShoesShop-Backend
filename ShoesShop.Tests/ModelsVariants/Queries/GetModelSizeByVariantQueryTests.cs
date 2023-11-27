@@ -1,5 +1,6 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
+using ShoesShop.Application.Requests.ModelsSizes.Queries;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
 using ShoesShop.Tests.Core;
 using Shouldly;
