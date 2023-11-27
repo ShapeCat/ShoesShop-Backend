@@ -33,13 +33,7 @@ namespace ShoesShop.Application.Requests.Authentication.Commands
                 var userRepository = UnitOfWork.GetRepositoryOf<User>();
                 var sameUsers = await userRepository.FindAllAsync(x => x.Login == request.Login, cancellationToken);
                 if (sameUsers.Any()) throw new AlreadyExistsException(request.Login, typeof(User));
-                var user = new User()
-                {
-                    UserId = Guid.NewGuid(),
-                    UserName = User.GenerateNewUsername(),
-                    Login = request.Login,
-                    Password = User.HashPassword(request.Password),
-                };
+                var user = new User(request.Login, request.Password);
                 await userRepository.AddAsync(user, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;

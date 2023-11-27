@@ -31,14 +31,10 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
             try
             {
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
-                var newModelSize = new ModelSize()
-                {
-                    ModelSizeId = request.ModelSizeId,
-                    Size = request.Size,
-                };
-                var sameModelSizes = await modelSizeRepository.FindAllAsync(x => x.Size == newModelSize.Size, cancellationToken);
-                if (sameModelSizes.Any()) throw new AlreadyExistsException(newModelSize.Size.ToString(), typeof(ModelSize));
-                await modelSizeRepository.EditAsync(newModelSize, cancellationToken);
+                var sameModelSizes = await modelSizeRepository.FindAllAsync(x => x.Size == request.Size, cancellationToken);
+                if (sameModelSizes.Any()) throw new AlreadyExistsException(request.Size.ToString(), typeof(ModelSize));
+                var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
+                modelSize.Size = request.Size;
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

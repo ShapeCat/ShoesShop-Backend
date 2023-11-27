@@ -1,4 +1,5 @@
-﻿using ShoesShop.Application.Common.Exceptions;
+﻿using System;
+using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Entities;
 using ShoesShop.Tests.Core;
@@ -12,39 +13,27 @@ namespace ShoesShop.Tests.Images.Commands
         [Fact]
         public async Task Should_UpdateImage_WhenCorrect()
         {
-            var imageToUpdate = new Image()
-            {
+            var command = new UpdateImageCommand()
+            {            
                 ImageId = TestData.UpdateImageId,
                 Url = "update test url"
-            };
-            var command = new UpdateImageCommand()
-            {
-                ImageId = imageToUpdate.ImageId,
-                Url = imageToUpdate.Url,
-                IsPreview = imageToUpdate.IsPreview,
             };
             var handler = new UpdateImageCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
-            DbContext.Images.FirstOrDefault(x => x.ImageId == imageToUpdate.ImageId
-                                                   && x.Url == imageToUpdate.Url
-                                                   && x.IsPreview == imageToUpdate.IsPreview).ShouldNotBeNull();
+            DbContext.Images.FirstOrDefault(x => x.ImageId == command.ImageId
+                                                   && x.Url == command.Url
+                                                   && x.IsPreview == command.IsPreview).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenImageNotExists()
         {
-            var imageToUpdate = new Image()
+            var command = new UpdateImageCommand()
             {
                 ImageId = Guid.NewGuid(),
                 Url = "update test url"
-            };
-            var command = new UpdateImageCommand()
-            {
-                ImageId = imageToUpdate.ImageId,
-                Url = imageToUpdate.Url,
-                IsPreview = imageToUpdate.IsPreview,
             };
             var handler = new UpdateImageCommandHandler(UnitOfWork);
 

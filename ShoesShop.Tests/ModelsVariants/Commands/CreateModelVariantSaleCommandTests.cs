@@ -12,41 +12,29 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async void Should_CreateSale_WhenCorrect()
         {
-            var saleToCreate = new Sale()
+            var command = new CreateModelVariantSaleCommand()
             {
                 ModelVariantId = TestData.UpdateModelVariantId,
                 Percent = 0.5f,
                 SaleEndDate = DateTime.Now,
             };
-            var command = new CreateModelVariantSaleCommand()
-            {
-                ModelVariantId = saleToCreate.ModelVariantId,
-                Percent = saleToCreate.Percent,
-                SaleEndDate = saleToCreate.SaleEndDate,
-            };
             var handler = new CreateModelVariantSaleCommandHandler(UnitOfWork);
 
             var createdSaleId = await handler.Handle(command, CancellationToken.None);
             DbContext.Sales.SingleOrDefault(x => x.SaleId == createdSaleId
-                                                 && x.Percent == saleToCreate.Percent
-                                                 && x.SaleEndDate == saleToCreate.SaleEndDate
-                                                 && x.ModelVariantId == saleToCreate.ModelVariantId).ShouldNotBeNull();
+                                                 && x.Percent == command.Percent
+                                                 && x.SaleEndDate == command.SaleEndDate
+                                                 && x.ModelVariantId == command.ModelVariantId).ShouldNotBeNull();
         }
 
         [Fact]
         public async void Should_ThrowException_WhenModelVariantNotExists()
         {
-            var saleToCreate = new Sale()
+            var command = new CreateModelVariantSaleCommand()
             {
                 ModelVariantId = Guid.NewGuid(),
                 Percent = 0.5f,
                 SaleEndDate = DateTime.Now,
-            };
-            var command = new CreateModelVariantSaleCommand()
-            {
-                ModelVariantId = saleToCreate.ModelVariantId,
-                Percent = saleToCreate.Percent,
-                SaleEndDate = saleToCreate.SaleEndDate,
             };
             var handler = new CreateModelVariantSaleCommandHandler(UnitOfWork);
 

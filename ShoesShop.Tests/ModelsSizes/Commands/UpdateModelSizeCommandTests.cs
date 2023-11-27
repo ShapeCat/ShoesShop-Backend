@@ -12,36 +12,26 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
         [Fact]
         public async void Should_UpdateModelSize_WhenCorrect()
         {
-            var modelSizeToUpdate = new ModelSize()
+            var command = new UpdateModelSizeCommand()
             {
                 ModelSizeId = TestData.UpdateModelSizeId,
                 Size = 100,
-            };
-            var command = new UpdateModelSizeCommand()
-            {
-                ModelSizeId = modelSizeToUpdate.ModelSizeId,
-                Size = modelSizeToUpdate.Size,
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
             DbContext.ModelsSizes.SingleOrDefault(x => x.ModelSizeId == TestData.UpdateModelSizeId
-                                                       && x.Size == modelSizeToUpdate.Size).ShouldNotBeNull();
+                                                       && x.Size == command.Size).ShouldNotBeNull();
         }
 
         [Fact]
         public async void Should_ThrowException_WhenModelSizeNotExists()
         {
-            var modelSizeToUpdate = new ModelSize()
+            var command = new UpdateModelSizeCommand()
             {
                 ModelSizeId = Guid.NewGuid(),
                 Size = 100,
-            };
-            var command = new UpdateModelSizeCommand()
-            {
-                ModelSizeId = modelSizeToUpdate.ModelSizeId,
-                Size = modelSizeToUpdate.Size,
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 
@@ -51,15 +41,10 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
         [Fact]
         public async void Should_ThrowException_WhenSameModelSizeExists()
         {
-            var modelSizeToUpdate = new ModelSize()
-            {
-                ModelSizeId = Guid.NewGuid(),
-                Size = TestData.ExistedModelSize,
-            };
             var command = new UpdateModelSizeCommand()
             {
                 ModelSizeId = Guid.NewGuid(),
-                Size = modelSizeToUpdate.Size,
+                Size = TestData.ExistedModelSize,
             };
             var handler = new UpdateModelSizeCommandHandler(UnitOfWork);
 

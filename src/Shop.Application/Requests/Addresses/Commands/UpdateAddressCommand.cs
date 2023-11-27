@@ -38,16 +38,9 @@ namespace ShoesShop.Application.Requests.Addresses.Commands
             try
             {
                 var addressRepository = UnitOfWork.GetRepositoryOf<Address>();
-                var newAddress = new Address()
-                {
-                    AddressId = request.AddressId,
-                    Country = request.Country,
-                    City = request.City,
-                    Street = request.Street,
-                    House = request.House,
-                    Room = request.Room,
-                };
-                await addressRepository.EditAsync(newAddress, cancellationToken);
+                var address = await addressRepository.GetAsync(request.AddressId, cancellationToken);
+                (address.Country, address.City, address.Street, address.House, address.Room)
+                    = (request.Country, request.City, request.Street, request.House, request.Room);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

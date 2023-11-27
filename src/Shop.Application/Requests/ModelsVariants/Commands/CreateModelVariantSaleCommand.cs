@@ -35,13 +35,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 var saleRepository = UnitOfWork.GetRepositoryOf<Sale>();
                 var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 var modelVariant = await modelVariantRepository.GetAsync(request.ModelVariantId, cancellationToken);
-                var sale = new Sale()
-                {
-                    SaleId = Guid.NewGuid(),
-                    ModelVariant = modelVariant,
-                    Percent = request.Percent,
-                    SaleEndDate = request.SaleEndDate,
-                };
+                var sale = new Sale(modelVariant.ModelVariantId, request.Percent, request.SaleEndDate);
                 await saleRepository.AddAsync(sale, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return sale.SaleId;

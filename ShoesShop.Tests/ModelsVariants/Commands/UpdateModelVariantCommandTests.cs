@@ -12,15 +12,10 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async void Should_UpdateModelVariant_WhenCorrect()
         {
-            var modelVariantToUpdate = new ModelVariant()
+            var command = new UpdateModelVariantCommand()
             {
                 ModelVariantId = TestData.UpdateModelVariantId,
                 ItemsLeft = 0,
-            };
-            var command = new UpdateModelVariantCommand()
-            {
-                ModelVariantId = modelVariantToUpdate.ModelVariantId,
-                ItemsLeft = modelVariantToUpdate.ItemsLeft,
 
             };
             var handler = new UpdateModelVariantCommandHandler(UnitOfWork);
@@ -28,22 +23,16 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
             await handler.Handle(command, CancellationToken.None);
 
             DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == TestData.UpdateModelVariantId
-                                                          && x.ItemsLeft == modelVariantToUpdate.ItemsLeft).ShouldNotBeNull();
+                                                          && x.ItemsLeft == command.ItemsLeft).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenModelVariantNotExists()
         {
-            var modelVariantToUpdate = new ModelVariant()
+            var command = new UpdateModelVariantCommand()
             {
                 ModelVariantId = Guid.NewGuid(),
                 ItemsLeft = 0,
-            };
-            var command = new UpdateModelVariantCommand()
-            {
-                ModelVariantId = modelVariantToUpdate.ModelVariantId,
-                ItemsLeft = modelVariantToUpdate.ItemsLeft,
-
             };
             var handler = new UpdateModelVariantCommandHandler(UnitOfWork);
 

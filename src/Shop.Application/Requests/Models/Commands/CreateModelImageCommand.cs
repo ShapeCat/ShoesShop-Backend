@@ -34,13 +34,7 @@ namespace ShoesShop.Application.Requests.Models.Commands
                 var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var model = await modelRepository.GetAsync(request.ModelId, cancellationToken);
-                var image = new Image()
-                {
-                    ImageId = Guid.NewGuid(),
-                    IsPreview = request.IsPreview,
-                    Url = request.Url,
-                    Model = model,
-                };
+                var image = new Image(model.ModelId, request.Url, request.IsPreview);
                 await imageRepository.AddAsync(image, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return image.ImageId;

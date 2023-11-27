@@ -12,7 +12,7 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async void Should_UpdateModel_WhenCorrect()
         {
-            var modelToUpdate = new Model()
+            var command = new UpdateModelCommand()
             {
                 ModelId = TestData.UpdateModelId,
                 Name = "update test name",
@@ -21,46 +21,28 @@ namespace ShoesShop.Tests.Models.Commands
                 SkuId = "update test SkuId",
                 ReleaseDate = DateTime.Now,
             };
-            var command = new UpdateModelCommand()
-            {
-                ModelId = modelToUpdate.ModelId,
-                Name = modelToUpdate.Name,
-                Color = modelToUpdate.Color,
-                Brand = modelToUpdate.Brand,
-                SkuId = modelToUpdate.SkuId,
-                ReleaseDate = modelToUpdate.ReleaseDate,
-            };
             var handler = new UpdateModelCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
             DbContext.Models.SingleOrDefault(x => x.ModelId == TestData.UpdateModelId
-                                                 && x.Name == modelToUpdate.Name
-                                                 && x.Color == modelToUpdate.Color
-                                                 && x.Brand == modelToUpdate.Brand
-                                                 && x.SkuId == modelToUpdate.SkuId
-                                                 && x.ReleaseDate == modelToUpdate.ReleaseDate).ShouldNotBeNull();
+                                                 && x.Name == command.Name
+                                                 && x.Color == command.Color
+                                                 && x.Brand == command.Brand
+                                                 && x.SkuId == command.SkuId
+                                                 && x.ReleaseDate == command.ReleaseDate).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenImageNotExists()
         {
-            var modelToUpdate = new Model()
+            var command = new UpdateModelCommand()
             {
                 Name = "update test name",
                 Color = "update test color",
                 Brand = "update test brand",
                 SkuId = "update test SkuId",
                 ReleaseDate = DateTime.Now,
-            };
-            var command = new UpdateModelCommand()
-            {
-                ModelId = Guid.NewGuid(),
-                Name = modelToUpdate.Name,
-                Color = modelToUpdate.Color,
-                Brand = modelToUpdate.Brand,
-                SkuId = modelToUpdate.SkuId,
-                ReleaseDate = modelToUpdate.ReleaseDate,
             };
             var handler = new UpdateModelCommandHandler(UnitOfWork);
 

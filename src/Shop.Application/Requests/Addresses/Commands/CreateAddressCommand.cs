@@ -33,15 +33,7 @@ namespace ShoesShop.Application.Requests.Addresses.Commands
         public override async Task<Guid> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {
             var addressRepository = UnitOfWork.GetRepositoryOf<Address>();
-            var address = new Address()
-            {
-                AddressId = new Guid(),
-                Country = request.Country,
-                City = request.City,
-                Street = request.Street,
-                House = request.House,
-                Room = request.Room
-            };
+            var address = new Address(request.Country, request.City, request.Street, request.House, room:request.Room);
             await addressRepository.AddAsync(address, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             return address.AddressId;

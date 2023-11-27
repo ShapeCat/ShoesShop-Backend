@@ -13,18 +13,31 @@ namespace ShoesShop.Entities
     public class User
     {
         public Guid UserId { get; set; }
-        public Guid? AddressId { get; set; }
-        public string UserName { get; set; }
-        public Roles Role { get; set; } = Roles.User;
         public string Login { get; set; }
         public byte[] Password { get; set; }
+        public Guid? AddressId { get; set; }
+        public string UserName { get; set; }
+        public Roles Role { get; set; }
         public string? Phone { get; set; }
 
-        public Address? Address { get; set; }
-        public FavoritesList Favorites { get; set; } = new FavoritesList();
-        public ICollection<ShopCart> ShopCarts { get; set; } = new List<ShopCart>();
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public Address? Address { get; }
+        public FavoritesList Favorites { get; }
+        public ICollection<ShopCart> ShopCarts { get; }
+        public ICollection<Order> Orders { get; }
+        public ICollection<Review> Reviews { get; set; }
+
+        public User(Guid userId, string login, byte[] password, Guid? addressId, string userName, Roles role, string? phone)
+        {
+            (UserId, Role, Login, Password, UserName, AddressId, Phone)
+                = (userId, role, login, password, userName, addressId, phone);
+        }
+
+        public User(string login, byte[] password, Roles role = Roles.User, Guid? addressId = null, string? phone = null, string? userName = null)
+             : this(Guid.NewGuid(), login, password, addressId, userName ?? GenerateNewUsername(), role, phone) { }
+
+        public User(string login, string password, Roles role = Roles.User, Guid? addressId = null, string? phone = null, string? userName = null)
+            : this(Guid.NewGuid(), login, HashPassword(password), addressId, userName ?? GenerateNewUsername(), role, phone) { }
+
 
         public static string GenerateNewUsername() => $"User {new Random().Next(0, 99999)}";
 

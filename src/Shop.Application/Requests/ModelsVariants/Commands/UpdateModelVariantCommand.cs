@@ -10,8 +10,6 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
     public record UpdateModelVariantCommand : IRequest<Unit>
     {
         public Guid ModelVariantId { get; set; }
-        public Guid? ModelId { get; set; }
-        public Guid? ModelSizeId { get; set; }
         public int ItemsLeft { get; set; }
         public decimal Price { get; set; }
     }
@@ -21,8 +19,6 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
         public UpdateModelVariantCommandValidator()
         {
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
-            RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
-            RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
             RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0);
             RuleFor(x => x.Price).GreaterThan(0);
         }
@@ -39,25 +35,9 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 var modelVariantRepository = UnitOfWork.GetRepositoryOf<ModelVariant>();
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
-                var newModelVariant = new ModelVariant()
-                {
-                    ModelVariantId = request.ModelVariantId,
-                    ItemsLeft = request.ItemsLeft,
-                };
-                if (request.ModelId is not null)
-                {
-                    newModelVariant.Model = await modelRepository.GetAsync((Guid)request.ModelId, cancellationToken);
-                }
-                if (request.ModelSizeId is not null)
-                {
-                    newModelVariant.ModelSize = await modelSizeRepository.GetAsync((Guid)request.ModelSizeId, cancellationToken);
-                }
-                if (request.ModelId is not null && request.ModelSizeId is not null)
-                {
-                    var sameModelVariants = await modelVariantRepository.FindAllAsync(x => x.ModelSizeId == request.ModelSizeId && x.ModelSizeId == request.ModelId, cancellationToken);
-                    if (sameModelVariants.Any()) throw new AlreadyExistsException($"(Model:{request.ModelId}, Size:{request.ModelSizeId})", typeof(ModelVariant));
-                }
-                await modelVariantRepository.EditAsync(newModelVariant, cancellationToken);
+                var modelVariant = await modelVariantRepository.GetAsync(request.ModelVariantId, cancellationToken);
+                (modelVariant.ItemsLeft, modelVariant.Price)
+                    = (request.ItemsLeft, request.Price);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

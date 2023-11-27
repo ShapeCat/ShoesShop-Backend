@@ -12,32 +12,24 @@ namespace ShoesShop.Tests.ModelsSizes.Commands
         [Fact]
         public async void Should_CreateModelSize_WhenCorrect()
         {
-            var modelSizeToCreate = new ModelSize()
-            {
-                Size = 100,
-            };
             var command = new CreateModelSizeCommand()
             {
-                Size = modelSizeToCreate.Size,
+                Size = 100,
             };
             var handler = new CreateModelSizeCommandHandler(UnitOfWork);
 
             var createdModelSizeId = await handler.Handle(command, CancellationToken.None);
 
             DbContext.ModelsSizes.SingleOrDefault(x => x.ModelSizeId == createdModelSizeId
-                                                    && x.Size == modelSizeToCreate.Size).ShouldNotBeNull();
+                                                    && x.Size == command.Size).ShouldNotBeNull();
         }
 
         [Fact]
         public async void Should_ThrowException_WhenSameModelSizeExists()
         {
-            var modelSizeToCreate = new ModelSize()
-            {
-                Size = TestData.ExistedModelSize,
-            };
             var command = new CreateModelSizeCommand()
             {
-                Size = modelSizeToCreate.Size,
+                Size = TestData.ExistedModelSize,
             };
             var handler = new CreateModelSizeCommandHandler(UnitOfWork);
 

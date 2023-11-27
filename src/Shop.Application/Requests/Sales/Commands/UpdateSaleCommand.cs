@@ -33,13 +33,9 @@ namespace ShoesShop.Application.Requests.Sales.Commands
             try
             {
                 var saleRepository = UnitOfWork.GetRepositoryOf<Sale>();
-                var newSale = new Sale()
-                {
-                    SaleId = request.SaleId,
-                    Percent = request.Percent,
-                    SaleEndDate = request.SaleEndDate,
-                };
-                await saleRepository.EditAsync(newSale, cancellationToken);
+                var sale = await saleRepository.GetAsync(request.SaleId, cancellationToken);
+                (sale.Percent, sale.SaleEndDate)
+                    = (request.Percent, request.SaleEndDate);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

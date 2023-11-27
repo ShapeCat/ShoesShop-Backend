@@ -5,7 +5,16 @@
         public Guid ShopCartId { get; set; }
         public Guid UserId { get; set; }
 
-        public User Owner { get; set; }
-        public ICollection<ShopCartItem> Items { get; set; }
+        public User Owner { get; }
+        public ICollection<ShopCartItem> Items { get; }
+
+        public ShopCart(Guid shopCartId, Guid userId)
+        {
+            (ShopCartId, UserId)
+                = (shopCartId, userId);
+        }
+
+        public ShopCart(Guid userId)
+            : this(Guid.NewGuid(), userId) { }
     }
 }

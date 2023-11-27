@@ -13,17 +13,11 @@ namespace ShoesShop.Tests.Sales.Commands
         [Fact]
         public async void Should_ThrowException_WhenSaleNotExists()
         {
-            var saleToUpdate = new Sale()
+            var command = new UpdateSaleCommand()
             {
                 SaleId = Guid.NewGuid(),
                 Percent = 0.1f,
                 SaleEndDate = DateTime.UtcNow,
-            };
-            var command = new UpdateSaleCommand()
-            {
-                SaleId = saleToUpdate.SaleId,
-                Percent = saleToUpdate.Percent,
-                SaleEndDate = saleToUpdate.SaleEndDate,
             };
             var handler = new UpdateSaleCommandHandler(UnitOfWork);
 
@@ -33,25 +27,19 @@ namespace ShoesShop.Tests.Sales.Commands
         [Fact]
         public async void Should_UpdateSale_WhenCorrect()
         {
-            var saleToUpdate = new Sale()
+            var command = new UpdateSaleCommand()
             {
                 SaleId = TestData.UpdateSaleId,
                 Percent = 0.1f,
                 SaleEndDate = DateTime.UtcNow,
             };
-            var command = new UpdateSaleCommand()
-            {
-                SaleId = saleToUpdate.SaleId,
-                Percent = saleToUpdate.Percent,
-                SaleEndDate = saleToUpdate.SaleEndDate,
-            };
             var handler = new UpdateSaleCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
-            await DbContext.Sales.SingleOrDefaultAsync(x => x.SaleId == saleToUpdate.SaleId
-                                                          && x.Percent == saleToUpdate.Percent
-                                                          && x.SaleEndDate == saleToUpdate.SaleEndDate).ShouldNotBeNull();
+            await DbContext.Sales.SingleOrDefaultAsync(x => x.SaleId == command.SaleId
+                                                          && x.Percent == command.Percent
+                                                          && x.SaleEndDate == command.SaleEndDate).ShouldNotBeNull();
         }
     }
 }

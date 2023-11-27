@@ -1,28 +1,20 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using ShoesShop.Entities;
+﻿using ShoesShop.Entities;
 using ShoesShop.Persistence;
 
 namespace ShoesShop.Tests.Core
 {
     internal static class TestData
     {
-        private static byte[] RandomPasswordHash
-        {
-            get
-            {
-                using var sHA256 = SHA256.Create();
-                var Password = Guid.NewGuid().ToString();
-                return User.HashPassword(Password);
-            }
-        }
-
         public static Guid DeleteAddressId { get; } = Guid.NewGuid();
         public static Guid UpdateAddressId { get; } = Guid.NewGuid();
         public static Guid DeleteCartItemId { get; } = Guid.NewGuid();
         public static Guid UpdateCartItemId { get; } = Guid.NewGuid();
+        public static Guid DeleteShopCartId { get; } = Guid.NewGuid();
+        public static Guid UpdateShopCartId { get; } = Guid.NewGuid();
         public static Guid DeleteFavoriteItemId { get; } = Guid.NewGuid();
         public static Guid UpdateFavoriteItemId { get; } = Guid.NewGuid();
+        public static Guid DeleteFavoriteListId { get; } = Guid.NewGuid();
+        public static Guid UpdateFavoriteListId { get; } = Guid.NewGuid();
         public static Guid DeleteImageId { get; } = Guid.NewGuid();
         public static Guid UpdateImageId { get; } = Guid.NewGuid();
         public static Guid DeleteModelId { get; } = Guid.NewGuid();
@@ -33,6 +25,8 @@ namespace ShoesShop.Tests.Core
         public static Guid UpdateModelVariantId { get; } = Guid.NewGuid();
         public static Guid DeleteOrderId { get; } = Guid.NewGuid();
         public static Guid UpdateOrderId { get; } = Guid.NewGuid();
+        public static Guid DeleteOrderItemId { get; } = Guid.NewGuid();
+        public static Guid UpdateOrderItemId { get; } = Guid.NewGuid();
         public static Guid DeletePriceId { get; } = Guid.NewGuid();
         public static Guid UpdatePriceId { get; } = Guid.NewGuid();
         public static Guid DeleteSaleId { get; } = Guid.NewGuid();
@@ -46,279 +40,62 @@ namespace ShoesShop.Tests.Core
 
         public static void SeedData(ShopDbContext dbContext)
         {
-            var modelSizes = new List<ModelSize>()
-            {
-                new ()
-                {
-                    ModelSizeId = DeleteModelSizeId,
-                    Size = 1,
-                },
-                new ()
-                {
-                    ModelSizeId = UpdateModelSizeId,
-                    Size = ExistedModelSize,
-                },
-            };
-            var images = new List<Image>()
-            {
-                new ()
-                {
-                    ImageId = DeleteImageId,
-                    Url = "test url 1",
-                    IsPreview = true,
-                },
-                new ()
-                {
-                    ImageId = UpdateImageId,
-                    Url = "test url 2",
-                    IsPreview = false,
-                },
-            };
-            var models = new List<Model>()
-            {
-                new ()
-                {
-                    ModelId = DeleteModelId,
-                    Name = "test name 1",
-                    Color = "test color 1",
-                    Brand = "test brand 1",
-                    SkuId = "test SkuId 1",
-                    ReleaseDate = DateTime.Now,
-                    Images = new List<Image>(images),
-                },
-                new ()
-                {
-                    ModelId = UpdateModelId,
-                    Name = "test name 2",
-                    Color = "test color 2",
-                    Brand = "test brand 2",
-                    SkuId = "test SkuId 2",
-                    ReleaseDate = DateTime.Now,
-                    Images = new List<Image>()
-                    {
-                        images[1]
-                    },
-                },
-            };
-            var sales = new List<Sale>()
-            {
-                new ()
-                {
-                    SaleId = DeleteSaleId,
-                    Percent = 1,
-                    SaleEndDate = DateTime.Now,
-                },
-                new ()
-                {
-                    SaleId = UpdateSaleId,
-                    Percent = 2,
-                    SaleEndDate = DateTime.Now,
-                }
-            };
-            var modelVariants = new List<ModelVariant>()
-            {
-                new ()
-                {
-                    ModelVariantId = DeleteModelVariantId,
-                    Model = models[0],
-                    ModelSize = modelSizes[0],
-                    Sales = new List<Sale>()
-                    {
-                        sales[0]
-                    },
-                    ItemsLeft = 0,
-                },
-                new ()
-                {
-                    ModelVariantId = UpdateModelVariantId,
-                    Model = models[1],
-                    ModelSize = modelSizes[1],
-                    Sales = new List<Sale>()
-                    {
-                        sales[1]
-                    },
-                    ItemsLeft = 1,
-                }
-            };
-            var favoriteItems = new List<FavoritesItem>()
-            {
-                new ()
-                {
-                    FavoriteItemId = DeleteFavoriteItemId,
-                    ModelVariant = modelVariants[0],
-                },
-                new ()
-                {
-                    FavoriteItemId = UpdateFavoriteItemId,
-                    ModelVariant = modelVariants[1],
-                },
-            };
-            var favoriteLists = new List<FavoritesList>()
-            {
-                new ()
-                {
-                    FavoriteListId = Guid.NewGuid(),
-                    Items = new List<FavoritesItem>()
-                    {
-                        favoriteItems[0]
-                    },
-                },
-                new ()
-                {
-                    FavoriteListId= Guid.NewGuid(),
-                    Items = new List<FavoritesItem>(favoriteItems)
-                },
-            };
-            var cartItems = new List<ShopCartItem>()
-            {
-                new ()
-                {
-                    ShopCartItemId = DeleteCartItemId,
-                    ModelVariant = modelVariants[0],
-                    Amount = 0,
-                },
-                new ()
-                {
-                    ShopCartItemId = UpdateCartItemId,
-                    ModelVariant = modelVariants[1],
-                    Amount = 1,
-                }
-            };
-            var shopCarts = new List<ShopCart>()
-            {
-                new ()
-                {
-                    ShopCartId = Guid.NewGuid(),
-                    Items = new List<ShopCartItem>
-                    {
-                        cartItems[0]
-                    },
-                },
-                new ()
-                {
-                    ShopCartId = Guid.NewGuid(),
-                    Items = new List<ShopCartItem>(cartItems),
-                }
-            };
-            var orderItems = new List<OrderItem>()
-            {
-                new ()
-                {
-                    OrderItemId = Guid.NewGuid(),
-                    ModelVariant = modelVariants[0],
-                    Amount= 0,
-                },
-                new ()
-                {
-                    OrderItemId = Guid.NewGuid(),
-                    ModelVariant = modelVariants[1],
-                    Amount = 1,
-                },
-            };
-            var orders = new List<Order>()
-            {
-                new ()
-                {
-                    OrderId = DeleteOrderId,
-                    Status = OrderStatus.InProcess,
-                    CreationDate = DateTime.Now,
-                    Items = new List<OrderItem>()
-                    {
-                        orderItems[0]
-                    },
-                },
-                new ()
-                {
-                    OrderId = UpdateOrderId,
-                    Status = OrderStatus.Finished,
-                    CreationDate = DateTime.Now,
-                    Items = new List<OrderItem>(orderItems),
-                },
-            };
-            var reviews = new List<Review>()
-            {
-                new ()
-                {
-                    ReviewId = DeleteReviewId,
-                    Comment = "test commentary 1",
-                    PublishDate = DateTime.Now,
-                    Model = models[0],
-                    Rating = 1,
-                },
-                new ()
-                {
-                    ReviewId = UpdateReviewId,
-                    Comment = "test commentary 2",
-                    PublishDate = DateTime.Now,
-                    Model = models[1],
-                    Rating = 5,
-                }
-            };
-            var addresses = new List<Address>()
-             {
-                new ()
-                {
-                    AddressId = DeleteAddressId,
-                    Country = "test country 1",
-                    City = "test city 1",
-                    Street = "test street 1",
-                    House = "444",
-                    Room = 1,
-                },
-                new ()
-                {
-                    AddressId = UpdateAddressId,
-                    Country = "test country 2",
-                    City = "test city 2",
-                    Street = "test street 2",
-                    House = "444",
-                },
-            };
-            var users = new List<User>()
-            {
-                new ()
-                {
-                    UserId = DeleteUserId,
-                    Address = addresses[0],
-                    UserName = "test user 1",
-                    Login = ExistedLoginData.login,
-                    Password = User.HashPassword(ExistedLoginData.password),
-                    Phone = "test phone 1",
-                    Favorites = favoriteLists[0],
-                    ShopCarts = new List<ShopCart>()
-                    {
-                        shopCarts[0],
-                    },
-                    Orders = new List<Order>()
-                    {
-                        orders[0]
-                    },
-                    Reviews = new List<Review>()
-                    {
-                        reviews[0]
-                    },
-                },
-                new ()
-                {
-                    UserId = UpdateUserId,
-                    Address = addresses[1],
-                    UserName = "test user 2",
-                    Login = "test login 2",
-                    Password = RandomPasswordHash,
-                    Phone = "test phone 2",
-                    Favorites = favoriteLists[1],
-                    ShopCarts = new List<ShopCart>()
-                    {
-                        shopCarts[1],
-                    },
-                    Orders = new List<Order>()
-                    {
-                        orders[1]
-                    },
-                    Reviews = new List<Review>(reviews),
-                }
-            };
-            dbContext.Users.AddRange(users);
+            dbContext.ModelsSizes.AddRange(
+                new ModelSize(DeleteModelSizeId, 1),
+                new ModelSize(UpdateModelSizeId, ExistedModelSize)
+            );
+            dbContext.Models.AddRange(
+                new Model(DeleteModelId, "test name 1", "test color 1", "test brand 1", "test SkuId 1", DateTime.Now),
+                new Model(UpdateModelId, "test name 2", "test color 2", "test brand 2", "test SkuId 2", DateTime.Now)
+            );
+            dbContext.Images.AddRange(
+                new Image(DeleteImageId, DeleteModelId, false, "test url 1"),
+                new Image(UpdateImageId, UpdateModelId, true, "test url 2")
+            );
+            dbContext.ModelsVariants.AddRange(
+                new ModelVariant(DeleteModelVariantId, DeleteModelId, DeleteModelSizeId, 1, 1222),
+                new ModelVariant(UpdateModelVariantId, UpdateModelId, UpdateModelSizeId, 2, 4444)
+            );
+            dbContext.Sales.AddRange(
+                new Sale(DeleteSaleId, DeleteModelVariantId, 0.5f, DateTime.Now),
+                new Sale(UpdateSaleId, UpdateModelVariantId, 0.01f, DateTime.Now)
+            );
+            dbContext.Addresses.AddRange(
+                new Address(DeleteAddressId, "test country 1", "test city 1", "test street 1", "444", room: 1),
+                new Address(UpdateAddressId,"test country 2", "test city 2", "test street 2", "444", null)
+            );
+            dbContext.Users.AddRange(
+                    new User(DeleteUserId, ExistedLoginData.login, User.HashPassword(ExistedLoginData.password), DeleteAddressId, "test user 1", Roles.User, "test phone 1"),
+                    new User(UpdateUserId, "some login", User.HashPassword("user test password"), DeleteAddressId, "test user 2", Roles.User, "test phone 2")
+            );
+            dbContext.FavoritesLists.AddRange(
+                new FavoritesList(DeleteFavoriteListId, DeleteUserId),
+                new FavoritesList(UpdateFavoriteListId, UpdateUserId)
+            );
+            dbContext.FavoritesItems.AddRange(
+                new FavoritesItem(DeleteFavoriteItemId, DeleteFavoriteListId),
+                new FavoritesItem(UpdateFavoriteItemId, UpdateFavoriteListId)
+            );
+            dbContext.ShopCarts.AddRange(
+                new ShopCart(DeleteShopCartId, DeleteUserId),
+                new ShopCart(UpdateShopCartId, UpdateUserId)
+            );
+            dbContext.ShopCartsItems.AddRange(
+                new ShopCartItem(DeleteCartItemId, DeleteShopCartId, DeleteModelVariantId, 1),
+                new ShopCartItem(UpdateCartItemId, UpdateShopCartId, UpdateModelVariantId, 1)
+            );
+            dbContext.Orders.AddRange(
+                new Order(DeleteOrderId, DeleteUserId, OrderStatus.Created, DateTime.Now),
+                new Order(UpdateOrderId, UpdateUserId, OrderStatus.Finished, DateTime.Now)
+            );
+            dbContext.OrdersItems.AddRange(
+                new OrderItem(DeleteOrderItemId, DeleteOrderId, DeleteModelVariantId, 1),
+                new OrderItem(UpdateOrderItemId, UpdateOrderId, UpdateModelVariantId, 2)
+            );
+            dbContext.Reviews.AddRange(
+                new Review(DeleteReviewId, DeleteModelId, DeleteUserId, DateTime.Now, 1, "test commentary 1"),
+                new Review(UpdateReviewId, UpdateModelId, UpdateUserId, DateTime.Now, 5, "test commentary 2")
+            );
             dbContext.SaveChanges();
         }
     }

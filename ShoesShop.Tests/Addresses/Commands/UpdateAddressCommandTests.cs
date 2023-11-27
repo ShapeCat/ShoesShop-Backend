@@ -12,56 +12,36 @@ namespace ShoesShop.Tests.Addresses.Commands
         [Fact]
         public async Task Should_UpdateAddress_WhenCorrect()
         {
-            var newAddress = new Address()
+            var command = new UpdateAddressCommand()
             {
                 AddressId = TestData.UpdateAddressId,
                 Country = "edit test country",
                 City = "edit test city",
                 Street = "edit test street",
-                House = "edit test house",
-                Room = 1,
-            };
-            var command = new UpdateAddressCommand()
-            {
-                AddressId = newAddress.AddressId,
-                Country = newAddress.Country,
-                City = newAddress.City,
-                Street = newAddress.Street,
-                House = newAddress.House,
-                Room = newAddress.Room,
+                House = "1",
             };
             var handler = new UpdateAddressCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
-            DbContext.Addresses.FirstOrDefault(x => x.AddressId == newAddress.AddressId
-                                                   && x.Country == newAddress.Country
-                                                   && x.City == newAddress.City
-                                                   && x.Street == newAddress.Street
-                                                   && x.House == newAddress.House
-                                                   && x.Room == newAddress.Room).ShouldNotBeNull();
+            DbContext.Addresses.FirstOrDefault(x => x.AddressId == command.AddressId
+                                                   && x.Country == command.Country
+                                                   && x.City == command.City
+                                                   && x.Street == command.Street
+                                                   && x.House == command.House
+                                                   && x.Room == command.Room).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenAddressNotExists()
         {
-            var newAddress = new Address()
+            var command = new UpdateAddressCommand()
             {
                 AddressId = Guid.NewGuid(),
                 Country = "edit test country",
                 City = "edit test city",
                 Street = "edit test street",
-                House = "edit test house",
-                Room = 1,
-            };
-            var command = new UpdateAddressCommand()
-            {
-                AddressId = newAddress.AddressId,
-                Country = newAddress.Country,
-                City = newAddress.City,
-                Street = newAddress.Street,
-                House = newAddress.House,
-                Room = newAddress.Room,
+                House = "1",
             };
             var handler = new UpdateAddressCommandHandler(UnitOfWork);
 

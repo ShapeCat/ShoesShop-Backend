@@ -34,15 +34,7 @@ namespace ShoesShop.Application.Requests.Models.Commands
         public override async Task<Guid> Handle(CreateModelCommand request, CancellationToken cancellationToken)
         {
             var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
-            var model = new Model()
-            {
-                ModelId = Guid.NewGuid(),
-                Name = request.Name,
-                Color = request.Color,
-                Brand = request.Brand,
-                SkuId = request.SkuId,
-                ReleaseDate = request.ReleaseDate,
-            };
+            var model = new Model(request.Name, request.Color, request.Brand, request.SkuId, request.ReleaseDate);
             await modelRepository.AddAsync(model, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             return model.ModelId;

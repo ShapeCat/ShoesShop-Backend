@@ -32,13 +32,9 @@ namespace ShoesShop.Application.Requests.Images.Commands
             try
             {
                 var imageRepository = UnitOfWork.GetRepositoryOf<Image>();
-                var newImage = new Image()
-                {
-                    ImageId = request.ImageId,
-                    Url = request.Url,
-                    IsPreview = request.IsPreview,
-                };
-                await imageRepository.EditAsync(newImage, cancellationToken);
+                var image =await imageRepository.GetAsync(request.ImageId, cancellationToken);
+                (image.Url, image.IsPreview)
+                    = (request.Url, request.IsPreview);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using ShoesShop.Entities;
+﻿using ShoesShop.Entities;
 using ShoesShop.Persistence;
 
 namespace ShoesShop.WebApi.Authentication
@@ -11,14 +9,7 @@ namespace ShoesShop.WebApi.Authentication
         {
             if (!dbContext.Users.Any(x => x.Login == login))
             {
-                var user = new User()
-                {
-                    UserId = Guid.NewGuid(),
-                    UserName = login + role,
-                    Role = role,
-                    Login = login,
-                    Password = SHA256.HashData(Encoding.UTF8.GetBytes(password)),
-                };
+                var user = new User(login, password, role: role, userName: login);
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }

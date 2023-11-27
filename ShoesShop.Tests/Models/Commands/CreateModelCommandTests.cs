@@ -11,7 +11,7 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async void Should_CreateModel_WhenCorrect()
         {
-            var modelToCreate = new Model()
+            var command = new CreateModelCommand()
             {
                 Name = "create test name",
                 Color = "create test color",
@@ -19,23 +19,15 @@ namespace ShoesShop.Tests.Models.Commands
                 SkuId = "create test SkuId",
                 ReleaseDate = DateTime.Now,
             };
-            var command = new CreateModelCommand()
-            {
-                Name = modelToCreate.Name,
-                Color = modelToCreate.Color,
-                Brand = modelToCreate.Brand,
-                SkuId = modelToCreate.SkuId,
-                ReleaseDate = modelToCreate.ReleaseDate,
-            };
             var handler = new CreateModelCommandHandler(UnitOfWork);
 
             var createdModelId = await handler.Handle(command, CancellationToken.None);
             DbContext.Models.SingleOrDefault(x => x.ModelId == createdModelId
-                                                 && x.Name == modelToCreate.Name
-                                                 && x.Color == modelToCreate.Color
-                                                 && x.Brand == modelToCreate.Brand
-                                                 && x.SkuId == modelToCreate.SkuId
-                                                 && x.ReleaseDate == modelToCreate.ReleaseDate).ShouldNotBeNull();
+                                                 && x.Name == command.Name
+                                                 && x.Color == command.Color
+                                                 && x.Brand == command.Brand
+                                                 && x.SkuId == command.SkuId
+                                                 && x.ReleaseDate == command.ReleaseDate).ShouldNotBeNull();
         }
     }
 }

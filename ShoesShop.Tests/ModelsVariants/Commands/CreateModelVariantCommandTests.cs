@@ -12,45 +12,31 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async void Should_CreateModelVariant_WhenCorrect()
         {
-            var modelVariantToCreate = new ModelVariant()
+            var command = new CreateModelVariantCommand()
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = TestData.UpdateModelSizeId,
                 ItemsLeft = 4,
                 Price = 1000,
             };
-            var command = new CreateModelVariantCommand()
-            {
-                ModelId = modelVariantToCreate.ModelId,
-                ModelSizeId = modelVariantToCreate.ModelSizeId,
-                ItemsLeft = modelVariantToCreate.ItemsLeft,
-                Price = modelVariantToCreate.Price
-            };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
             var createdModelVariantId = await handler.Handle(command, CancellationToken.None);
             DbContext.ModelsVariants.SingleOrDefault(x => x.ModelVariantId == createdModelVariantId
-                                                          && x.ModelId == modelVariantToCreate.ModelId
-                                                          && x.ModelSizeId == modelVariantToCreate.ModelSizeId
-                                                          && x.Price == modelVariantToCreate.Price).ShouldNotBeNull();
+                                                          && x.ModelId == command.ModelId
+                                                          && x.ModelSizeId == command.ModelSizeId
+                                                          && x.Price == command.Price).ShouldNotBeNull();
         }
 
         [Fact]
         public async void Should_ThrowException_WhenModelNotExists()
         {
-            var modelVariantToCreate = new ModelVariant()
+            var command = new CreateModelVariantCommand()
             {
                 ModelId = Guid.NewGuid(),
                 ModelSizeId = TestData.UpdateModelSizeId,
                 ItemsLeft = 4,
                 Price = 1000,
-            };
-            var command = new CreateModelVariantCommand()
-            {
-                ModelId = modelVariantToCreate.ModelId,
-                ModelSizeId = modelVariantToCreate.ModelSizeId,
-                ItemsLeft = modelVariantToCreate.ItemsLeft,
-                Price = modelVariantToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 
@@ -60,19 +46,12 @@ namespace ShoesShop.Tests.ModelsVariants.Commands
         [Fact]
         public async void Should_ThrowException_WhenModelSizeNotExists()
         {
-            var modelVariantToCreate = new ModelVariant()
+            var command = new CreateModelVariantCommand()
             {
                 ModelId = TestData.UpdateModelId,
                 ModelSizeId = Guid.NewGuid(),
                 ItemsLeft = 4,
                 Price = 1000,
-            };
-            var command = new CreateModelVariantCommand()
-            {
-                ModelId = modelVariantToCreate.ModelId,
-                ModelSizeId = modelVariantToCreate.ModelSizeId,
-                ItemsLeft = modelVariantToCreate.ItemsLeft,
-                Price = modelVariantToCreate.Price
             };
             var handler = new CreateModelVariantCommandHandler(UnitOfWork);
 

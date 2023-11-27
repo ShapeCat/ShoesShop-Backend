@@ -33,12 +33,12 @@ namespace ShoesShop.Tests.Authentication.Queries
         {
             var query = new CheckUserPasswordQuery()
             {
-                Login = TestData.ExistedLoginData.login,
+                Login = "login test login",
                 Password = "login test password",
             };
             var handler = new CheckUserPasswordCommandHandler(UnitOfWork, Mapper);
 
-            await Should.ThrowAsync<AuthenticationException>(async () => await handler.Handle(query, CancellationToken.None));
+            await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }
 
         [Fact]
@@ -46,12 +46,12 @@ namespace ShoesShop.Tests.Authentication.Queries
         {
             var query = new CheckUserPasswordQuery()
             {
-                Login = "login test login",
+                Login = TestData.ExistedLoginData.login,
                 Password = "login test password",
             };
             var handler = new CheckUserPasswordCommandHandler(UnitOfWork, Mapper);
 
-            await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
+            await Should.ThrowAsync<AuthenticationException>(async () => await handler.Handle(query, CancellationToken.None));
         }
     }
 }

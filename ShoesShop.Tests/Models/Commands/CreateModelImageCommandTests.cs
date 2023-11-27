@@ -12,42 +12,30 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async void Should_CreateImage_WhenCorrect()
         {
-            var imageToCreate = new Image()
+            var command = new CreateModelImageCommand()
             {
                 ModelId = TestData.UpdateModelId,
                 Url = "add test url",
                 IsPreview = true,
-            };
-            var command = new CreateModelImageCommand()
-            {
-                ModelId = imageToCreate.ModelId,
-                Url = imageToCreate.Url,
-                IsPreview = imageToCreate.IsPreview,
             };
             var handler = new CreateModelImageCommandHandler(UnitOfWork);
 
             var createdImageId = await handler.Handle(command, CancellationToken.None);
 
             DbContext.Images.SingleOrDefault(x => x.ImageId == createdImageId
-                                                  && x.Url == imageToCreate.Url
-                                                  && x.ModelId == x.ModelId
-                                                  && x.IsPreview == imageToCreate.IsPreview).ShouldNotBeNull();
+                                                  && x.Url == command.Url
+                                                  && x.ModelId == command.ModelId
+                                                  && x.IsPreview == command.IsPreview).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task Should_ThrowException_WhenModelNotExists()
         {
-            var imageToCreate = new Image()
+            var command = new CreateModelImageCommand()
             {
                 ModelId = Guid.NewGuid(),
                 Url = "add test url",
                 IsPreview = true,
-            };
-            var command = new CreateModelImageCommand()
-            {
-                ModelId = imageToCreate.ModelId,
-                Url = imageToCreate.Url,
-                IsPreview = imageToCreate.IsPreview,
             };
             var handler = new CreateModelImageCommandHandler(UnitOfWork);
 

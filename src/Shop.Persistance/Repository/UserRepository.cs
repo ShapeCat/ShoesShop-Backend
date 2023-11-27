@@ -36,8 +36,8 @@ namespace ShoesShop.Persistence.Repository
         {
             var user = await dbSet.FirstOrDefaultAsync(x => x.UserId == newItem.UserId, cancellationToken)
                         ?? throw new NotFoundException(newItem.UserId.ToString(), typeof(User));
-            (user.UserName, user.Phone, user.Login)
-                = (newItem.UserName, newItem.Phone, newItem.Login);
+            (user.UserName, user.Phone)
+                = (newItem.UserName, newItem.Phone);
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)

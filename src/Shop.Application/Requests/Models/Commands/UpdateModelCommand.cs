@@ -39,16 +39,9 @@ namespace ShoesShop.Application.Requests.Models.Commands
             try
             {
                 var modelRepository = UnitOfWork.GetRepositoryOf<Model>();
-                var newModel = new Model()
-                {
-                    ModelId = request.ModelId,
-                    Name = request.Name,
-                    Color = request.Color,
-                    Brand = request.Brand,
-                    SkuId = request.SkuId,
-                    ReleaseDate = request.ReleaseDate,
-                };
-                await modelRepository.EditAsync(newModel, cancellationToken);
+                var model = await modelRepository.GetAsync(request.ModelId, cancellationToken);
+                (model.Name, model.Color, model.Brand, model.SkuId, model.ReleaseDate)
+                    = (request.Name, request.Color, request.Brand, request.SkuId, request.ReleaseDate);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

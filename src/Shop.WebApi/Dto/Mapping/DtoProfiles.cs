@@ -53,9 +53,7 @@ namespace ShoesShop.WebApi.Dto.Mapping
                                                                    .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
                                                                    .ForMember(x => x.Price, y => y.MapFrom(x => x.Price));
 
-            CreateMap<ModelVariantDto, UpdateModelVariantCommand>().ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
-                                                                   .ForMember(x => x.ModelSizeId, y => y.MapFrom(x => x.ModelSizeId))
-                                                                   .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
+            CreateMap<ModelVariantDto, UpdateModelVariantCommand>().ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))
                                                                    .ForMember(x => x.Price, y => y.MapFrom(x => x.Price));
 
             CreateMap<SaleDto, CreateModelVariantSaleCommand>().ForMember(x => x.Percent, y => y.MapFrom(x => x.Percent))

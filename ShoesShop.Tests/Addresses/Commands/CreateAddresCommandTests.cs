@@ -11,31 +11,23 @@ namespace ShoesShop.Tests.Addresses.Commands
         [Fact]
         public async Task Should_CreateAddress_WhenCorrect()
         {
-            var addressToCreate = new Address()
+            var command = new CreateAddressCommand()
             {
                 Country = "add test country",
                 City = "add test city",
                 Street = "add test street",
                 House = "add test house",
             };
-            var command = new CreateAddressCommand()
-            {
-                Country = addressToCreate.Country,
-                City = addressToCreate.City,
-                Street = addressToCreate.Street,
-                House = addressToCreate.House,
-                Room = addressToCreate.Room
-            };
             var handler = new CreateAddressCommandHandler(UnitOfWork);
 
             var createdAddressId = await handler.Handle(command, CancellationToken.None);
 
             DbContext.Addresses.SingleOrDefault(x => x.AddressId == createdAddressId
-                                                    && x.Country == addressToCreate.Country
-                                                    && x.City == addressToCreate.City
-                                                    && x.Street == x.Street
-                                                    && x.House == x.House
-                                                    && x.Room == x.Room).ShouldNotBeNull();
+                                                    && x.Country == command.Country
+                                                    && x.City == command.City
+                                                    && x.Street == command.Street
+                                                    && x.House == command.House
+                                                    && x.Room == command.Room).ShouldNotBeNull();
         }
     }
 }

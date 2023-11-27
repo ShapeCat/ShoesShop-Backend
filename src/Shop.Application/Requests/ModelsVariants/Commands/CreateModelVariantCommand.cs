@@ -39,14 +39,7 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
                 var modelSizeRepository = UnitOfWork.GetRepositoryOf<ModelSize>();
                 var model = await modelRepository.GetAsync(request.ModelId, cancellationToken);
                 var modelSize = await modelSizeRepository.GetAsync(request.ModelSizeId, cancellationToken);
-                var modelVariant = new ModelVariant()
-                {
-                    ModelVariantId = Guid.NewGuid(),
-                    Model = model,
-                    ModelSize = modelSize,
-                    ItemsLeft = request.ItemsLeft,
-                    Price = request.Price,
-                };
+                var modelVariant = new ModelVariant(model.ModelId, modelSize.ModelSizeId, request.ItemsLeft, request.Price);
                 await modelVariantRepository.AddAsync(modelVariant, cancellationToken);
                 await UnitOfWork.SaveChangesAsync(cancellationToken);
                 return modelVariant.ModelVariantId;

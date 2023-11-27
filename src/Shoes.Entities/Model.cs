@@ -9,8 +9,18 @@
         public string SkuId { get; set; }
         public DateTime ReleaseDate { get; set; }
 
-        public ICollection<Image> Images { get; set; }
-        public ICollection<Review> Reviews { get; set; }
-        public ICollection<ModelVariant> Variants { get; set; }
+        public ICollection<Image> Images { get; }
+        public ICollection<Review> Reviews { get; }
+        public ICollection<ModelVariant> Variants { get; }
+
+
+        public Model(Guid modelId, string name, string color, string brand, string skuId, DateTime releaseDate)
+        {
+            (ModelId, Name, Color, Brand, SkuId, ReleaseDate)
+                = (modelId, name, color, brand, skuId, releaseDate);
+        }
+
+        public Model(string name, string color, string brand, string skuId, DateTime releaseDate)
+            : this(Guid.NewGuid(), name, color, brand, skuId, releaseDate) { }
     }
 }

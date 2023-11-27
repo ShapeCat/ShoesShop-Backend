@@ -4,7 +4,7 @@
     {
         Created,
         InProcess,
-        Finished
+        Finished,
     }
 
     public class Order
@@ -14,7 +14,16 @@
         public OrderStatus Status { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public User Owner { get; set; }
-        public ICollection<OrderItem> Items { get; set; }
+        public User Owner { get; }
+        public ICollection<OrderItem> Items { get; }
+
+        public Order(Guid orderId, Guid userId, OrderStatus status, DateTime creationDate)
+        {
+            (UserId, Status, OrderId, CreationDate)
+            = (userId, status, orderId, creationDate);
+        }
+
+        public Order(Guid userId, OrderStatus status, DateTime? creationDate = null)
+            : this(Guid.NewGuid(), userId, status, creationDate ?? DateTime.Now) { }
     }
 }
