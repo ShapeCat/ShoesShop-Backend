@@ -11,6 +11,7 @@ using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
+using ShoesShop.Application.Requests.Users.OutputVMs;
 
 namespace ShoesShop.Application
 {
@@ -34,6 +35,7 @@ namespace ShoesShop.Application
                 new ModelVariantVmProfiles(),
                 new SaleVmProfiles(),
                 new AuthenticationUserProfiles(),
+                new UserVmProfiles(),
             }));
         }
 
