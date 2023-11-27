@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Users.Command;
+using ShoesShop.Entities;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -25,6 +26,29 @@ namespace ShoesShop.WebApi.Controllers
             {
                 var command = Mapper.Map<UpdateUserCommand>(userDto);
                 command.UserId = UserId;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [Authorize(Policy = "Administrator")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateRole(Guid userId, Roles role)
+        {
+            try
+            {
+                var command = new UpdateUserRoleCommand()
+                {
+                    UserId = userId,
+                    Role = role,
+                };
                 await Mediator.Send(command);
                 return NoContent();
             }
