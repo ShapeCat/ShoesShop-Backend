@@ -17,6 +17,23 @@ namespace ShoesShop.WebApi.Controllers
     {
         public UserController(IMapper mapper) : base(mapper) { }
 
+        [HttpGet("role")]
+        [Authorize(Policy = "UpdateRoles")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserVm>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole(Roles role)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var query = new GetUsersByRoleQuery()
+            {
+                Role = role
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

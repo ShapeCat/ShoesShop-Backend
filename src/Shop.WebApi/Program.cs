@@ -29,7 +29,11 @@ namespace ShoesShop.WebAPI
         {
             builder.Services.AddControllers();
             builder.Services.AddControllers()
-                            .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+                            .AddJsonOptions(x =>
+                            {
+                                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                            });
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile(new DtoProfiles());
