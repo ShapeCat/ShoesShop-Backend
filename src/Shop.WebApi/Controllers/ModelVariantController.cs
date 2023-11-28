@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.Queries;
@@ -27,13 +25,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ModelVariantDto modelVariantDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateModelVariantCommand>(modelVariantDto);
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateModelVariantCommand>(modelVariantDto);
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -42,15 +36,11 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelVariantVm>>> GetAll()
         {
-            try
-            {
-                if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-                var query = new GetAllModelVariantQuery();
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var query = new GetAllModelVariantQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{modelVariantId}")]
@@ -60,17 +50,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelVariantVm>> GetById(Guid modelVariantId)
         {
-            try
+            var query = new GetModelVariantQuery()
             {
-                var query = new GetModelVariantQuery()
-                {
-                    ModelVariantId = modelVariantId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelVariantId = modelVariantId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPut("{modelVariantId}")]
@@ -81,15 +66,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid modelVariantId, ModelVariantDto modelVariantDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateModelVariantCommand>(modelVariantDto);
-                command.ModelVariantId = modelVariantId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<UpdateModelVariantCommand>(modelVariantDto);
+            command.ModelVariantId = modelVariantId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete("{modelVariantId}")]
@@ -100,17 +80,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid modelVariantId)
         {
-            try
+            var command = new DeleteModelVariantCommand()
             {
-                var command = new DeleteModelVariantCommand()
-                {
-                    ModelVariantId = modelVariantId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelVariantId = modelVariantId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpGet("{modelVariantId}/Model")]
@@ -120,17 +95,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelVm>> GetModel(Guid modelVariantId)
         {
-            try
+            var query = new GetModelByVariantQuery()
             {
-                var query = new GetModelByVariantQuery()
-                {
-                    ModelVariantId = modelVariantId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelVariantId = modelVariantId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{modelVariantId}/Size")]
@@ -140,17 +110,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelVm>> GetModelSize(Guid modelVariantId)
         {
-            try
+            var query = new GetModelSizeByVariantQuery()
             {
-                var query = new GetModelSizeByVariantQuery()
-                {
-                    ModelVariantId = modelVariantId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelVariantId = modelVariantId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost("{modelVariantId}/Sales")]
@@ -161,14 +126,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> CreateSale(Guid modelVariantId, [FromBody] SaleDto saleDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateModelVariantSaleCommand>(saleDto);
-                command.ModelVariantId = modelVariantId;
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateModelVariantSaleCommand>(saleDto);
+            command.ModelVariantId = modelVariantId;
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

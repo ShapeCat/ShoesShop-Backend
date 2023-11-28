@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Images.Queries;
@@ -23,13 +21,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ImageVm>>> GetAll()
         {
-            try
-            {
-                var query = new GetAllImagesQuery();
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var query = new GetAllImagesQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{imageId}")]
@@ -39,17 +33,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ImageVm>> GetById(Guid ImageId)
         {
-            try
+            var query = new GetImageQuery()
             {
-                var query = new GetImageQuery()
-                {
-                    ImageId = ImageId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ImageId = ImageId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
 
         }
 
@@ -61,15 +50,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid imageId, [FromBody] ImageDto imageDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateImageCommand>(imageDto);
-                command.ImageId = imageId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<UpdateImageCommand>(imageDto);
+            command.ImageId = imageId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete("{imageId}")]
@@ -80,17 +64,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid imageId)
         {
-            try
+            var command = new DeleteImageCommand()
             {
-                var command = new DeleteImageCommand()
-                {
-                    ImageId = imageId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ImageId = imageId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

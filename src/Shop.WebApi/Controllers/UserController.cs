@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Addresses.Queries;
 using ShoesShop.Application.Requests.Users.Command;
@@ -26,16 +24,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole(Roles role)
         {
-            try
+            var query = new GetUsersByRoleQuery()
             {
-                var query = new GetUsersByRoleQuery()
-                {
-                    Role = role
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                Role = role
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -46,17 +40,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<UserVm>> GetById()
         {
-            try
+            var query = new GetUserQuery()
             {
-                var query = new GetUserQuery()
-                {
-                    UserId = UserId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                UserId = UserId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPut]
@@ -67,15 +56,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update([FromBody] UserDto userDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateUserCommand>(userDto);
-                command.UserId = UserId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<UpdateUserCommand>(userDto);
+            command.UserId = UserId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpPut("{userId}/role")]
@@ -86,18 +70,13 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateRole(Guid userId, Roles role)
         {
-            try
+            var command = new UpdateUserRoleCommand()
             {
-                var command = new UpdateUserRoleCommand()
-                {
-                    UserId = userId,
-                    Role = role,
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                UserId = userId,
+                Role = role,
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpGet("address")]
@@ -108,17 +87,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AddressVm>> GetAddress()
         {
-            try
+            var query = new GetAddressByUserQuery()
             {
-                var query = new GetAddressByUserQuery()
-                {
-                    UserId = UserId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                UserId = UserId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

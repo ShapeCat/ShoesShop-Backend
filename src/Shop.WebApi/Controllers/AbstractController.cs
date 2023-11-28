@@ -2,7 +2,6 @@ using System.Security.Claims;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Entities;
 
 namespace ShoesShop.WebAPI.Controllers
 {

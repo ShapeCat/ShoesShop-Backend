@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.Queries;
@@ -23,13 +21,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ModelSizeDto modelSizeDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateModelSizeCommand>(modelSizeDto);
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateModelSizeCommand>(modelSizeDto);
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -38,13 +32,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelSizeVm>>> GetAll()
         {
-            try
-            {
-                var query = new GetAllModelSizesQuery();
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var query = new GetAllModelSizesQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{modelSizeId}")]
@@ -54,17 +44,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelSizeVm>> GetById(Guid modelSizeId)
         {
-            try
+            var query = new GetModelSizeQuery()
             {
-                var query = new GetModelSizeQuery()
-                {
-                    ModelSizeId = modelSizeId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelSizeId = modelSizeId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPut("{modelSizeId}")]
@@ -75,15 +60,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid modelSizeId, [FromBody] ModelSizeDto modelSizeDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateModelSizeCommand>(modelSizeDto);
-                command.ModelSizeId = modelSizeId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<UpdateModelSizeCommand>(modelSizeDto);
+            command.ModelSizeId = modelSizeId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete("{modelSizeId}")]
@@ -94,17 +74,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid modelSizeId)
         {
-            try
+            var command = new DeleteModelSizeCommand()
             {
-                var command = new DeleteModelSizeCommand()
-                {
-                    ModelSizeId = modelSizeId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelSizeId = modelSizeId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

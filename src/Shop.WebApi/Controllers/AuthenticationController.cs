@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Authentication.Commands;
 using ShoesShop.Application.Requests.Authentication.OutputVMs;
 using ShoesShop.Application.Requests.Authentication.Queries;
@@ -27,12 +25,7 @@ namespace ShoesShop.WebApi.Controllers
                 Login = user.Login,
                 Password = user.Password,
             };
-            try
-            {
-                await Mediator.Send(command);
-            }
-            catch (AlreadyExistsException) { return Conflict(); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            await Mediator.Send(command);
             return Ok();
         }
 
@@ -42,13 +35,7 @@ namespace ShoesShop.WebApi.Controllers
         {
             AuthenticatedUserData user;
             var command = Mapper.Map<CheckUserPasswordQuery>(loginDto);
-            try
-            {
-                user = await Mediator.Send(command);
-            }
-            catch (NotFoundException) { return NotFound(); }
-            catch (AuthenticationException ex) { return BadRequest(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            user = await Mediator.Send(command);
             var token = tokenService.BuildToken(user);
             return Ok(token);
         }

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Reviews.Commands;
 using ShoesShop.Application.Requests.Reviews.OutputVMs;
@@ -23,13 +21,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ReviewDto reviewDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateReviewCommand>(reviewDto);
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateReviewCommand>(reviewDto);
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -39,13 +33,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetAll()
         {
-            try
-            {
-                var command = new GetAllReviewsQuery();
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = new GetAllReviewsQuery();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("{reviewId}")]
@@ -56,17 +46,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AddressVm>> GetById(Guid reviewId)
         {
-            try
+            var query = new GetReviewQuery()
             {
-                var query = new GetReviewQuery()
-                {
-                    ReviewId = reviewId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ReviewId = reviewId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpDelete("{reviewId}")]
@@ -77,17 +62,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid reviewId)
         {
-            try
+            var command = new DeleteReviewCommand()
             {
-                var command = new DeleteReviewCommand()
-                {
-                    ReviewId = reviewId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ReviewId = reviewId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

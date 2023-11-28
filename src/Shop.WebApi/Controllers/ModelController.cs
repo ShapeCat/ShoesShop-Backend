@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
@@ -23,13 +21,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] ModelDto modelDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateModelCommand>(modelDto);
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateModelCommand>(modelDto);
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -38,13 +32,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelVm>>> GetAll()
         {
-            try
-            {
-                var query = new GetAllModelsQuery();
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var query = new GetAllModelsQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{modelId}")]
@@ -54,17 +44,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ModelVm>> GetById(Guid modelId)
         {
-            try
+            var query = new GetModelQuery()
             {
-                var query = new GetModelQuery()
-                {
-                    ModelId = modelId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelId = modelId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPut("{modelId}")]
@@ -75,15 +60,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid addressId, [FromBody] ModelDto modelDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateModelCommand>(modelDto);
-                command.ModelId = addressId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<UpdateModelCommand>(modelDto);
+            command.ModelId = addressId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete("{modelId}")]
@@ -94,17 +74,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid modelId)
         {
-            try
+            var command = new DeleteModelCommand()
             {
-                var command = new DeleteModelCommand()
-                {
-                    ModelId = modelId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelId = modelId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpGet("{modelId}/images")]
@@ -114,16 +89,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages(Guid modelId)
         {
-            try
+            var query = new GetAllModelImagesQuery()
             {
-                var query = new GetAllModelImagesQuery()
-                {
-                    ModelId = modelId,
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+                ModelId = modelId,
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost("{modelId}/images")]
@@ -134,14 +105,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> CreateImage(Guid modelId, [FromBody] ImageDto imageDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateModelImageCommand>(imageDto);
-                command.ModelId = modelId;
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateModelImageCommand>(imageDto);
+            command.ModelId = modelId;
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

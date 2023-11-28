@@ -10,6 +10,7 @@ using ShoesShop.Entities;
 using ShoesShop.Persistence;
 using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto.Mapping;
+using ShoesShop.WebApi.Middleware;
 
 namespace ShoesShop.WebAPI
 {
@@ -111,6 +112,7 @@ namespace ShoesShop.WebAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
+            builder.Services.AddHttpContextAccessor();
         }
 
         private static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -119,14 +121,9 @@ namespace ShoesShop.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseSwagger(options =>
-            {
-                options.SerializeAsV2 = false;
-            });
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");

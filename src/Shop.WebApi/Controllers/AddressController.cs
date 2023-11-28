@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Addresses.Commands;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Addresses.Queries;
@@ -43,13 +41,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> Create([FromBody] AddressDto addressDto)
         {
-            try
-            {
-                var command = Mapper.Map<CreateAddressCommand>(addressDto);
-                var result = await Mediator.Send(command);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var command = Mapper.Map<CreateAddressCommand>(addressDto);
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         /// <summary>
@@ -73,13 +67,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<AddressVm>>> GetAll()
         {
-            try
-            {
-                var query = new GetAllAddressesQuery();
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+            var query = new GetAllAddressesQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         /// <summary>
@@ -106,18 +96,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AddressVm>> GetById(Guid addressId)
         {
-            try
+            var query = new GetAddressQuery()
             {
-                var query = new GetAddressQuery()
-                {
-                    AddressId = addressId
-                };
-                var result = await Mediator.Send(query);
-                return Ok(result);
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
-
+                AddressId = addressId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
 
         /// <summary>
@@ -149,16 +133,10 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(Guid addressId, [FromBody] AddressDto descriptionDto)
         {
-            try
-            {
-                var command = Mapper.Map<UpdateAddressCommand>(descriptionDto);
-                command.AddressId = addressId;
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
-
+            var command = Mapper.Map<UpdateAddressCommand>(descriptionDto);
+            command.AddressId = addressId;
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         /// <summary>
@@ -184,17 +162,12 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid addressId)
         {
-            try
+            var command = new DeleteAddressCommand()
             {
-                var command = new DeleteAddressCommand()
-                {
-                    AddressId = addressId
-                };
-                await Mediator.Send(command);
-                return NoContent();
-            }
-            catch (ValidationException ex) { return BadRequest(ex.Errors); }
-            catch (NotFoundException ex) { return NotFound(ex.Message); }
+                AddressId = addressId
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }
