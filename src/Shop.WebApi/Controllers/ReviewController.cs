@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Reviews.Commands;
+using ShoesShop.Application.Requests.Reviews.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -22,6 +23,22 @@ namespace ShoesShop.WebApi.Controllers
             try
             {
                 var command = Mapper.Map<CreateReviewCommand>(reviewDto);
+                var result = await Mediator.Send(command);
+                return Ok(result);
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ReviewDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> Create()
+        {
+            try
+            {
+                var command = new GetAllReviewsQuery();
                 var result = await Mediator.Send(command);
                 return Ok(result);
             }

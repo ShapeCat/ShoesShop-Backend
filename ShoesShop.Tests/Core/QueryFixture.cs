@@ -5,6 +5,7 @@ using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
+using ShoesShop.Application.Requests.Reviews.OutputVMs;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Persistence;
@@ -29,6 +30,7 @@ namespace ShoesShop.Tests.Core
                 new SaleVmProfiles(),
                 new AuthenticationUserProfiles(),
                 new UserVmProfiles(),
+                new ReviewVmProfile(),
             })).CreateMapper();
         }
 
