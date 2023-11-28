@@ -7,7 +7,7 @@ namespace ShoesShop.Persistence
         public static void Initialize(ShopDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            dbContext.FixUserNullableFields().AddUserRoles().FixFavoriteItemKeys();
+            dbContext.FixUserNullableFields().AddUserRoles().FixFavoriteItemKeys().DropShopCarts();
         }
 
         #region DatabaseFixes
@@ -48,6 +48,47 @@ namespace ShoesShop.Persistence
             ");
             }
             catch { }
+            return dbContext;
+        }
+
+        private static ShopDbContext DropShopCarts(this ShopDbContext dbContext)
+        {
+            try
+            {
+                dbContext.Database.ExecuteSqlRaw(@"
+                    CREATE TABLE [dbo].[shop_carts_items_new] (
+                    [ShopCartItemId] UNIQUEIDENTIFIER PRIMARY KEY,
+                    [UserId]         UNIQUEIDENTIFIER NOT NULL,
+                    [ModeVariantId]  UNIQUEIDENTIFIER NOT NULL,
+                    [Amount]         INT              NOT NULL,
+                    CONSTRAINT [FK_shop_cart_items_new_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[users] ([UserId]),
+                    CONSTRAINT [FK_shop_cart_items_new_models_variants_ModeVariantId] FOREIGN KEY ([ModeVariantId]) REFERENCES [dbo].[models_variants] ([ModelVariantId])
+                    );
+
+                INSERT INTO [dbo].[shop_carts_items_new] (
+                    [ShopCartItemId],
+                    [UserId],
+                    [ModeVariantId],
+                    [Amount]
+                    ) 
+                SELECT
+                    [sci].[ShopCartItemId],
+                    [sc].[UserId],
+                    [sci].[ModeVariantId],
+                    [sci].[Amount]
+                FROM
+                    [dbo].[shop_carts_items] AS [sci]
+                    INNER JOIN [dbo].[shop_carts] AS [sc] ON [sci].[ShopCartId] = [sc].[ShopCartId];
+                
+                ALTER TABLE [dbo].[shop_carts_items]
+                    DROP CONSTRAINT [FK_shop_carts_items_shop_carts_ShopCartId];
+
+                DROP TABLE [dbo].[shop_carts];
+                DROP TABLE [dbo].[shop_carts_items];
+                EXEC sp_rename 'dbo.shop_carts_items_new', 'shop_carts_items';
+                ");
+            }
+            catch{ }
             return dbContext;
         }
     }
