@@ -32,12 +32,12 @@ namespace ShoesShop.WebApi.Controllers
             catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ReviewDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ReviewDto>>> Create()
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetAll()
         {
             try
             {
