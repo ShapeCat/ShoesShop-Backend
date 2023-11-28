@@ -17,7 +17,7 @@ namespace ShoesShop.Persistence
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderItem> OrdersItems { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
-        public DbSet<ShopCart> ShopCarts { get; set; } = null!;
+//        public DbSet<ShopCart> ShopCarts { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Sale> Sales { get; set; } = null!;
 
@@ -35,7 +35,7 @@ namespace ShoesShop.Persistence
             modelBuilder.ApplyConfiguration(new ModelVariantConfiguration());
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-            modelBuilder.ApplyConfiguration(new ShopCartConfiguration());
+//            modelBuilder.ApplyConfiguration(new ShopCartConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new SaleConfiguration());
             base.OnModelCreating(modelBuilder);

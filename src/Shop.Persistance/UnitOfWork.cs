@@ -32,7 +32,7 @@ namespace ShoesShop.Persistence
                 Type t when t == typeof(Order) => new OrderRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(OrderItem) => new OrderItemRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Review) => new ReviewRepository(dbContext) as IRepositoryOf<T>,
-                Type t when t == typeof(ShopCart) => new ShopCartRepository(dbContext) as IRepositoryOf<T>,
+//                Type t when t == typeof(ShopCart) => new ShopCartRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(User) => new UserRepository(dbContext) as IRepositoryOf<T>,
                 Type t when t == typeof(Sale) => new SaleRepository(dbContext) as IRepositoryOf<T>,
                 _ => null,

@@ -79,13 +79,13 @@ namespace ShoesShop.Tests.Core
                 new FavoritesItem(DeleteFavoriteItemId, DeleteFavoriteListId),
                 new FavoritesItem(UpdateFavoriteItemId, UpdateFavoriteListId)
             );
-            dbContext.ShopCarts.AddRange(
-                new ShopCart(DeleteShopCartId, DeleteUserId),
-                new ShopCart(UpdateShopCartId, UpdateUserId)
-            );
+            //dbContext.ShopCarts.AddRange(
+            //    new ShopCart(DeleteShopCartId, DeleteUserId),
+            //    new ShopCart(UpdateShopCartId, UpdateUserId)
+            //);
             dbContext.ShopCartsItems.AddRange(
-                new ShopCartItem(DeleteCartItemId, DeleteShopCartId, DeleteModelVariantId, 1),
-                new ShopCartItem(UpdateCartItemId, UpdateShopCartId, UpdateModelVariantId, 1)
+                new ShopCartItem(DeleteCartItemId, DeleteUserId, DeleteModelVariantId, 1),
+                new ShopCartItem(UpdateCartItemId, UpdateUserId, UpdateModelVariantId, 1)
             );
             dbContext.Orders.AddRange(
                 new Order(DeleteOrderId, DeleteUserId, OrderStatus.Created, DateTime.Now),

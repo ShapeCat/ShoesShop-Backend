@@ -22,7 +22,7 @@ namespace ShoesShop.Entities
 
         public Address? Address { get; }
         public FavoritesList Favorites { get; }
-        public ICollection<ShopCart> ShopCarts { get; }
+        public ICollection<ShopCartItem> ShopCartItems { get; }
         public ICollection<Order> Orders { get; }
         public ICollection<Review> Reviews { get; set; }
 

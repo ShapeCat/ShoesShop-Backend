@@ -9,14 +9,14 @@ namespace ShoesShop.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<ShopCartItem> builder)
         {
             builder.ToTable("shop_carts_items");
-            builder.HasKey(x => x.ShopCartItemId);
+            builder.HasKey(x => x.UserId);
             builder.Property(x => x.Amount)
                    .IsRequired();
-            builder.HasOne(x => x.ShopCart)
-                   .WithMany(x => x.Items)
-                   .HasForeignKey(x => x.ShopCartId);
+            builder.HasOne(x => x.User)
+                   .WithMany(x => x.ShopCartItems)
+                   .HasForeignKey(x => x.UserId);
             builder.HasOne(x => x.ModelVariant)
-                   .WithMany(x => x.ShopCartsIn)
+                   .WithMany(x => x.ShopCartsItemsIn)
                    .HasForeignKey(x => x.ModeVariantId);
 
             builder.Navigation(x => x.ModelVariant)

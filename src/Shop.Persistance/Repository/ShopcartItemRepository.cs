@@ -28,15 +28,15 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task EditAsync(ShopCartItem newItem, CancellationToken cancellationToken)
         {
-            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == newItem.ShopCartItemId, cancellationToken)
-                           ?? throw new NotFoundException(newItem.ShopCartItemId.ToString(), typeof(ShopCartItem));
+            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.UserId == newItem.UserId, cancellationToken)
+                           ?? throw new NotFoundException(newItem.UserId.ToString(), typeof(ShopCartItem));
             shopCartItem.Amount
                 = newItem.Amount;
         }
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == Id, cancellationToken)
+            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.UserId == Id, cancellationToken)
                            ?? throw new NotFoundException(Id.ToString(), typeof(ShopCartItem));
             dbSet.Remove(shopCartItem);
         }
