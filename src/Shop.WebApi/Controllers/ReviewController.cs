@@ -67,8 +67,27 @@ namespace ShoesShop.WebApi.Controllers
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
             catch (ValidationException ex) { return BadRequest(ex.Errors); }
-
         }
 
+        [HttpDelete("{reviewId}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete(Guid reviewId)
+        {
+            try
+            {
+                var command = new DeleteReviewCommand()
+                {
+                    ReviewId = reviewId
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+        }
     }
 }
