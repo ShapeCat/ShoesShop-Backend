@@ -100,7 +100,7 @@ namespace ShoesShop.WebApi.Controllers
             catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
 
-        [HttpGet]
+        [HttpGet("address")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressVm))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
