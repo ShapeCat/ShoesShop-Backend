@@ -2,7 +2,10 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Reviews.Commands;
+using ShoesShop.Application.Requests.Reviews.OutputVMs;
 using ShoesShop.Application.Requests.Reviews.Queries;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
@@ -44,5 +47,28 @@ namespace ShoesShop.WebApi.Controllers
             }
             catch (ValidationException ex) { return BadRequest(ex.Errors); }
         }
+
+        [HttpGet("{reviewId}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ReviewVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<AddressVm>> GetById(Guid reviewId)
+        {
+            try
+            {
+                var query = new GetReviewQuery()
+                {
+                    ReviewId = reviewId
+                };
+                var result = await Mediator.Send(query);
+                return Ok(result);
+            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ValidationException ex) { return BadRequest(ex.Errors); }
+
+        }
+
     }
 }
