@@ -9,6 +9,7 @@ using ShoesShop.Application.Requests.Users.Command;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Application.Requests.Users.Queries;
 using ShoesShop.Entities;
+using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -19,7 +20,7 @@ namespace ShoesShop.WebApi.Controllers
         public UserController(IMapper mapper) : base(mapper) { }
 
         [HttpGet("role")]
-        [Authorize(Policy = "UpdateRoles")]
+        [Authorize(Policy = Policies.UpdateRoles)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,7 +79,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPut("{userId}/role")]
-        [Authorize(Policy = "Administrator")]
+        [Authorize(Policy = Policies.UpdateRoles)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

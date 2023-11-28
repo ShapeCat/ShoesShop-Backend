@@ -6,6 +6,7 @@ using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
+using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -16,7 +17,7 @@ namespace ShoesShop.WebApi.Controllers
         public ModelController(IMapper mapper) : base(mapper) { }
 
         [HttpPost]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -67,7 +68,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPut("{modelId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -86,7 +87,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpDelete("{modelId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -126,7 +127,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPost("{modelId}/images")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

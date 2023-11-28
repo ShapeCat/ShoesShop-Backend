@@ -93,8 +93,8 @@ namespace ShoesShop.WebAPI
             });
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("UpdateRoles", policy => policy.RequireRole(Roles.Administrator.ToString()));
-                options.AddPolicy("UpdateGoods", policy => policy.RequireRole(Roles.Manager.ToString(), Roles.Administrator.ToString()));
+                options.AddPolicy(Policies.UpdateRoles, policy => policy.RequireRole(Roles.Administrator.ToString()));
+                options.AddPolicy(Policies.UpdateGoods, policy => policy.RequireRole(Roles.Manager.ToString(), Roles.Administrator.ToString()));
 
             });
             builder.Services.AddSingleton<ITokenService>(new TokenService(builder.Configuration["Jwt:Key"], builder.Configuration["Jwt:Issuer"], builder.Configuration["Jwt:Audience"]));

@@ -10,6 +10,7 @@ using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
 using ShoesShop.Application.Requests.Sales.Commands;
+using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -20,7 +21,7 @@ namespace ShoesShop.WebApi.Controllers
         public ModelVariantController(IMapper mapper) : base(mapper) { }
 
         [HttpPost]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -73,7 +74,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPut("{modelVariantId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,7 +93,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpDelete("{modelVariantId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -153,7 +154,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPost("{modelVariantId}/Sales")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

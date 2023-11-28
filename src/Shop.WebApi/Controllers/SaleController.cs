@@ -6,6 +6,7 @@ using ShoesShop.Application.Common.Exceptions;
 using ShoesShop.Application.Requests.Sales.Commands;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
 using ShoesShop.Application.Requests.Sales.Queries;
+using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
@@ -51,7 +52,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpPut("{saleId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -70,7 +71,7 @@ namespace ShoesShop.WebApi.Controllers
         }
 
         [HttpDelete("{saleId}")]
-        [Authorize(Policy = "UpdateGoods")]
+        [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
