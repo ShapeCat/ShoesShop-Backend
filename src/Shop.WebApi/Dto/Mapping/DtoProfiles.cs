@@ -8,6 +8,7 @@ using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.Reviews.Commands;
 using ShoesShop.Application.Requests.Sales.Commands;
+using ShoesShop.Application.Requests.ShopCartsItems.Commands;
 using ShoesShop.Application.Requests.Users.Command;
 
 namespace ShoesShop.WebApi.Dto.Mapping
@@ -79,6 +80,9 @@ namespace ShoesShop.WebApi.Dto.Mapping
                                                        .ForMember(x => x.Rating, y => y.MapFrom(x => x.Rating))
                                                        .ForMember(x => x.Comment, y => y.MapFrom(x => x.Comment))
                                                        .ForMember(x => x.PublishDate, y => y.MapFrom(x => x.PublishDate));
+
+            CreateMap<CartItemDto, AddToShopCartCommand>().ForMember(x => x.ModelVariantId, y => y.MapFrom(x => x.ModeVariantId))
+                                                          .ForMember(x => x.Amount, y => y.MapFrom(x => x.Amount));
         }
     }
 }

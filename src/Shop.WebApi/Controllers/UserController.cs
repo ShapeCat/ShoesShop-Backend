@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Application.Requests.Addresses.Commands;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Addresses.Queries;
+using ShoesShop.Application.Requests.ShopCartsItems.Commands;
 using ShoesShop.Application.Requests.Users.Command;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Application.Requests.Users.Queries;
@@ -15,6 +17,7 @@ namespace ShoesShop.WebApi.Controllers
 {
     public class UserController : AbstractController
     {
+        #region User
         public UserController(IMapper mapper) : base(mapper) { }
 
         [HttpGet("role")]
@@ -94,5 +97,22 @@ namespace ShoesShop.WebApi.Controllers
             var result = await Mediator.Send(query);
             return Ok(result);
         }
+        #endregion
+
+        #region UserShopCart
+        [HttpPost("ShopCart")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Guid>> AddToShopCart([FromBody] ShopCartItem shopCartItemDto)
+        {
+            var command = Mapper.Map<AddToShopCartCommand>(shopCartItemDto);
+            command.UserId = UserId;
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
+        #endregion
     }
 }

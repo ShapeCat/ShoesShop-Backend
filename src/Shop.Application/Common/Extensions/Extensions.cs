@@ -16,10 +16,10 @@ namespace ShoesShop.Application.Common.Extensions
             return true;
         }
 
-        public static async Task<T> FindFirstAsync<T>(this IRepositoryOf<T> repository, Expression<Func<T, bool>> predicate, CancellationToken cancellationToken) where T : class
+        public static async Task<T?> FindFirstAsync<T>(this IRepositoryOf<T> repository, Expression<Func<T, bool>> predicate, CancellationToken cancellationToken) where T : class
         {
             var entities = await repository.FindAllAsync(predicate, cancellationToken);
-            return entities.First();
+            return entities.FirstOrDefault();
         }
     }
 }
