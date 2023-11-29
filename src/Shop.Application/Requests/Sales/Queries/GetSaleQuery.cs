@@ -18,7 +18,7 @@ namespace ShoesShop.Application.Requests.Sales.Queries
     {
         public GetSaleQueryValidator()
         {
-            RuleFor(x => x.SaleId).NotEmpty();
+            RuleFor(x => x.SaleId).NotEqual(Guid.Empty);
         }
     }
 

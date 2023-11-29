@@ -19,7 +19,7 @@ namespace ShoesShop.Application.Requests.Sales.Commands
         public UpdateSaleCommandValidator()
         {
             RuleFor(x => x.SaleId).NotEqual(Guid.Empty);
-            RuleFor(x => x.Percent).GreaterThan(0.0f);
+            RuleFor(x => x.Percent).InclusiveBetween(0f, 0.99f);
             RuleFor(x => x.SaleEndDate).GreaterThan(DateTime.Now);
         }
     }

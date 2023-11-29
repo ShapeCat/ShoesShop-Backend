@@ -16,7 +16,7 @@ namespace ShoesShop.Application.Requests.ModelsSizes.Commands
     {
         public CreateModelSizeCommandValidator()
         {
-            RuleFor(x => x.Size).GreaterThan(0);
+            RuleFor(x => x.Size).GreaterThan(0).LessThan(int.MaxValue);
         }
     }
 

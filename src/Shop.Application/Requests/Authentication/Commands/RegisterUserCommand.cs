@@ -17,7 +17,7 @@ namespace ShoesShop.Application.Requests.Authentication.Commands
     {
         public RegisterUserCommandValidator()
         {
-            RuleFor(x => x.Login).NotEmpty();
+            RuleFor(x => x.Login).NotEmpty().MaximumLength(128);
             RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
         }
     }

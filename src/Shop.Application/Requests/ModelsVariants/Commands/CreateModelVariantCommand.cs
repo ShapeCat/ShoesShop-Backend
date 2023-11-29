@@ -21,8 +21,8 @@ namespace ShoesShop.Application.Requests.ModelsVariants.Commands
         {
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelSizeId).NotEqual(Guid.Empty);
-            RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.Price).GreaterThan(0);
+            RuleFor(x => x.ItemsLeft).GreaterThanOrEqualTo(0).LessThan(int.MaxValue);
+            RuleFor(x => x.Price).GreaterThan(0).LessThan(decimal.MaxValue);
         }
     }
 

@@ -19,7 +19,7 @@ namespace ShoesShop.Application.Requests.ShopCartsItems.Commands
     {
         public AddToShopCartCommandValidator()
         {
-            RuleFor(x => x.Amount).GreaterThan(0);
+            RuleFor(x => x.Amount).GreaterThan(0).LessThan(int.MaxValue);
             RuleFor(x => x.UserId).NotEqual(Guid.Empty);
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
         }
