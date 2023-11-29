@@ -9,6 +9,11 @@ namespace ShoesShop.Persistence.Repository
     {
         public ShopCartItemRepository(ShopDbContext dbContext) : base(dbContext) { }
 
+        public override async Task AddAsync(ShopCartItem item, CancellationToken cancellationToken)
+        {
+            await dbSet.AddAsync(item, cancellationToken);
+        }
+
         public override async Task<IEnumerable<ShopCartItem>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
