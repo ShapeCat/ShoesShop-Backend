@@ -41,7 +41,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task RemoveAsync(Guid Id, CancellationToken cancellationToken)
         {
-            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.UserId == Id, cancellationToken)
+            var shopCartItem = await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == Id, cancellationToken)
                            ?? throw new NotFoundException(Id.ToString(), typeof(ShopCartItem));
             dbSet.Remove(shopCartItem);
         }
