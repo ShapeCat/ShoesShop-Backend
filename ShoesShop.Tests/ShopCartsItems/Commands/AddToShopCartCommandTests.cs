@@ -4,7 +4,7 @@ using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
-namespace ShoesShop.Tests.ShopCartsItems
+namespace ShoesShop.Tests.ShopCartsItems.Commands
 {
     public class AddToShopCartCommandTests : AbstractCommandTests
     {
