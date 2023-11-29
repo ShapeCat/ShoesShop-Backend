@@ -21,7 +21,7 @@ namespace ShoesShop.Persistence.Repository
 
         public override async Task<ShopCartItem> GetAsync(Guid Id, CancellationToken cancellationToken)
         {
-            return await dbSet.FirstOrDefaultAsync(cancellationToken)
+            return await dbSet.FirstOrDefaultAsync(x => x.ShopCartItemId == Id, cancellationToken)
                    ?? throw new NotFoundException(Id.ToString(), typeof(ShopCartItem));
         }
 
