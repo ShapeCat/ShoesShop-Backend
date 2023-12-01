@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Images.Commands;
+using ShoesShop.Application.Requests.Sales.OutputVMs;
+using ShoesShop.Application.Requests.Sales.Queries;
 using ShoesShop.Application.Requests.ShopCartsItems.Commands;
+using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
+using ShoesShop.Application.Requests.ShopCartsItems.Queries;
 using ShoesShop.Entities;
 using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
@@ -45,6 +49,21 @@ namespace ShoesShop.WebApi.Controllers
             };
             await Mediator.Send(command);
             return NoContent();
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShopCartItemVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ShopCartItemVm>> GetById(Guid saleId)
+        {
+            var query = new GetShopCartItemsByUserQuery()
+            {
+                UserId = saleId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

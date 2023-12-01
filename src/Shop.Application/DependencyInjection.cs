@@ -12,6 +12,7 @@ using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.Reviews.OutputVMs;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
+using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 
 namespace ShoesShop.Application
@@ -37,6 +38,7 @@ namespace ShoesShop.Application
                 new SaleVmProfiles(),
                 new AuthenticationUserProfiles(),
                 new UserVmProfiles(),
+                new ShopCartItemsProfile(),
                 new ReviewVmProfile(),
             }));
         }

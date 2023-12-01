@@ -7,6 +7,7 @@ using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.Reviews.OutputVMs;
 using ShoesShop.Application.Requests.Sales.OutputVMs;
+using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Persistence;
 using Xunit;
@@ -28,6 +29,7 @@ namespace ShoesShop.Tests.Core
                 new ModelSizeVmProfiles(),
                 new ModelVariantVmProfiles(),
                 new SaleVmProfiles(),
+                new ShopCartItemsProfile(),
                 new AuthenticationUserProfiles(),
                 new UserVmProfiles(),
                 new ReviewVmProfile(),
