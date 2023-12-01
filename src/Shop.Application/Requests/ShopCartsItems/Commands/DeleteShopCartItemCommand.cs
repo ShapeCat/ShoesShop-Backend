@@ -10,14 +10,16 @@ namespace ShoesShop.Application.Requests.ShopCartsItems.Commands
 {
     public class DeleteShopCartItemCommand : IRequest<Unit>
     {
-        public Guid ShopCartItemId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid ModelVariantId { get; set; }
     }
 
     public class DeleteShopCartItemValidator : AbstractValidator<DeleteShopCartItemCommand>
     {
         public DeleteShopCartItemValidator()
         {
-            RuleFor(x => x.ShopCartItemId).NotEqual(Guid.Empty);
+            RuleFor(x => x.UserId).NotEqual(Guid.Empty);
+            RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
         }
     }
 
@@ -28,11 +30,15 @@ namespace ShoesShop.Application.Requests.ShopCartsItems.Commands
         public override async Task<Unit> Handle(DeleteShopCartItemCommand request, CancellationToken cancellationToken)
         {
             var shopCartItemRepository = UnitOfWork.GetRepositoryOf<ShopCartItem>();
-            if (!await shopCartItemRepository.IsExistsAsync(request.ShopCartItemId, cancellationToken))
+            var userRepository = UnitOfWork.GetRepositoryOf<User>();
+            if (!await userRepository.IsExistsAsync(request.UserId, cancellationToken))
             {
-                throw new NotFoundException(request.ShopCartItemId.ToString(), typeof(ShopCartItem));
+                throw new NotFoundException(request.UserId.ToString(), typeof(ShopCartItem));
             }
-            await shopCartItemRepository.RemoveAsync(request.ShopCartItemId, cancellationToken);
+            var item = await shopCartItemRepository.FindFirstAsync(x => x.ModeVariantId == request.ModelVariantId
+                                                                        && x.UserId == request.UserId, cancellationToken)
+                        ?? throw new NotFoundException(request.ModelVariantId.ToString(), typeof(ShopCartItem));
+            await shopCartItemRepository.RemoveAsync(item.ShopCartItemId, cancellationToken);
             await UnitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

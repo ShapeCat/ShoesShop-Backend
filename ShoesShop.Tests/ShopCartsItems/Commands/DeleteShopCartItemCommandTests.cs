@@ -13,21 +13,37 @@ namespace ShoesShop.Tests.ShopCartsItems.Commands
         {
             var command = new DeleteShopCartItemCommand()
             {
-                ShopCartItemId = TestData.DeleteCartItemId
+                UserId = TestData.DeleteUserId,
+                ModelVariantId = TestData.DeleteModelVariantId
             };
             var handler = new DeleteShopCartItemCommandHandler(UnitOfWork);
 
             await handler.Handle(command, CancellationToken.None);
 
-            DbContext.Sales.FirstOrDefault(x => x.ModelVariantId == command.ShopCartItemId).ShouldBeNull();
+            DbContext.ShopCartsItems.FirstOrDefault(x => x.UserId == command.UserId
+                                                         && x.ModeVariantId == command.ModelVariantId).ShouldBeNull();
         }
 
         [Fact]
-        public async void Should_ThrowException_WhenShopCartItemNotExists()
+        public async void Should_ThrowException_WhenUserNotExists()
         {
             var command = new DeleteShopCartItemCommand()
             {
-                ShopCartItemId = Guid.NewGuid(),
+                UserId = Guid.NewGuid(),
+                ModelVariantId = TestData.DeleteModelVariantId
+            };
+            var handler = new DeleteShopCartItemCommandHandler(UnitOfWork);
+
+            await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
+        }
+
+        [Fact]
+        public async void Should_ThrowException_WhenModelVariantNotExists()
+        {
+            var command = new DeleteShopCartItemCommand()
+            {
+                UserId = TestData.DeleteUserId,
+                ModelVariantId = Guid.NewGuid()
             };
             var handler = new DeleteShopCartItemCommandHandler(UnitOfWork);
 
