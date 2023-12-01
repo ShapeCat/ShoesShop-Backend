@@ -29,11 +29,11 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ShopCartItemVm>> GetAll(Guid saleId)
+        public async Task<ActionResult<ShopCartItemVm>> GetAll()
         {
             var query = new GetShopCartItemsByUserQuery()
             {
-                UserId = saleId
+                UserId = UserId
             };
             var result = await Mediator.Send(query);
             return Ok(result);
