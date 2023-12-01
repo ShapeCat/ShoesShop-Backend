@@ -11,7 +11,7 @@ namespace ShoesShop.Persistence
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("ServerConnection");
+            var connectionString = configuration.GetConnectionString("TestConnection");
 
             services.AddDbContext<ShopDbContext>(option => option.UseSqlServer(connectionString));
             services.AddUnitOfWork();
@@ -29,7 +29,7 @@ namespace ShoesShop.Persistence
             return services.AddScoped<IRepositoryOf<Address>, AddressRepository>()
                            .AddScoped<IRepositoryOf<ShopCartItem>, ShopCartItemRepository>()
                            .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
-                           .AddScoped<IRepositoryOf<FavoritesList>, FavoritesListRepository>()
+//                           .AddScoped<IRepositoryOf<FavoritesList>, FavoritesListRepository>()
                            .AddScoped<IRepositoryOf<Image>, ImageRepository>()
                            .AddScoped<IRepositoryOf<Model>, ModelRepository>()
                            .AddScoped<IRepositoryOf<ModelSize>, ModelSizeRepository>()

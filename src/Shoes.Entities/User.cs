@@ -21,7 +21,7 @@ namespace ShoesShop.Entities
         public string? Phone { get; set; }
 
         public Address? Address { get; }
-        public FavoritesList Favorites { get; }
+        public IEnumerable<FavoritesItem> Favorites { get; }
         public ICollection<ShopCartItem> ShopCartItems { get; }
         public ICollection<Order> Orders { get; }
         public ICollection<Review> Reviews { get; set; }

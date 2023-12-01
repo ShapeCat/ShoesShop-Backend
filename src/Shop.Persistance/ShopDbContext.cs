@@ -9,7 +9,7 @@ namespace ShoesShop.Persistence
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<ShopCartItem> ShopCartsItems { get; set; } = null!;
         public DbSet<FavoritesItem> FavoritesItems { get; set; } = null!;
-        public DbSet<FavoritesList> FavoritesLists { get; set; } = null!;
+ //       public DbSet<FavoritesList> FavoritesLists { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;
         public DbSet<Model> Models { get; set; } = null!;
         public DbSet<ModelSize> ModelsSizes { get; set; } = null!;
@@ -28,7 +28,7 @@ namespace ShoesShop.Persistence
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new ShopCartItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesItemConfiguration());
-            modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());
+//            modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new ModelConfiguration());
             modelBuilder.ApplyConfiguration(new ModelSizeConfiguration());

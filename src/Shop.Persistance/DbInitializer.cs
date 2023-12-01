@@ -91,5 +91,43 @@ namespace ShoesShop.Persistence
             catch{ }
             return dbContext;
         }
+
+
+        private static ShopDbContext DropFavoriteLists(this ShopDbContext dbContext)
+        {
+            try
+            {
+                dbContext.Database.ExecuteSqlRaw(@"
+                CREATE TABLE [dbo].[favorites_items_new] (
+                    [FavoriteItemId]  UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+                    [UserId] UNIQUEIDENTIFIER NOT NULL,
+                    [ModelVariantId]  UNIQUEIDENTIFIER NOT NULL,
+                    CONSTRAINT [FK_favorites_items_new_user_id] FOREIGN KEY ([UserId]) REFERENCES [dbo].[users] ([UserId]),
+                    CONSTRAINT [FK_favorites_items_new_model_variants] FOREIGN KEY ([ModelVariantId]) REFERENCES [dbo].[models_variants] ([ModelVariantId])
+                );
+                INSERT INTO [dbo].[favorites_items_new] (
+                    [FavoriteItemId],
+                    [UserId],
+                    [ModelVariantId]
+                    ) 
+                SELECT
+                    [sci].[FavoriteItemId],
+                    [sc].[UserId],
+                    [sci].[ModelVariantId]
+                FROM
+                    [dbo].[favorites_items] AS [sci]
+                    INNER JOIN [dbo].[favorites_lists] AS [sc] ON [sci].FavoritesListId = [sc].FavoriteListId;
+                
+                ALTER TABLE [dbo].[favorites_items]
+                    DROP CONSTRAINT [FK_favorites_items_favorites_lists_FavoritesListId];
+
+                DROP TABLE [dbo].[favorites_items];
+                DROP TABLE [dbo].[favorites_lists];
+                EXEC sp_rename 'favorites_items_new', 'favorites_items';
+                ");
+            }
+            catch { }
+            return dbContext;
+        }
     }
 }

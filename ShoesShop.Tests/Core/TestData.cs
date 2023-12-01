@@ -13,8 +13,8 @@ namespace ShoesShop.Tests.Core
         public static Guid UpdateShopCartId { get; } = Guid.NewGuid();
         public static Guid DeleteFavoriteItemId { get; } = Guid.NewGuid();
         public static Guid UpdateFavoriteItemId { get; } = Guid.NewGuid();
-        public static Guid DeleteFavoriteListId { get; } = Guid.NewGuid();
-        public static Guid UpdateFavoriteListId { get; } = Guid.NewGuid();
+        //public static Guid DeleteFavoriteListId { get; } = Guid.NewGuid();
+        //public static Guid UpdateFavoriteListId { get; } = Guid.NewGuid();
         public static Guid DeleteImageId { get; } = Guid.NewGuid();
         public static Guid UpdateImageId { get; } = Guid.NewGuid();
         public static Guid DeleteModelId { get; } = Guid.NewGuid();
@@ -71,13 +71,13 @@ namespace ShoesShop.Tests.Core
                     new User(UpdateUserId, "some login", User.HashPassword("user test password"), DeleteAddressId, "test user 2", Roles.User, "test phone 2"),
                     new User(UserIdWithoutAddress, "some login", User.HashPassword("user test password"), null, "test user 2", Roles.User, "test phone 2")
             );
-            dbContext.FavoritesLists.AddRange(
-                new FavoritesList(DeleteFavoriteListId, DeleteUserId),
-                new FavoritesList(UpdateFavoriteListId, UpdateUserId)
-            );
+            //dbContext.FavoritesLists.AddRange(
+            //    new FavoritesList(DeleteFavoriteListId, DeleteUserId),
+            //    new FavoritesList(UpdateFavoriteListId, UpdateUserId)
+            //);
             dbContext.FavoritesItems.AddRange(
-                new FavoritesItem(DeleteFavoriteItemId, DeleteFavoriteListId),
-                new FavoritesItem(UpdateFavoriteItemId, UpdateFavoriteListId)
+                new FavoritesItem(DeleteFavoriteItemId, DeleteUserId),
+                new FavoritesItem(UpdateFavoriteItemId, UpdateUserId)
             );
             //dbContext.ShopCarts.AddRange(
             //    new ShopCart(DeleteShopCartId, DeleteUserId),

@@ -13,9 +13,9 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasOne(x => x.ModelVariant)
                    .WithMany(x => x.FavoritesIn)
                    .HasForeignKey(x => x.ModelVariantId);
-            builder.HasOne(x => x.FavoritesList)
-                   .WithMany(x => x.Items)
-                   .HasForeignKey(x => x.FavoritesListId);
+            builder.HasOne(x => x.User)
+                   .WithMany(x => x.Favorites)
+                   .HasForeignKey(x => x.UserId);
 
             builder.Navigation(x => x.ModelVariant)
                    .AutoInclude();

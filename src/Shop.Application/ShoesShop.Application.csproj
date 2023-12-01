@@ -22,8 +22,4 @@
 		<ProjectReference Include="..\Shoes.Entities\ShoesShop.Entities.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Requests\ShopCartsItems\Queries\" />
-	</ItemGroup>
-
 </Project>
