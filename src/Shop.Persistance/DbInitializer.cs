@@ -27,6 +27,12 @@ namespace ShoesShop.Persistence
             try
             {
                 dbContext.Database.ExecuteSqlRaw(@"
+            alter table users
+                drop constraint [DF__users__Role__6E01572D];
+
+            ALTER TABLE [dbo].[users]
+            Drop column [Role];
+
             ALTER TABLE [dbo].[users]
             ADD [Role] INT NOT NULL DEFAULT 0;
             ");
