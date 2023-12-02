@@ -39,6 +39,21 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{shopCartItemId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShopCartItemVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ShopCartItemVm>> GetById(Guid shopCartItemId)
+        {
+            var query = new GetShopCartItemQuery()
+            {
+                ShopCartItemId = shopCartItemId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPut("{modelVariantId}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
