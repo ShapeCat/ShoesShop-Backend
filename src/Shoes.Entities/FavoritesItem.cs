@@ -15,7 +15,7 @@
                 = (userId, modelVariantId, favoriteItemId);
         }
 
-        public FavoritesItem(Guid favoritesListId, Guid modelVariantId)
-        : this(Guid.NewGuid(), favoritesListId, modelVariantId) { }
+        public FavoritesItem(Guid userId, Guid modelVariantId)
+        : this(Guid.NewGuid(), userId, modelVariantId) { }
     }
 }
