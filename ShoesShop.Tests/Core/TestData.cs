@@ -76,8 +76,8 @@ namespace ShoesShop.Tests.Core
             //    new FavoritesList(UpdateFavoriteListId, UpdateUserId)
             //);
             dbContext.FavoritesItems.AddRange(
-                new FavoritesItem(DeleteFavoriteItemId, DeleteUserId),
-                new FavoritesItem(UpdateFavoriteItemId, UpdateUserId)
+                new FavoritesItem(DeleteFavoriteItemId, DeleteUserId, DeleteModelVariantId),
+                new FavoritesItem(UpdateFavoriteItemId, UpdateUserId, UpdateModelVariantId)
             );
             //dbContext.ShopCarts.AddRange(
             //    new ShopCart(DeleteShopCartId, DeleteUserId),
