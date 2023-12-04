@@ -9,6 +9,11 @@ namespace ShoesShop.Persistence.Repository
     {
         public FavoritesItemRepository(ShopDbContext dbContext) : base(dbContext) { }
 
+        public async override Task AddAsync(FavoritesItem item, CancellationToken cancellationToken)
+        {
+            await dbSet.AddAsync(item, cancellationToken);
+        }
+
         public override async Task<IEnumerable<FavoritesItem>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await dbSet.ToListAsync(cancellationToken);
