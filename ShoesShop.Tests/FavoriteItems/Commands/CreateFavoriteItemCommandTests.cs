@@ -4,7 +4,7 @@ using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
-namespace ShoesShop.Tests.FavoriteItems
+namespace ShoesShop.Tests.FavoriteItems.Commands
 {
     public class CreateFavoriteItemCommandTests : AbstractCommandTests
     {
