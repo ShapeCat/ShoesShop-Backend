@@ -5,6 +5,7 @@ using ShoesShop.Application.Requests.ShopCartsItems.Commands;
 using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
 using ShoesShop.Application.Requests.ShopCartsItems.Queries;
 using ShoesShop.Entities;
+using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
@@ -16,7 +17,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> AddToShopCart([FromBody] ShopCartItem shopCartItemDto)
+        public async Task<ActionResult<Guid>> AddToShopCart([FromBody] CartItemDto shopCartItemDto)
         {
             var command = Mapper.Map<AddToShopCartCommand>(shopCartItemDto);
             command.UserId = UserId;
