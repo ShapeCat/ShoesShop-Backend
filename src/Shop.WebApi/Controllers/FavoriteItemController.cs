@@ -26,5 +26,22 @@ namespace ShoesShop.WebApi.Controllers
             var result = await Mediator.Send(command);
             return Ok(result);
         }
+
+
+        [HttpDelete("{favoriteItemId}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete(Guid favoriteItemId)
+        {
+            var command = new DeleteFavoriteItemCommand()
+            {
+                FavoriteItemId = favoriteItemId
+            };
+            await Mediator.Send(command);
+            return NoContent();
+        }
     }
 }
