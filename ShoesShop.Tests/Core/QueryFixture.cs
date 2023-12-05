@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
 using ShoesShop.Application.Requests.Authentication.OutputVMs;
+using ShoesShop.Application.Requests.FavoriteItems.OutputVMs;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
@@ -33,6 +34,7 @@ namespace ShoesShop.Tests.Core
                 new AuthenticationUserProfiles(),
                 new UserVmProfiles(),
                 new ReviewVmProfile(),
+                new FavoriteItemVmProfile(),
             })).CreateMapper();
         }
 

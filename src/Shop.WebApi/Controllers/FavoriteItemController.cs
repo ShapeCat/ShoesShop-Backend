@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.FavoriteItems.Commands;
+using ShoesShop.Application.Requests.FavoriteItems.OutputVMs;
+using ShoesShop.Application.Requests.FavoriteItems.Queries;
+using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
+using ShoesShop.Application.Requests.ShopCartsItems.Queries;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
@@ -27,6 +31,20 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FavoriteItemVm))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<FavoriteItemVm>> GetAll()
+        {
+            var query = new GetFavoriteItemByUserQuery()
+            {
+                UserId = UserId
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
 
         [HttpDelete("{favoriteItemId}")]
         [Authorize]
