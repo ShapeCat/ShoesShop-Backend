@@ -3,9 +3,9 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.ModelsVariants.OutputVMs
 {
-    public class ModelVariantVmProfiles : Profile
+    public class ModelVariantVmProfile : Profile
     {
-        public ModelVariantVmProfiles()
+        public ModelVariantVmProfile()
         {
             CreateMap<ModelVariant, ModelVariantVm>().ForMember(x => x.ModelVariantId, y => y.MapFrom(x => x.ModelVariantId))
                                                      .ForMember(x => x.ItemsLeft, y => y.MapFrom(x => x.ItemsLeft))

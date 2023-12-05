@@ -16,7 +16,7 @@ namespace ShoesShop.WebApi.Authentication
         public TokenService(string key, string issuer, string audience)
             => (this.key, this.issuer, this.audience) = (key, issuer, audience);
 
-        public string BuildToken(AuthenticatedUserData user)
+        public string BuildToken(AuthenticatedDataVm user)
         {
             var claims = new Claim[]
             {

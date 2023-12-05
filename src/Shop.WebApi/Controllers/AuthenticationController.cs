@@ -34,7 +34,7 @@ namespace ShoesShop.WebApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login([Required] LoginDto loginDto)
         {
-            AuthenticatedUserData user;
+            AuthenticatedDataVm user;
             var command = Mapper.Map<CheckUserPasswordQuery>(loginDto);
             user = await Mediator.Send(command);
             var token = tokenService.BuildToken(user);

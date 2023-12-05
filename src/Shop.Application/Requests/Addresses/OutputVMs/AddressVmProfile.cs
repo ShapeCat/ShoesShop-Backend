@@ -3,9 +3,9 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Addresses.OutputVMs
 {
-    public class AddressVmProfiles : Profile
+    public class AddressVmProfile : Profile
     {
-        public AddressVmProfiles()
+        public AddressVmProfile()
         {
             CreateMap<Address, AddressVm>().ForMember(x => x.AddressId, y => y.MapFrom(x => x.AddressId))
                                            .ForMember(x => x.Country, y => y.MapFrom(x => x.Country))

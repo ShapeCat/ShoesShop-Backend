@@ -24,7 +24,7 @@ namespace ShoesShop.Tests.Authentication.Queries
 
             var authenticatedUserData = await handler.Handle(query, CancellationToken.None);
 
-            authenticatedUserData.ShouldBeOfType<AuthenticatedUserData>();
+            authenticatedUserData.ShouldBeOfType<AuthenticatedDataVm>();
             authenticatedUserData.Role.ShouldBe(Roles.User);
         }
 

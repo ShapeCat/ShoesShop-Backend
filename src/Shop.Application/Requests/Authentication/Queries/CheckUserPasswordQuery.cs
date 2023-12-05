@@ -9,7 +9,7 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Authentication.Queries
 {
-    public record CheckUserPasswordQuery : IRequest<AuthenticatedUserData>
+    public record CheckUserPasswordQuery : IRequest<AuthenticatedDataVm>
     {
         public string Login { get; set; }
         public string Password { get; set; }
@@ -24,18 +24,18 @@ namespace ShoesShop.Application.Requests.Authentication.Queries
         }
     }
 
-    public class CheckUserPasswordCommandHandler : AbstractQueryHandler<CheckUserPasswordQuery, AuthenticatedUserData>
+    public class CheckUserPasswordCommandHandler : AbstractQueryHandler<CheckUserPasswordQuery, AuthenticatedDataVm>
     {
         public CheckUserPasswordCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public override async Task<AuthenticatedUserData> Handle(CheckUserPasswordQuery request, CancellationToken cancellationToken)
+        public override async Task<AuthenticatedDataVm> Handle(CheckUserPasswordQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 var userRepository = UnitOfWork.GetRepositoryOf<User>();
                 var user = (await userRepository.FindAllAsync(x => x.Login == request.Login, cancellationToken)).FirstOrDefault()
                            ?? throw new NotFoundException(request.Login, typeof(User));
-                if (user.IsValidPassword(request.Password)) return Mapper.Map<AuthenticatedUserData>(user);
+                if (user.IsValidPassword(request.Password)) return Mapper.Map<AuthenticatedDataVm>(user);
                 else throw new AuthenticationException(request.Login);
             }
             catch (NotFoundException) { throw; }

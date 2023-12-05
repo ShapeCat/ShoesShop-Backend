@@ -2,7 +2,7 @@
 
 namespace ShoesShop.Application.Requests.Authentication.OutputVMs
 {
-    public class AuthenticatedUserData
+    public class AuthenticatedDataVm
     {
         public Guid UserId { get; set; }
         public string UserName { get; set; }

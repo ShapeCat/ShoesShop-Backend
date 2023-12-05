@@ -3,9 +3,9 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Images.OutputVMs
 {
-    public class ImageVmProfiles : Profile
+    public class ImageVmProfile : Profile
     {
-        public ImageVmProfiles()
+        public ImageVmProfile()
         {
             CreateMap<Image, ImageVm>().ForMember(x => x.ImageId, y => y.MapFrom(x => x.ImageId))
                                        .ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))

@@ -4,6 +4,6 @@ namespace ShoesShop.WebApi.Authentication
 {
     public interface ITokenService
     {
-        string BuildToken(AuthenticatedUserData user);
+        string BuildToken(AuthenticatedDataVm user);
     }
 }
