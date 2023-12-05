@@ -22,9 +22,6 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.Property(x => x.SkuId)
                    .HasMaxLength(255);
             builder.Property(x => x.ReleaseDate);
-
-            builder.Navigation(x => x.Images)
-                   .AutoInclude();
         }
     }
 }

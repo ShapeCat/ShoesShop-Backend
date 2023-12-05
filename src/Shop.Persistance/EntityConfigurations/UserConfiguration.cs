@@ -19,20 +19,13 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.Property(x => x.Role)
                    .IsRequired();
             builder.Property(x => x.Password)
-            .HasMaxLength(256)
-            .IsRequired();
+                   .HasMaxLength(256)
+                   .IsRequired();
             builder.Property(x => x.Phone)
                    .HasMaxLength(50);
             builder.HasOne(x => x.Address)
                    .WithMany(x => x.Users)
                    .HasForeignKey(x => x.AddressId);
-
-            builder.Navigation(x => x.Address)
-                   .AutoInclude();
-            builder.Navigation(x => x.Favorites)
-                   .AutoInclude();
-            builder.Navigation(x => x.Orders)
-                   .AutoInclude();
         }
     }
 }

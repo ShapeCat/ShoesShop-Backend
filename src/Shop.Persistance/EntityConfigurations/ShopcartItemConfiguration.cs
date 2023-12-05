@@ -18,9 +18,6 @@ namespace ShoesShop.Persistence.EntityConfigurations
             builder.HasOne(x => x.ModelVariant)
                    .WithMany(x => x.ShopCartsItemsIn)
                    .HasForeignKey(x => x.ModeVariantId);
-
-            builder.Navigation(x => x.ModelVariant)
-                   .AutoInclude();
         }
     }
 }
