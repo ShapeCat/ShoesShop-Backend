@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
@@ -44,7 +45,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AddressVm>> GetById(Guid reviewId)
+        public async Task<ActionResult<AddressVm>> GetById([Required] Guid reviewId)
         {
             var query = new GetReviewQuery()
             {
@@ -60,7 +61,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid reviewId)
+        public async Task<ActionResult> Delete([Required] Guid reviewId)
         {
             var command = new DeleteReviewCommand()
             {

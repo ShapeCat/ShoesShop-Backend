@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
@@ -19,7 +20,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([FromBody] ModelSizeDto modelSizeDto)
+        public async Task<ActionResult<Guid>> Create([Required][FromBody] ModelSizeDto modelSizeDto)
         {
             var command = Mapper.Map<CreateModelSizeCommand>(modelSizeDto);
             var result = await Mediator.Send(command);
@@ -42,7 +43,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ModelSizeVm>> GetById(Guid modelSizeId)
+        public async Task<ActionResult<ModelSizeVm>> GetById([Required] Guid modelSizeId)
         {
             var query = new GetModelSizeQuery()
             {
@@ -58,7 +59,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid modelSizeId, [FromBody] ModelSizeDto modelSizeDto)
+        public async Task<ActionResult> Update([Required] Guid modelSizeId, [Required] ModelSizeDto modelSizeDto)
         {
             var command = Mapper.Map<UpdateModelSizeCommand>(modelSizeDto);
             command.ModelSizeId = modelSizeId;
@@ -72,7 +73,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid modelSizeId)
+        public async Task<ActionResult> Delete([Required] Guid modelSizeId)
         {
             var command = new DeleteModelSizeCommand()
             {

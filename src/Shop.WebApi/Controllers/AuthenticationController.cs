@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Authentication.Commands;
@@ -18,7 +19,7 @@ namespace ShoesShop.WebApi.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(RegisterDto user)
+        public async Task<ActionResult> Register([Required] RegisterDto user)
         {
             var command = new RegisterUserCommand()
             {
@@ -31,7 +32,7 @@ namespace ShoesShop.WebApi.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginDto loginDto)
+        public async Task<ActionResult> Login([Required] LoginDto loginDto)
         {
             AuthenticatedUserData user;
             var command = Mapper.Map<CheckUserPasswordQuery>(loginDto);

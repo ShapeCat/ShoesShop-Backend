@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Images.Commands;
@@ -31,7 +32,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ImageVm>> GetById(Guid ImageId)
+        public async Task<ActionResult<ImageVm>> GetById([Required] Guid ImageId)
         {
             var query = new GetImageQuery()
             {
@@ -48,7 +49,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid imageId, [FromBody] ImageDto imageDto)
+        public async Task<ActionResult> Update([Required] Guid imageId, [Required] ImageDto imageDto)
         {
             var command = Mapper.Map<UpdateImageCommand>(imageDto);
             command.ImageId = imageId;
@@ -62,7 +63,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid imageId)
+        public async Task<ActionResult> Delete([Required] Guid imageId)
         {
             var command = new DeleteImageCommand()
             {

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Models.OutputVMs;
@@ -23,7 +24,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([FromBody] ModelVariantDto modelVariantDto)
+        public async Task<ActionResult<Guid>> Create([Required] ModelVariantDto modelVariantDto)
         {
             var command = Mapper.Map<CreateModelVariantCommand>(modelVariantDto);
             var result = await Mediator.Send(command);
@@ -48,7 +49,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ModelVariantVm>> GetById(Guid modelVariantId)
+        public async Task<ActionResult<ModelVariantVm>> GetById([Required] Guid modelVariantId)
         {
             var query = new GetModelVariantQuery()
             {
@@ -64,7 +65,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid modelVariantId, ModelVariantDto modelVariantDto)
+        public async Task<ActionResult> Update([Required] Guid modelVariantId, [Required] ModelVariantDto modelVariantDto)
         {
             var command = Mapper.Map<UpdateModelVariantCommand>(modelVariantDto);
             command.ModelVariantId = modelVariantId;
@@ -78,7 +79,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid modelVariantId)
+        public async Task<ActionResult> Delete([Required] Guid modelVariantId)
         {
             var command = new DeleteModelVariantCommand()
             {
@@ -93,7 +94,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ModelVm>> GetModel(Guid modelVariantId)
+        public async Task<ActionResult<ModelVm>> GetModel([Required] Guid modelVariantId)
         {
             var query = new GetModelByVariantQuery()
             {
@@ -108,7 +109,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ModelVm>> GetModelSize(Guid modelVariantId)
+        public async Task<ActionResult<ModelVm>> GetModelSize([Required] Guid modelVariantId)
         {
             var query = new GetModelSizeByVariantQuery()
             {
@@ -124,7 +125,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> CreateSale(Guid modelVariantId, [FromBody] SaleDto saleDto)
+        public async Task<ActionResult<Guid>> CreateSale([Required] Guid modelVariantId, [Required] SaleDto saleDto)
         {
             var command = Mapper.Map<CreateModelVariantSaleCommand>(saleDto);
             command.ModelVariantId = modelVariantId;

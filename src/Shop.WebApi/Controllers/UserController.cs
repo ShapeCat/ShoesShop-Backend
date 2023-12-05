@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Addresses.OutputVMs;
@@ -22,7 +23,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole(Roles role)
+        public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole([Required] Roles role)
         {
             var query = new GetUsersByRoleQuery()
             {
@@ -68,7 +69,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateRole(Guid userId, Roles role)
+        public async Task<ActionResult> UpdateRole([Required] Guid userId, [Required] Roles role)
         {
             var command = new UpdateUserRoleCommand()
             {

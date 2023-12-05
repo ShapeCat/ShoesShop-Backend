@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.FavoriteItems.Commands;
@@ -20,7 +21,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> AddToShopCart(Guid modelVariantId)
+        public async Task<ActionResult<Guid>> AddToShopCart([Required] Guid modelVariantId)
         {
             var command = new CreateFavoriteItemCommand()
             {
@@ -52,7 +53,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid favoriteItemId)
+        public async Task<ActionResult> Delete([Required] Guid favoriteItemId)
         {
             var command = new DeleteFavoriteItemCommand()
             {

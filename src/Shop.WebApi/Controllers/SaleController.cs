@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Sales.Commands;
@@ -30,7 +31,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<SaleVm>> GetById(Guid saleId)
+        public async Task<ActionResult<SaleVm>> GetById([Required] Guid saleId)
         {
             var query = new GetSaleQuery()
             {
@@ -46,7 +47,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid addressId, [FromBody] SaleDto saleDto)
+        public async Task<ActionResult> Update([Required] Guid addressId, [Required] SaleDto saleDto)
         {
             var command = Mapper.Map<UpdateSaleCommand>(saleDto);
             command.SaleId = addressId;
@@ -60,7 +61,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid saleId)
+        public async Task<ActionResult> Delete([Required] Guid saleId)
         {
             var command = new DeleteSaleCommand()
             {

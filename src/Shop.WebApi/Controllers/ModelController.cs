@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Models.Commands;
@@ -19,7 +20,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([FromBody] ModelDto modelDto)
+        public async Task<ActionResult<Guid>> Create([Required][FromBody] ModelDto modelDto)
         {
             var command = Mapper.Map<CreateModelCommand>(modelDto);
             var result = await Mediator.Send(command);
@@ -42,7 +43,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ModelVm>> GetById(Guid modelId)
+        public async Task<ActionResult<ModelVm>> GetById([Required] Guid modelId)
         {
             var query = new GetModelQuery()
             {
@@ -58,7 +59,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid addressId, [FromBody] ModelDto modelDto)
+        public async Task<ActionResult> Update([Required] Guid addressId, [FromBody] ModelDto modelDto)
         {
             var command = Mapper.Map<UpdateModelCommand>(modelDto);
             command.ModelId = addressId;
@@ -72,7 +73,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid modelId)
+        public async Task<ActionResult> Delete([Required] Guid modelId)
         {
             var command = new DeleteModelCommand()
             {
@@ -87,7 +88,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages(Guid modelId)
+        public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages([Required] Guid modelId)
         {
             var query = new GetAllModelImagesQuery()
             {
@@ -103,7 +104,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> CreateImage(Guid modelId, [FromBody] ImageDto imageDto)
+        public async Task<ActionResult<Guid>> CreateImage([Required] Guid modelId, [Required] ImageDto imageDto)
         {
             var command = Mapper.Map<CreateModelImageCommand>(imageDto);
             command.ModelId = modelId;

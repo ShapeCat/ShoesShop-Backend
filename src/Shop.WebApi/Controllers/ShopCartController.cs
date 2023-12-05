@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.ShopCartsItems.Commands;
@@ -17,7 +18,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> AddToShopCart([FromBody] CartItemDto shopCartItemDto)
+        public async Task<ActionResult<Guid>> AddToShopCart([Required] CartItemDto shopCartItemDto)
         {
             var command = Mapper.Map<AddToShopCartCommand>(shopCartItemDto);
             command.UserId = UserId;
@@ -45,7 +46,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ShopCartItemVm>> GetById(Guid shopCartItemId)
+        public async Task<ActionResult<ShopCartItemVm>> GetById([Required] Guid shopCartItemId)
         {
             var query = new GetShopCartItemQuery()
             {
@@ -61,7 +62,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid modelVariantId, int Amount)
+        public async Task<ActionResult> Update([Required] Guid modelVariantId, [Required] int Amount)
         {
             var command = new UpdateShopCartItemCommand()
             {
@@ -81,7 +82,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete(Guid modelVariantId)
+        public async Task<ActionResult> Delete([Required] Guid modelVariantId)
         {
             var command = new DeleteShopCartItemCommand()
             {
