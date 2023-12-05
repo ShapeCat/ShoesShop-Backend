@@ -29,7 +29,6 @@ namespace ShoesShop.Persistence
             return services.AddScoped<IRepositoryOf<Address>, AddressRepository>()
                            .AddScoped<IRepositoryOf<ShopCartItem>, ShopCartItemRepository>()
                            .AddScoped<IRepositoryOf<FavoritesItem>, FavoritesItemRepository>()
-//                           .AddScoped<IRepositoryOf<FavoritesList>, FavoritesListRepository>()
                            .AddScoped<IRepositoryOf<Image>, ImageRepository>()
                            .AddScoped<IRepositoryOf<Model>, ModelRepository>()
                            .AddScoped<IRepositoryOf<ModelSize>, ModelSizeRepository>()
@@ -38,7 +37,6 @@ namespace ShoesShop.Persistence
                            .AddScoped<IRepositoryOf<OrderItem>, OrderItemRepository>()
                            .AddScoped<IRepositoryOf<Review>, ReviewRepository>()
                            .AddScoped<IRepositoryOf<Sale>, SaleRepository>()
-//                           .AddScoped<IRepositoryOf<ShopCart>, ShopCartRepository>()
                            .AddScoped<IRepositoryOf<User>, UserRepository>();
         }
     }

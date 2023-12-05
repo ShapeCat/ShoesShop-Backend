@@ -28,7 +28,6 @@ namespace ShoesShop.Tests.Addresses.Queries
         [Fact]
         public async Task Should_ThrowException_WhenAddressNotExists()
         {
-            // Arrange
             var query = new GetAddressQuery()
             {
                 AddressId = Guid.NewGuid(),

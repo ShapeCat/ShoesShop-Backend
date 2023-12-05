@@ -9,7 +9,6 @@ namespace ShoesShop.Persistence
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<ShopCartItem> ShopCartsItems { get; set; } = null!;
         public DbSet<FavoritesItem> FavoritesItems { get; set; } = null!;
- //       public DbSet<FavoritesList> FavoritesLists { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;
         public DbSet<Model> Models { get; set; } = null!;
         public DbSet<ModelSize> ModelsSizes { get; set; } = null!;
@@ -17,7 +16,6 @@ namespace ShoesShop.Persistence
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderItem> OrdersItems { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
-//        public DbSet<ShopCart> ShopCarts { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Sale> Sales { get; set; } = null!;
 
@@ -28,14 +26,12 @@ namespace ShoesShop.Persistence
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new ShopCartItemConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesItemConfiguration());
-//            modelBuilder.ApplyConfiguration(new FavoritesListConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new ModelConfiguration());
             modelBuilder.ApplyConfiguration(new ModelSizeConfiguration());
             modelBuilder.ApplyConfiguration(new ModelVariantConfiguration());
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-//            modelBuilder.ApplyConfiguration(new ShopCartConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new SaleConfiguration());
             base.OnModelCreating(modelBuilder);
