@@ -7,16 +7,16 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Sales.Commands
 {
-    public record CreateModelVariantSaleCommand : IRequest<Guid>
+    public record CreateSaleCommand : IRequest<Guid>
     {
         public Guid ModelVariantId { get; set; }
         public float Percent { get; set; }
         public DateTime SaleEndDate { get; set; }
     }
 
-    public class CreateModelVariantSaleCommandValidator : AbstractValidator<CreateModelVariantSaleCommand>
+    public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
     {
-        public CreateModelVariantSaleCommandValidator()
+        public CreateSaleCommandValidator()
         {
             RuleFor(x => x.ModelVariantId).NotEqual(Guid.Empty);
             RuleFor(x => x.Percent).InclusiveBetween(0f, 0.99f);
@@ -24,11 +24,11 @@ namespace ShoesShop.Application.Requests.Sales.Commands
         }
     }
 
-    public class CreateModelVariantSaleCommandHandler : AbstractCommandHandler<CreateModelVariantSaleCommand, Guid>
+    public class CreateSaleCommandHandler : AbstractCommandHandler<CreateSaleCommand, Guid>
     {
-        public CreateModelVariantSaleCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public CreateSaleCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public override async Task<Guid> Handle(CreateModelVariantSaleCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
         {
             try
             {

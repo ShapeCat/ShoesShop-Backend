@@ -39,7 +39,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<FavoriteItemVm>> GetAll()
         {
-            var query = new GetFavoriteItemByUserQuery()
+            var query = new GetFavoriteItemsByUserQuery()
             {
                 UserId = UserId
             };

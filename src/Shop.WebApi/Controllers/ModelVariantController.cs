@@ -127,7 +127,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> CreateSale([Required] Guid modelVariantId, [Required] SaleDto saleDto)
         {
-            var command = Mapper.Map<CreateModelVariantSaleCommand>(saleDto);
+            var command = Mapper.Map<CreateSaleCommand>(saleDto);
             command.ModelVariantId = modelVariantId;
             var result = await Mediator.Send(command);
             return Ok(result);
