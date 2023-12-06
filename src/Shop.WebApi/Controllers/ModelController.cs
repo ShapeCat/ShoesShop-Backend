@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;

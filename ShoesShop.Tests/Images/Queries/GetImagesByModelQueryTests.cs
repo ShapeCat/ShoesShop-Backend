@@ -7,18 +7,18 @@ using Xunit;
 
 namespace ShoesShop.Tests.Models.Queries
 {
-    public class GetAllModelImagesQueryTests : AbstractQueryTests
+    public class GetImagesByModelQueryTests : AbstractQueryTests
     {
-        public GetAllModelImagesQueryTests(QueryFixture fixture) : base(fixture) { }
+        public GetImagesByModelQueryTests(QueryFixture fixture) : base(fixture) { }
 
         [Fact]
-        public async void Should_ReturnModelImages_WhenCorrect()
+        public async void Should_ReturnImages_WhenCorrect()
         {
-            var query = new GetAllModelImagesQuery()
+            var query = new GetImagesByModelQuery()
             {
                 ModelId = TestData.UpdateModelId,
             };
-            var handler = new GetAllModelImagesQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetImagesByModelQueryHandler(UnitOfWork, Mapper);
 
             var modelImages = await handler.Handle(query, CancellationToken.None);
 
@@ -28,11 +28,11 @@ namespace ShoesShop.Tests.Models.Queries
         [Fact]
         public async Task Should_ThrowException_WhenModelNotExists()
         {
-            var query = new GetAllModelImagesQuery()
+            var query = new GetImagesByModelQuery()
             {
                 ModelId = Guid.NewGuid(),
             };
-            var handler = new GetAllModelImagesQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetImagesByModelQueryHandler(UnitOfWork, Mapper);
 
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(query, CancellationToken.None));
         }

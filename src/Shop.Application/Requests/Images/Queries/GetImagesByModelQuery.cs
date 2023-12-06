@@ -9,24 +9,24 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.Models.Queries
 {
-    public record GetAllModelImagesQuery : IRequest<IEnumerable<ModelImageVm>>
+    public record GetImagesByModelQuery : IRequest<IEnumerable<ModelImageVm>>
     {
         public Guid ModelId { get; set; }
     }
 
-    public class GetAllModelImagesQueryValidator : AbstractValidator<GetAllModelImagesQuery>
+    public class GetImagesByModelQueryValidator : AbstractValidator<GetImagesByModelQuery>
     {
-        public GetAllModelImagesQueryValidator()
+        public GetImagesByModelQueryValidator()
         {
             RuleFor(x => x.ModelId).NotEqual(Guid.Empty);
         }
     }
 
-    public class GetAllModelImagesQueryHandler : AbstractQueryHandler<GetAllModelImagesQuery, IEnumerable<ModelImageVm>>
+    public class GetImagesByModelQueryHandler : AbstractQueryHandler<GetImagesByModelQuery, IEnumerable<ModelImageVm>>
     {
-        public GetAllModelImagesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+        public GetImagesByModelQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public override async Task<IEnumerable<ModelImageVm>> Handle(GetAllModelImagesQuery request, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ModelImageVm>> Handle(GetImagesByModelQuery request, CancellationToken cancellationToken)
         {
             try
             {
