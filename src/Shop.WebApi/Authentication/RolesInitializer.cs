@@ -15,5 +15,5 @@ namespace ShoesShop.WebApi.Authentication
             }
             return dbContext;
         }
+        }
     }
-}

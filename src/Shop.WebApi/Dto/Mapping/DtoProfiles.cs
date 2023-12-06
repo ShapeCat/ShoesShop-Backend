@@ -29,7 +29,7 @@ namespace ShoesShop.WebApi.Dto.Mapping
                                                        .ForMember(x => x.House, y => y.MapFrom(x => x.House))
                                                        .ForMember(x => x.Room, y => y.MapFrom(x => x.Room));
 
-            CreateMap<ImageDto, CreateModelImageCommand>().ForMember(x => x.Url, y => y.MapFrom(x => x.Url))
+            CreateMap<ImageDto, CreateImageCommand>().ForMember(x => x.Url, y => y.MapFrom(x => x.Url))
                                                      .ForMember(x => x.IsPreview, y => y.MapFrom(x => x.IsPreview));
 
             CreateMap<ImageDto, UpdateImageCommand>().ForMember(x => x.Url, y => y.MapFrom(x => x.Url))

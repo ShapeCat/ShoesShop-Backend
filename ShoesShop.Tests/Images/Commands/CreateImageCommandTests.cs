@@ -1,18 +1,17 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
-using ShoesShop.Application.Requests.Models.Commands;
-using ShoesShop.Entities;
+using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Tests.Core;
 using Shouldly;
 using Xunit;
 
 namespace ShoesShop.Tests.Models.Commands
 {
-    public class CreateModelImageCommandTests : AbstractCommandTests
+    public class CreateImageCommandTests : AbstractCommandTests
     {
         [Fact]
         public async void Should_CreateImage_WhenCorrect()
         {
-            var command = new CreateModelImageCommand()
+            var command = new CreateImageCommand()
             {
                 ModelId = TestData.UpdateModelId,
                 Url = "add test url",
@@ -31,7 +30,7 @@ namespace ShoesShop.Tests.Models.Commands
         [Fact]
         public async Task Should_ThrowException_WhenModelNotExists()
         {
-            var command = new CreateModelImageCommand()
+            var command = new CreateImageCommand()
             {
                 ModelId = Guid.NewGuid(),
                 Url = "add test url",
