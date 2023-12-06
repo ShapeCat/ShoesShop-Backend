@@ -10,24 +10,24 @@ using ShoesShop.Entities;
 
 namespace ShoesShop.Application.Requests.FavoriteItems.Queries
 {
-    public record GetFavoriteItemByUserQuery : IRequest<IEnumerable<FavoriteItemVm>>
+    public record GetFavoriteItemsByUserQuery : IRequest<IEnumerable<FavoriteItemVm>>
     {
         public Guid UserId { get; set; }
     }
 
-    public class GetFavoriteItemByUserQueryValidator : AbstractValidator<GetFavoriteItemByUserQuery>
+    public class GetFavoriteItemsByUserQueryValidator : AbstractValidator<GetFavoriteItemsByUserQuery>
     {
-        public GetFavoriteItemByUserQueryValidator()
+        public GetFavoriteItemsByUserQueryValidator()
         {
             RuleFor(x => x.UserId).NotEqual(Guid.Empty);
         }
     }
 
-    public class GetFavoriteItemByUserQueryHandler : AbstractQueryHandler<GetFavoriteItemByUserQuery, IEnumerable<FavoriteItemVm>>
+    public class GetFavoriteItemsByUserQueryHandler : AbstractQueryHandler<GetFavoriteItemsByUserQuery, IEnumerable<FavoriteItemVm>>
     {
-        public GetFavoriteItemByUserQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+        public GetFavoriteItemsByUserQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        public async override Task<IEnumerable<FavoriteItemVm>> Handle(GetFavoriteItemByUserQuery request, CancellationToken cancellationToken)
+        public async override Task<IEnumerable<FavoriteItemVm>> Handle(GetFavoriteItemsByUserQuery request, CancellationToken cancellationToken)
         {
             var userRepository = UnitOfWork.GetRepositoryOf<User>();
             var favoriteItemRepository = UnitOfWork.GetRepositoryOf<FavoritesItem>();

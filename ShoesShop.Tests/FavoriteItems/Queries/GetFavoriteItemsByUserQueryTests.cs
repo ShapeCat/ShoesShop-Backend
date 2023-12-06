@@ -14,11 +14,11 @@ namespace ShoesShop.Tests.FavoriteItems.Queries
         [Fact]
         public async void Should_ReturnUSerFavoriteItems_WhenCorrect()
         {
-            var command = new GetFavoriteItemByUserQuery()
+            var command = new GetFavoriteItemsByUserQuery()
             {
                 UserId = TestData.UpdateUserId,
             };
-            var handler = new GetFavoriteItemByUserQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetFavoriteItemsByUserQueryHandler(UnitOfWork, Mapper);
 
             var userFavorItems = await handler.Handle(command, CancellationToken.None);
 
@@ -28,11 +28,11 @@ namespace ShoesShop.Tests.FavoriteItems.Queries
         [Fact]
         public async void Should_ThrowException_WhenUserNotExists()
         {
-            var command = new GetFavoriteItemByUserQuery()
+            var command = new GetFavoriteItemsByUserQuery()
             {
                 UserId = Guid.NewGuid(),
             };
-            var handler = new GetFavoriteItemByUserQueryHandler(UnitOfWork, Mapper);
+            var handler = new GetFavoriteItemsByUserQueryHandler(UnitOfWork, Mapper);
 
             await Should.ThrowAsync<NotFoundException>(async () => await handler.Handle(command, CancellationToken.None));
         }
