@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Images.Commands;
+using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
@@ -89,9 +90,9 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ModelImageVm>>> GetImages([Required] Guid modelId)
+        public async Task<ActionResult<IEnumerable<ImageVm>>> GetImages([Required] Guid modelId)
         {
-            var query = new GetAllModelImagesQuery()
+            var query = new GetImagesByModelQuery()
             {
                 ModelId = modelId,
             };
@@ -107,7 +108,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Guid>> CreateImage([Required] Guid modelId, [Required] ImageDto imageDto)
         {
-            var command = Mapper.Map<CreateModelImageCommand>(imageDto);
+            var command = Mapper.Map<CreateImageCommand>(imageDto);
             command.ModelId = modelId;
             var result = await Mediator.Send(command);
             return Ok(result);

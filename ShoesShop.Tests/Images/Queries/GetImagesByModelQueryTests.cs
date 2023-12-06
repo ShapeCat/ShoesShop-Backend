@@ -1,4 +1,5 @@
 ﻿using ShoesShop.Application.Common.Exceptions;
+using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
 using ShoesShop.Tests.Core;
@@ -22,7 +23,7 @@ namespace ShoesShop.Tests.Models.Queries
 
             var modelImages = await handler.Handle(query, CancellationToken.None);
 
-            modelImages.ShouldAllBe(x => x is ModelImageVm);
+            modelImages.ShouldAllBe(x => x is ImageVm);
         }
 
         [Fact]

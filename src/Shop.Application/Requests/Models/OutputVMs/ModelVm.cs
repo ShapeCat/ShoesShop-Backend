@@ -8,6 +8,6 @@
         public string Brand { get; set; }
         public string SkuId { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public IEnumerable<ModelImageVm> Images { get; set; }
+        public IEnumerable<Guid> ImagesIds { get; set; }
     }
 }
