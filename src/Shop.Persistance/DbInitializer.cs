@@ -7,7 +7,7 @@ namespace ShoesShop.Persistence
         public static void Initialize(ShopDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            dbContext.FixUserNullableFields().AddUserRoles().FixFavoriteItemKeys().DropShopCarts();
+            // dbContext.FixUserNullableFields().AddUserRoles().FixFavoriteItemKeys().DropShopCarts();
         }
 
         #region DatabaseFixes
