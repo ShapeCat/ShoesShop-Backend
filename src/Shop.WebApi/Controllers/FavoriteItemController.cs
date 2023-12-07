@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.FavoriteItems.Commands;
 using ShoesShop.Application.Requests.FavoriteItems.OutputVMs;
 using ShoesShop.Application.Requests.FavoriteItems.Queries;
-using ShoesShop.Application.Requests.ShopCartsItems.OutputVMs;
-using ShoesShop.Application.Requests.ShopCartsItems.Queries;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

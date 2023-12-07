@@ -2,7 +2,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
@@ -97,20 +96,6 @@ namespace ShoesShop.WebApi.Controllers
                 ModelId = modelId,
             };
             var result = await Mediator.Send(query);
-            return Ok(result);
-        }
-
-        [HttpPost("{modelId}/images")]
-        [Authorize(Policy = Policies.UpdateGoods)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> CreateImage([Required] Guid modelId, [Required] ImageDto imageDto)
-        {
-            var command = Mapper.Map<CreateImageCommand>(imageDto);
-            command.ModelId = modelId;
-            var result = await Mediator.Send(command);
             return Ok(result);
         }
     }

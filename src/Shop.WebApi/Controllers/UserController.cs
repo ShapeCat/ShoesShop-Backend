@@ -18,21 +18,6 @@ namespace ShoesShop.WebApi.Controllers
     {
         public UserController(IMapper mapper) : base(mapper) { }
 
-        [HttpGet("role")]
-        [Authorize(Policy = Policies.UpdateRoles)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserVm>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole([Required] Roles role)
-        {
-            var query = new GetUsersByRoleQuery()
-            {
-                Role = role
-            };
-            var result = await Mediator.Send(query);
-            return Ok(result);
-        }
-
         [HttpGet]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserVm))]
@@ -63,23 +48,6 @@ namespace ShoesShop.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPut("{userId}/role")]
-        [Authorize(Policy = Policies.UpdateRoles)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateRole([Required] Guid userId, [Required] Roles role)
-        {
-            var command = new UpdateUserRoleCommand()
-            {
-                UserId = userId,
-                Role = role,
-            };
-            await Mediator.Send(command);
-            return NoContent();
-        }
-
         [HttpGet("address")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddressVm))]
@@ -94,6 +62,38 @@ namespace ShoesShop.WebApi.Controllers
             };
             var result = await Mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpGet("role")]
+        [Authorize(Policy = Policies.UpdateRoles)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserVm>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<UserVm>>> GetAllByRole([Required] Roles role)
+        {
+            var query = new GetUsersByRoleQuery()
+            {
+                Role = role
+            };
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPut("role")]
+        [Authorize(Policy = Policies.UpdateRoles)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateRole([Required] Guid userId, [Required] Roles role)
+        {
+            var command = new UpdateUserRoleCommand()
+            {
+                UserId = userId,
+                Role = role,
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

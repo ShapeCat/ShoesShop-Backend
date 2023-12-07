@@ -18,7 +18,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> AddToShopCart([Required] CartItemDto shopCartItemDto)
+        public async Task<ActionResult<Guid>> Create([Required] CartItemDto shopCartItemDto)
         {
             var command = Mapper.Map<AddToShopCartCommand>(shopCartItemDto);
             command.UserId = UserId;

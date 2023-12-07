@@ -8,7 +8,6 @@ using ShoesShop.Application.Requests.ModelsSizes.Queries;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
-using ShoesShop.Application.Requests.Sales.Commands;
 using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
 using ShoesShop.WebAPI.Controllers;
@@ -116,20 +115,6 @@ namespace ShoesShop.WebApi.Controllers
                 ModelVariantId = modelVariantId
             };
             var result = await Mediator.Send(query);
-            return Ok(result);
-        }
-
-        [HttpPost("{modelVariantId}/Sales")]
-        [Authorize(Policy = Policies.UpdateGoods)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> CreateSale([Required] Guid modelVariantId, [Required] SaleDto saleDto)
-        {
-            var command = Mapper.Map<CreateSaleCommand>(saleDto);
-            command.ModelVariantId = modelVariantId;
-            var result = await Mediator.Send(command);
             return Ok(result);
         }
     }

@@ -15,6 +15,20 @@ namespace ShoesShop.WebApi.Controllers
     {
         public ImageController(IMapper mapper) : base(mapper) { }
 
+        [HttpPost]
+        [Authorize(Policy = Policies.UpdateGoods)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<Guid>> CreateImage([Required] Guid modelId, [Required] ImageDto imageDto)
+        {
+            var command = Mapper.Map<CreateImageCommand>(imageDto);
+            command.ModelId = modelId;
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Authorize(Policy = Policies.UpdateGoods)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ImageVm>))]

@@ -20,7 +20,7 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([Required][FromBody] ModelSizeDto modelSizeDto)
+        public async Task<ActionResult<Guid>> Create([Required] ModelSizeDto modelSizeDto)
         {
             var command = Mapper.Map<CreateModelSizeCommand>(modelSizeDto);
             var result = await Mediator.Send(command);
