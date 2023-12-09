@@ -13,13 +13,32 @@ namespace ShoesShop.WebApi.Controllers
     {
         public FavoriteItemController(IMapper mapper) : base(mapper) { }
 
+        /// <summary>
+        /// Add model variant to favorites
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/FavoriteItem?modelVariantId=3fa85f64-5717-4562-b3fc-2c963f66afa6
+        ///
+        /// Return: ID of created user favorites item
+        /// </remarks>
+        /// <param name="modelVariantId">Model variant Id</param>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="400">Validation Error. Check given data</response>
+        /// <response code="401">Authorization Error. Login first for this action</response>
+        /// <response code="404">Given model variant not found</response>
+        /// <response code="409">Given model variant already exists</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> AddToShopCart([Required] Guid modelVariantId)
+        public async Task<ActionResult<Guid>> AddToFavoriteItem([Required] Guid modelVariantId)
         {
             var command = new CreateFavoriteItemCommand()
             {
@@ -30,12 +49,29 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Get favorites items
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/FavoriteItem
+        ///
+        /// Return: List of current user favorite items
+        /// </remarks>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="400">Validation Error. Check given data</response>
+        /// <response code="401">Authorization Error. Login first for this action</response>
+        /// <response code="404">Current user not exists</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FavoriteItemVm))]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FavoriteItemVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<FavoriteItemVm>> GetAll()
+        public async Task<ActionResult<IEnumerable<FavoriteItemVm>>> GetAll()
         {
             var query = new GetFavoriteItemsByUserQuery()
             {
@@ -45,10 +81,26 @@ namespace ShoesShop.WebApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Delete favorite item
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /api/FavoriteItem/3fa85f64-5717-4562-b3fc-2c963f66afa6
+        ///
+        /// </remarks>
+        /// <param name="favoriteItemId">Favorite item Id</param>
+        /// <response code="204">Successful Operation</response>
+        /// <response code="400">Validation Error. Check given data</response>
+        /// <response code="401">Authorization Error. Login first for this action</response>
+        /// <response code="404">Given favorite item not found</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpDelete("{favoriteItemId}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete([Required] Guid favoriteItemId)
