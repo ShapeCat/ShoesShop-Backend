@@ -1,16 +1,18 @@
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using ShoesShop.Application;
+using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Entities;
 using ShoesShop.Persistence;
 using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto.Mapping;
 using ShoesShop.WebApi.Middleware;
+using ShoesShop.WebApi.Services;
 
 namespace ShoesShop.WebAPI
 {
@@ -53,7 +55,7 @@ namespace ShoesShop.WebAPI
                         {
                             Name = "Shape Cat",
                             Url = new Uri("https://github.com/ShapeTheMoonlight")
-                        }
+                        },
                     });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -75,7 +77,7 @@ namespace ShoesShop.WebAPI
                                 Id="Bearer"
                             }
                         },
-                        new string[]{}
+                        Array.Empty<string>()
                     }
                 });
                 var xmlPath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -112,7 +114,9 @@ namespace ShoesShop.WebAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
+            builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
             builder.Services.AddHttpContextAccessor();
+            ConfigureLogger(builder);
         }
 
         private static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -147,9 +151,17 @@ namespace ShoesShop.WebAPI
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Log.Fatal(ex, "An error occurred while app startup");
                 }
             }
+        }
+
+        public static void ConfigureLogger(WebApplicationBuilder builder)
+        {
+            var logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
+                                                  .WriteTo.File(Path.Combine("logs", "apiLog-.txt"), rollingInterval: RollingInterval.Day)
+                                                  .CreateLogger();
+            builder.Logging.AddSerilog(logger);
         }
     }
 }

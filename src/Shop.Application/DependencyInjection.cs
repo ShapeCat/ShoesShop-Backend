@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using ShoesShop.Application.Common.Logging;
 using ShoesShop.Application.Common.Mapping;
 using ShoesShop.Application.Common.Validation;
 
@@ -13,6 +14,7 @@ namespace ShoesShop.Application
         {
             services.AddMappingProfiles();
             services.AddValidation();
+            services.AddLoggingBehaviors();
             return services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         }
 
@@ -25,6 +27,11 @@ namespace ShoesShop.Application
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
+        }
+
+        public static IServiceCollection AddLoggingBehaviors(this IServiceCollection services)
+        {
+            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         }
     }
 }
