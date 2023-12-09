@@ -25,7 +25,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     Post /api/Authentication/
+        ///     Post /api/Authentication/register
         ///     {
         ///         "login": "login1",
         ///         "password": "qwerty"
@@ -54,8 +54,28 @@ namespace ShoesShop.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     Post /api/Authentication/login
+        ///     {
+        ///         "login": "login1",
+        ///         "password": "qwerty"
+        ///     }
+        /// 
+        /// Return: user JWT token
+        /// </remarks>
+        /// <param name="loginDto">User login data</param>
+        /// <response code="200">Successful Operation</response>
+        /// <response code="409">User with this login already exists</response>
+        /// <response code="400">Validation Error. Check given data</response>
+        /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost("login")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
