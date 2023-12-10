@@ -9,10 +9,10 @@ using ShoesShop.Application;
 using ShoesShop.Application.Common.Interfaces;
 using ShoesShop.Entities;
 using ShoesShop.Persistence;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto.Mapping;
 using ShoesShop.WebApi.Middleware;
-using ShoesShop.WebApi.Services;
+using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebApi.Services.CurrentUserService;
 
 namespace ShoesShop.WebAPI
 {
@@ -159,7 +159,7 @@ namespace ShoesShop.WebAPI
         public static void ConfigureLogger(WebApplicationBuilder builder)
         {
             var logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
-                                                  .WriteTo.File(Path.Combine("logs", "apiLog-.txt"), rollingInterval: RollingInterval.Day)
+                                                  .WriteTo.File(Path.Combine("Logs", "apiLog-.txt"), rollingInterval: RollingInterval.Day)
                                                   .CreateLogger();
             builder.Logging.AddSerilog(logger);
         }

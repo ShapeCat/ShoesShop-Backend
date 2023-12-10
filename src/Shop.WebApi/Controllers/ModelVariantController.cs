@@ -8,8 +8,9 @@ using ShoesShop.Application.Requests.ModelsSizes.Queries;
 using ShoesShop.Application.Requests.ModelsVariants.Commands;
 using ShoesShop.Application.Requests.ModelsVariants.OutputVMs;
 using ShoesShop.Application.Requests.ModelsVariants.Queries;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
+using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebAPI;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

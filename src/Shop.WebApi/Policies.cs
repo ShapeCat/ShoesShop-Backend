@@ -1,6 +1,6 @@
-﻿namespace ShoesShop.WebApi.Authentication
+﻿namespace ShoesShop.WebAPI
 {
-    public class Policies
+    internal class Policies
     {
         public const string UpdateRoles = "Update Roles";
         public const string UpdateGoods = "Update Goods";

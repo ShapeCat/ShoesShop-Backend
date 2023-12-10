@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using ShoesShop.Application.Common.Interfaces;
 
-namespace ShoesShop.WebApi.Services
+namespace ShoesShop.WebApi.Services.CurrentUserService
 {
     public class CurrentUserService : ICurrentUserService
     {

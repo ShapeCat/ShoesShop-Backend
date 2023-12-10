@@ -1,6 +1,6 @@
 ﻿using ShoesShop.Application.Requests.Authentication.OutputVMs;
 
-namespace ShoesShop.WebApi.Authentication
+namespace ShoesShop.WebApi.Services.Authentication
 {
     public interface ITokenService
     {

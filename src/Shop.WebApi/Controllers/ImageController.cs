@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Images.Commands;
 using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Images.Queries;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
+using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebAPI;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

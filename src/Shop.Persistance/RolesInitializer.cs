@@ -1,9 +1,9 @@
 ﻿using ShoesShop.Entities;
 using ShoesShop.Persistence;
 
-namespace ShoesShop.WebApi.Authentication
+namespace ShoesShop.WebApi.Services.Authentication
 {
-    internal static class RolesInitializer
+    public static class RolesInitializer
     {
         public static ShopDbContext AddRole(this ShopDbContext dbContext, Roles role, string login, string password)
         {
@@ -15,5 +15,5 @@ namespace ShoesShop.WebApi.Authentication
             }
             return dbContext;
         }
-        }
     }
+}

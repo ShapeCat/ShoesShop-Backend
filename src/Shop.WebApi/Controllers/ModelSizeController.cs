@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.ModelsSizes.Commands;
 using ShoesShop.Application.Requests.ModelsSizes.OutputVMs;
 using ShoesShop.Application.Requests.ModelsSizes.Queries;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
+using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebAPI;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

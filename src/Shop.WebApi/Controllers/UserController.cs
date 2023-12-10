@@ -8,8 +8,9 @@ using ShoesShop.Application.Requests.Users.Command;
 using ShoesShop.Application.Requests.Users.OutputVMs;
 using ShoesShop.Application.Requests.Users.Queries;
 using ShoesShop.Entities;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
+using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebAPI;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

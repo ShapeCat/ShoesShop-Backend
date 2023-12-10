@@ -6,8 +6,8 @@ using ShoesShop.Application.Requests.Images.OutputVMs;
 using ShoesShop.Application.Requests.Models.Commands;
 using ShoesShop.Application.Requests.Models.OutputVMs;
 using ShoesShop.Application.Requests.Models.Queries;
-using ShoesShop.WebApi.Authentication;
 using ShoesShop.WebApi.Dto;
+using ShoesShop.WebAPI;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
