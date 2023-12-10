@@ -12,10 +12,11 @@ namespace ShoesShop.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddMappingProfiles();
             services.AddValidation();
             services.AddLoggingBehaviors();
-            return services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            return services;
         }
 
         public static IServiceCollection AddMappingProfiles(this IServiceCollection services)

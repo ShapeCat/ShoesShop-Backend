@@ -159,10 +159,10 @@ namespace ShoesShop.WebAPI
 
         public static void ConfigureLogger(WebApplicationBuilder builder)
         {
-            var logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
-                                                  .WriteTo.File(Path.Combine("Logs", "apiLog-.txt"), rollingInterval: RollingInterval.Day)
-                                                  .CreateLogger();
-            builder.Logging.AddSerilog(logger);
+            Log.Logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
+                          .WriteTo.File(Path.Combine("Logs", "apiLog-.txt"), rollingInterval: RollingInterval.Day)
+                          .CreateLogger();
+            builder.Host.UseSerilog();
         }
     }
 }
