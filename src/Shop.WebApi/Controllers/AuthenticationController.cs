@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoesShop.Application.Requests.Authentication.Commands;
 using ShoesShop.Application.Requests.Authentication.Queries;
 using ShoesShop.WebApi.Dto;
-using ShoesShop.WebApi.Services.Authentication;
+using ShoesShop.WebApi.Services.TokenService;
 using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers

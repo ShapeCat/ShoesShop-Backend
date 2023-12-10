@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ShoesShop.Application.Requests.Authentication.OutputVMs;
 
-namespace ShoesShop.WebApi.Services.Authentication
+namespace ShoesShop.WebApi.Services.TokenService
 {
     public class TokenService : ITokenService
     {

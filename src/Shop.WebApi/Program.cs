@@ -13,6 +13,7 @@ using ShoesShop.WebApi.Dto.Mapping;
 using ShoesShop.WebApi.Middleware;
 using ShoesShop.WebApi.Services.Authentication;
 using ShoesShop.WebApi.Services.CurrentUserService;
+using ShoesShop.WebApi.Services.TokenService;
 
 namespace ShoesShop.WebAPI
 {
