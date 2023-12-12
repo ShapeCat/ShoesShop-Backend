@@ -20,17 +20,15 @@ namespace ShoesShop.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     POST /api/Review/
+        ///     POST /api/Review?modelId=3fa85f64-5717-4562-b3fc-2c963f66afa6
         ///     {
-        ///         "modelId": "5c6f2bc5-8168-44ff-9ee9-18526325d923",
-        ///         "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         ///         "rating": 5,
         ///         "comment": "Some comment",
-        ///         "publishDate": "2023-12-12T00:04:35.235Z"
         ///     }
         ///
         /// Return: ID of created review
         /// </remarks>
+        /// <param name="modelId">Model Id</param>
         /// <param name="reviewDto">Review</param>
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
@@ -44,9 +42,11 @@ namespace ShoesShop.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Guid>> Create([FromBody] ReviewDto reviewDto)
+        public async Task<ActionResult<Guid>> Create([Required] Guid modelId, [FromBody] ReviewDto reviewDto)
         {
             var command = Mapper.Map<CreateReviewCommand>(reviewDto);
+            command.UserId = UserId;
+            command.ModelId = modelId;
             var result = await Mediator.Send(command);
             return Ok(result);
         }

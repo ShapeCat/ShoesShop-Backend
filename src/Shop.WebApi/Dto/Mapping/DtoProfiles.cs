@@ -75,9 +75,7 @@ namespace ShoesShop.WebApi.Dto.Mapping
                                                    .ForMember(x => x.AddressId, y => y.MapFrom(x => x.AddressId))
                                                    .ForMember(x => x.Phone, y => y.MapFrom(x => x.Phone));
 
-            CreateMap<ReviewDto, CreateReviewCommand>().ForMember(x => x.UserId, y => y.MapFrom(x => x.UserId))
-                                                       .ForMember(x => x.ModelId, y => y.MapFrom(x => x.ModelId))
-                                                       .ForMember(x => x.Rating, y => y.MapFrom(x => x.Rating))
+            CreateMap<ReviewDto, CreateReviewCommand>().ForMember(x => x.Rating, y => y.MapFrom(x => x.Rating))
                                                        .ForMember(x => x.Comment, y => y.MapFrom(x => x.Comment))
                                                        .ForMember(x => x.PublishDate, y => y.MapFrom(x => x.PublishDate));
 
