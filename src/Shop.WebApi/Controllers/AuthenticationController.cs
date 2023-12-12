@@ -10,9 +10,6 @@ using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
 {
-    /// <summary>
-    /// Login/Register user 
-    /// </summary>
     public class AuthenticationController : AbstractController
     {
         private readonly ITokenService tokenService;
@@ -39,7 +36,7 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost("register")]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -66,7 +63,7 @@ namespace ShoesShop.WebApi.Controllers
         ///         "password": "qwerty"
         ///     }
         /// 
-        /// Return: user JWT token
+        /// Return: User JWT token
         /// </remarks>
         /// <param name="loginDto">User login data</param>
         /// <response code="200">Successful Operation</response>

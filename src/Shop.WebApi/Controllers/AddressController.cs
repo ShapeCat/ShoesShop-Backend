@@ -10,9 +10,6 @@ using ShoesShop.WebAPI.Controllers;
 
 namespace ShoesShop.WebApi.Controllers
 {
-    /// <summary>
-    /// User Addresses
-    /// </summary>
     public class AddressController : AbstractController
     {
         public AddressController(IMapper mapper) : base(mapper) { }
@@ -34,7 +31,7 @@ namespace ShoesShop.WebApi.Controllers
         ///
         /// Return: ID of created address
         /// </remarks>
-        /// <param name="addressDto">Address information</param>
+        /// <param name="addressDto">Address</param>
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
@@ -126,16 +123,16 @@ namespace ShoesShop.WebApi.Controllers
         ///     }
         /// 
         /// </remarks>
-        /// <param name="addressId">Address Id to update</param>
-        /// <param name="descriptionDto">New address information</param>
-        /// <response code="204">Successful Operation</response>
+        /// <param name="addressId">Address Id</param>
+        /// <param name="descriptionDto">New address</param>
+        /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
         /// <response code="404">Address with given Id not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPut("{addressId}")]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -145,7 +142,7 @@ namespace ShoesShop.WebApi.Controllers
             var command = Mapper.Map<UpdateAddressCommand>(descriptionDto);
             command.AddressId = addressId;
             await Mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
 
         /// <summary>
@@ -157,15 +154,15 @@ namespace ShoesShop.WebApi.Controllers
         ///     DELETE /api/Address/5c6f2bc5-8168-44ff-9ee9-18526325d923
         /// 
         /// </remarks>
-        /// <param name="addressId">Address Id to delete</param>
-        /// <response code="204">Successful Operation</response>
+        /// <param name="addressId">Address Id</param>
+        /// <response code="200">Successful Operation</response>
         /// <response code="404">Address with the given Id not found</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpDelete("{addressId}")]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -177,7 +174,7 @@ namespace ShoesShop.WebApi.Controllers
                 AddressId = addressId
             };
             await Mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -27,8 +27,8 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
-        /// <response code="404">Given model variant not found</response>
-        /// <response code="409">Given model variant already exists</response>
+        /// <response code="404">Model variant with given id not found</response>
+        /// <response code="409">Given model variant already added</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpPost]
         [Authorize]
@@ -62,14 +62,12 @@ namespace ShoesShop.WebApi.Controllers
         /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
-        /// <response code="404">Current user not exists</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpGet]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FavoriteItemVm>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<FavoriteItemVm>>> GetAll()
         {
@@ -91,14 +89,14 @@ namespace ShoesShop.WebApi.Controllers
         ///
         /// </remarks>
         /// <param name="favoriteItemId">Favorite item Id</param>
-        /// <response code="204">Successful Operation</response>
+        /// <response code="200">Successful Operation</response>
         /// <response code="400">Validation Error. Check given data</response>
         /// <response code="401">Authorization Error. Login first for this action</response>
-        /// <response code="404">Given favorite item not found</response>
+        /// <response code="404">Favorite item with given Id not found</response>
         /// <response code="500">Server Error. Please, report administrator</response>
         [HttpDelete("{favoriteItemId}")]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -110,7 +108,7 @@ namespace ShoesShop.WebApi.Controllers
                 FavoriteItemId = favoriteItemId
             };
             await Mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
     }
 }
